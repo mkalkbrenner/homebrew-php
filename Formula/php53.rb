@@ -1,26 +1,14 @@
 require 'formula'
 
-def mysql_installed?
-  `which mysql_config`.length > 0
-end
-
 def postgres_installed?
   `which pg_config`.length > 0
 end
 
-class Php < Formula
+class Php53 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
-  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
-  version '5.3.10'
-
-  head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
-
-  devel do
-    url 'http://www.php.net/get/php-5.4.0.tar.bz2/from/this/mirror'
-    md5 '04bb6f9d71ea86ba05685439d50db074'
-    version '5.4.0'
-  end
+  url 'http://www.php.net/get/php-5.3.13.tar.bz2/from/this/mirror'
+  md5 '370be99c5cdc2e756c82c44d774933c8'
+  version '5.3.13'
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
@@ -34,16 +22,11 @@ class Php < Formula
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'readline' unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
 
   # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
     raise "Cannot specify more than one MySQL variant to build against."
-  elsif ARGV.include? '--with-mysql'
-    depends_on 'mysql' => :recommended unless mysql_installed?
-  elsif ARGV.include? '--with-mariadb'
-    depends_on 'mariadb' => :recommended unless mysql_installed?
   end
 
   if ARGV.include? '--with-pgsql'
@@ -58,10 +41,6 @@ class Php < Formula
     ARGV << '--without-apache' unless ARGV.include? '--without-apache'
   end
 
-  if ARGV.build_head? or ARGV.build_devel?
-    raise "Cannot apply Suhosin Patch to unstable builds" if ARGV.include? '--with-suhosin'
-  end
-
   def options
    [
      ['--with-mysql', 'Include MySQL support'],
@@ -74,7 +53,6 @@ class Php < Formula
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
      ['--with-imap', 'Include IMAP extension'],
-     ['--without-readline', 'Build without readline support'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch'],
      ['--without-pear', 'Build without PEAR']
@@ -82,17 +60,22 @@ class Php < Formula
   end
 
   def patches
-    p = [DATA]
-    p << "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    # Tidy extension and Makefile (for OS 10.5.x) patches in DATA.
+    p = "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    p << [DATA] if MacOS.leopard?
     return p
+  end
+
+  def config_path
+    etc+"php/5.3"
   end
 
   def install
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
-      "--with-config-file-path=#{etc}",
-      "--with-config-file-scan-dir=#{etc}/php5/conf.d",
+      "--with-config-file-path=#{config_path}",
+      "--with-config-file-scan-dir=#{config_path}/conf.d",
       "--with-iconv-dir=/usr",
       "--enable-dba",
       "--with-ndbm=/usr",
@@ -133,15 +116,18 @@ class Php < Formula
       "--with-snmp=/usr",
       "--with-tidy",
       "--with-mhash",
+      "--with-libedit",
       "--mandir=#{man}"
     ]
 
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
-      (var+'log').mkpath
-      touch var+'log/php-fpm.log'
-      (prefix+'org.php-fpm.plist').write php_fpm_startup_plist
-      (prefix+'org.php-fpm.plist').chmod 0644
+      args << "--with-fpm-user=_www"
+      args << "--with-fpm-group=_www"
+      (prefix+'var/log').mkpath
+      touch prefix+'var/log/php-fpm.log'
+      (prefix+'homebrew-php.josegonzalez.php53.plist').write php_fpm_startup_plist
+      (prefix+'homebrew-php.josegonzalez.php53.plist').chmod 0644
     elsif ARGV.include? '--with-cgi'
       args << "--enable-cgi"
     end
@@ -152,12 +138,8 @@ class Php < Formula
       args << "--libexecdir=#{libexec}"
     end
 
-    unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
-      args << "--with-readline=#{Formula.factory('readline').prefix}" 
-    end
-
     if ARGV.include? '--with-gmp'
-      args << "--with-gmp" 
+      args << "--with-gmp=#{Formula.factory('gmp').prefix}"
     end
 
     if ARGV.include? '--with-imap'
@@ -182,9 +164,12 @@ class Php < Formula
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if ARGV.include? '--with-pgsql'
+    if ARGV.include? '--with-pgsql' and File.directory? Formula.factory('postgresql').prefix.to_s
       args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
       args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
+    elsif ARGV.include? '--with-pgsql'
+      args << "--with-pgsql=#{`pg_config --includedir`}"
+      args << "--with-pdo-pgsql=#{`which pg_config`}"
     end
 
     if ARGV.include? '--with-unixodbc'
@@ -192,12 +177,9 @@ class Php < Formula
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
     else
       args << "--with-iodbc"
+      args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
-    # Use libedit instead of readline for 5.4
-    args << "--with-libedit" if ARGV.build_devel? or ARGV.build_head?
-
-    system "./buildconf" if ARGV.build_head?
     system "./configure", *args
 
     unless ARGV.include? '--without-apache'
@@ -221,16 +203,17 @@ class Php < Formula
     ENV.deparallelize # parallel install fails on some systems
     system "make install"
 
-    etc.install "./php.ini-production" => "php.ini" unless File.exists? etc+"php.ini"
+    config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
     chmod_R 0775, lib+"php"
-    system bin+"pear", "config-set", "php_ini", etc+"php.ini" unless ARGV.include? '--without-pear'
-    if ARGV.include?('--with-fpm') and not File.exists? etc+"php-fpm.conf"
-      etc.install "sapi/fpm/php-fpm.conf"
-      inreplace etc+"php-fpm.conf" do |s|
+    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless ARGV.include? '--without-pear'
+    if ARGV.include?('--with-fpm') and not File.exists? config_path+"php-fpm.conf"
+      config_path.install "sapi/fpm/php-fpm.conf"
+      inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
+        s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 50')
         s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
-        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 5')
-        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 35')
+        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 10')
+        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 30')
       end
     end
   end
@@ -244,28 +227,33 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
     LoadModule php5_module    #{libexec}/apache2/libphp5.so
 
 The php.ini file can be found in:
-    #{etc}/php.ini
+    #{config_path}/php.ini
 
-Development and head builds will use libedit in place of readline.
+If pear complains about permissions, 'Fix' the default PEAR permissions and config:
+    chmod -R ug+w #{lib}/php
+    pear config-set php_ini #{etc}/php.ini
 
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
         mkdir -p ~/Library/LaunchAgents
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php53.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
 
-    * If this is an upgrade and you already have the org.php-fpm.plist loaded:
-        launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php53.plist loaded:
+        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php53.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
 
 You may also need to edit the plist to use the correct "UserName".
+
+Please note that the plist was called 'org.php-fpm.plist' in old versions
+of this formula.
    EOS
  end
 
   def test
     if ARGV.include?('--with-fpm')
-      system "#{sbin}/php-fpm -y #{etc}/php-fpm.conf -t"
+      system "#{sbin}/php-fpm -y #{config_path}/php-fpm.conf -t"
     end
   end
 
@@ -277,12 +265,12 @@ You may also need to edit the plist to use the correct "UserName".
       <key>KeepAlive</key>
       <true/>
       <key>Label</key>
-      <string>org.php-fpm</string>
+      <string>homebrew-php.josegonzalez.php53</string>
       <key>ProgramArguments</key>
       <array>
         <string>#{sbin}/php-fpm</string>
         <string>--fpm-config</string>
-        <string>#{etc}/php-fpm.conf</string>
+        <string>#{config_path}/php-fpm.conf</string>
       </array>
       <key>RunAtLoad</key>
       <true/>
@@ -299,23 +287,35 @@ You may also need to edit the plist to use the correct "UserName".
 end
 
 __END__
-diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c 
+diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c
 --- php-5.3.2/ext/tidy/tidy.c	2010-02-12 04:36:40.000000000 +1100
 +++ php/ext/tidy/tidy.c	2010-05-23 19:49:47.000000000 +1000
 @@ -22,6 +22,8 @@
  #include "config.h"
  #endif
- 
+
 +#include "tidy.h"
 +
  #include "php.h"
  #include "php_tidy.h"
- 
+
 @@ -31,7 +33,6 @@
  #include "ext/standard/info.h"
  #include "safe_mode.h"
- 
+
 -#include "tidy.h"
  #include "buffio.h"
- 
+
  /* compatibility with older versions of libtidy */
+diff --git a/Makefile.global b/Makefile.global
+index 8dad0e4..f6d460b 100644
+--- a/Makefile.global
++++ b/Makefile.global
+@@ -18,7 +18,7 @@ libphp$(PHP_MAJOR_VERSION).la: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
+ 	-@$(LIBTOOL) --silent --mode=install cp $@ $(phptempdir)/$@ >/dev/null 2>&1
+
+ libs/libphp$(PHP_MAJOR_VERSION).bundle: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
+-	$(CC) $(MH_BUNDLE_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
++	$(CC) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(MH_BUNDLE_FLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
+
+ install: $(all_targets) $(install_targets)

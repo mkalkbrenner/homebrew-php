@@ -1,27 +1,28 @@
 require 'formula'
 
-class YamlPhp < Formula
+class Php53Yaml < Formula
   homepage 'http://pecl.php.net/package/yaml'
   url 'http://pecl.php.net/get/yaml-1.0.1.tgz'
   md5 'd8a965479d919e1526dd43295783c7f7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'libyaml'
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "yaml-#{version}"
-    end
+    Dir.chdir "yaml-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/yaml.so'
+    prefix.install "modules/yaml.so"
   end
 
   def caveats; <<-EOS.undent
-    To finish installing yaml-php:
+    To finish installing php53-yaml:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/yaml.so"
       * Restart your webserver.

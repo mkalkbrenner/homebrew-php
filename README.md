@@ -21,70 +21,39 @@ this repository.
 
 ## Installation
 
-_[Manual]_
+_[Brew Tap]_
 
-* Download this: `http://github.com/josegonzalez/homebrew-php/zipball/master`
-* Unzip that download.
-* Copy the resulting folder to `/usr/local`
-* Rename the folder you just copied to `LibraryPHP`
-
-_[GIT Clone]_
-
-In your `/usr/local` directory type
-
-    git clone git://github.com/josegonzalez/homebrew-php.git LibraryPHP
-
-## Usage
-
-### Quick Start
-
-To install homebrew-php formulae, use one of the following:
-
- * `brew install [raw GitHub URL]`
- * `brew install [full path to formula from your local homebrew-php clone]`
-
-For more details, see below: "Installing homebrew-php Formulae".
-
-### Installing homebrew-php Formulae
-
-There are two methods to install packages from this repository.
-
-#### Method 1: Raw URL
-
-First, find the raw URL for the formula you want. For example, the raw URL for
-the `php` formula is:
-
-    https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
-
-Once you know the raw URL, simply use `brew install [raw URL]`, like so:
-
-    brew install https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
-
-#### Method 2: Repository Clone
-
-First, clone this repository.  Be sure to choose a good location!
-
-For example, clone to `LibraryPHP` under `/usr/local`:
-
-    git clone https://github.com/josegonzalez/homebrew-php.git /usr/local/LibraryPHP
-
-Once you've got your clone, simply use `brew install [full path to formula]`.
-
-For example, to install `php`:
-
-    brew install /usr/local/LibraryPHP/Formula/php.rb
-
-#### Method 3: Tap
-
-Tap the repository into your brew installation
+Run the following in your commandline:
 
     brew tap josegonzalez/homebrew-php
 
-Then install php
+## Usage
 
-	brew install php
+Tap the repository into your brew installation:
+
+    brew tap josegonzalez/homebrew-php
+
+Then install php53, php54, or any formulae you might need:
+
+    brew install php54
 
 That's it!
+
+### PEAR Extensions
+
+If installing `php53` or `php54`, please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
+
+    pear install PHP_CodeSniffer
+
+It would be nice to be able to use the `phpcs` command via commandline, or other utilities. You will need to add the installed php's `bin` directory to your path. The following would be added to your `.bashrc` or `.bash_profile` when running the `php54` brew:
+
+    export PATH="$(brew --prefix php54)/bin:$PATH"
+
+Some caveats:
+
+- Remember to use the proper php version in that export. So if you installed the `php53` formula, use `php53` instead of `php54` in the export.
+- Updating your installed php will result in the binaries no longer existing within your path. In such cases, you will need to reinstall the pear extensions. Alternatives include installing `pear` outside of `homebrew-php` or using the `homebrew-php` version of your extension.
+- Uninstalling your `homebrew-php` php formula will also remove the extensions.
 
 ## Bug Reports
 
@@ -96,7 +65,8 @@ Please include the following information in your bug report:
 - XCode Version: 4.3, 4.0, 3 etc.
   - If using 4.3, verify whether you have the `Command Line Tools` installed as well
 - Output of `gcc -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com)
+- Output of `php -v`
+- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
 This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
@@ -114,35 +84,36 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 ### PHP Extension definitions
 
-PHP Extensions MUST be suffixed with `php`. For example, instead of the `Solr` formula in `solr.rb`, we would have `SolrPHP` inside of `solr-php.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
+PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP53 in `solr.rb`, we would have `Php53Solr` inside of `php53-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
 
-The template for the `example-php` extension would be as follows. Please use it as an example for any new extension formulae:
+The template for the `php53-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
     require 'formula'
 
-    class ExamplePhp < Formula
-      homepage 'http://example.com/'
-      url 'http://example.com/get/example-1.0.tgz'
+    class Php53Example < Formula
+      homepage 'http://pecl.php.net/package/example'
+      url 'http://pecl.php.net/get/example-1.0.tgz'
       md5 'SOMEHASHHERE'
       version '1.0'
-      head 'http://example.com/get/example-head.tgz'
+      head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
 
-      depends_on 'autoconf'
+      depends_on 'autoconf' => :build
 
       def install
-        if not ARGV.build_head?
-          Dir.chdir "example-#{version}"
-        end
+        Dir.chdir "example-#{version}" unless ARGV.build_head?
+
+        # See https://github.com/mxcl/homebrew/pull/5947
+        ENV.universal_binary
 
         system "phpize"
         system "./configure", "--prefix=#{prefix}"
         system "make"
-        prefix.install 'modules/example.so'
+        prefix.install "modules/example.so"
       end
 
       def caveats; <<-EOS.undent
-         To finish installing example-php:
-           * Add the following line to #{etc}/php.ini:
+         To finish installing php53-example:
+           * Add the following lines to #{etc}/php.ini:
              [example]
              extension="#{prefix}/example.so"
            * Restart your webserver.
@@ -157,11 +128,11 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be derived from the latest PHP stable version included in `homebrew-php`. As of this writing, the version is `5.3.10`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
 
 ## Todo
 
-* Proper PHP Versioning? See issue [#1](https://github.com/josegonzalez/homebrew-php/issues/8)
+* ~~Proper PHP Versioning? See issue [#1](https://github.com/josegonzalez/homebrew-php/issues/8)~~
 * ~~Pull out all PHP-related brews from Homebrew~~
 
 ## License

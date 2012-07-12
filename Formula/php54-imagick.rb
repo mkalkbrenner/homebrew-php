@@ -1,27 +1,28 @@
 require 'formula'
 
-class ImagickPhp < Formula
+class Php54Imagick < Formula
   homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.0.1.tgz'
-  md5 'e2167713316639705202cf9b6cb1fdb1'
+  url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
+  md5 'de9cca809fb2db61f4cbd9fac4f69314'
   head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'imagemagick'
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "imagick-#{version}"
-    end
+    Dir.chdir "imagick-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/imagick.so'
+    prefix.install "modules/imagick.so"
   end
 
   def caveats; <<-EOS.undent
-    To finish installing imagick-php:
+    To finish installing php54-imagick:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/imagick.so"
       * Restart your webserver.

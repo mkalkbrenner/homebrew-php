@@ -1,28 +1,31 @@
 require 'formula'
 
-class XhprofPhp < Formula
+class Php53Xhprof < Formula
   homepage 'http://mirror.facebook.net/facebook/xhprof/doc.html'
   url 'http://pecl.php.net/get/xhprof-0.9.2.tgz'
   md5 'ae40b153d157e6369a32e2c1a59a61ec'
-  version '0.9.2'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def install
     Dir.chdir "xhprof-#{version}/extension" do
+      # See https://github.com/mxcl/homebrew/pull/5947
+      ENV.universal_binary
+
       system "phpize"
       system "./configure", "--prefix=#{prefix}"
       system "make"
-      prefix.install %w(modules/xhprof.so)
+      prefix.install "modules/xhprof.so"
     end
+
     Dir.chdir "xhprof-#{version}" do
       prefix.install %w(xhprof_html xhprof_lib)
     end
   end
 
   def caveats; <<-EOS.undent
-     To finish installing xhprof-php:
+     To finish installing php53-xhprof:
        * Add the following line to #{etc}/php.ini:
          [xhprof]
          extension="#{prefix}/xhprof.so"

@@ -1,26 +1,27 @@
 require 'formula'
 
-class OauthPhp < Formula
+class Php53Oauth < Formula
   homepage 'http://pecl.php.net/package/oauth'
   url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
   md5 '9a9f35e45786534d8580abfffc8c273c'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "oauth-#{version}"
-    end
+    Dir.chdir "oauth-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/oauth.so'
+    prefix.install "modules/oauth.so"
   end
 
   def caveats; <<-EOS.undent
-    To finish installing oauth-php:
+    To finish installing php53-oauth:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/oauth.so"
       * Restart your webserver.

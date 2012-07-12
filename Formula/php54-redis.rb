@@ -1,13 +1,13 @@
 require 'formula'
 
-class RedisPhp < Formula
+class Php54Redis < Formula
   homepage 'https://github.com/nicolasff/phpredis'
   url 'https://github.com/nicolasff/phpredis/tarball/2.2.0'
   md5 '9a89b0aeae1906bcfdc8a80d14d62405'
   head 'https://github.com/nicolasff/phpredis.git'
 
-  depends_on 'autoconf'
-  
+  depends_on 'autoconf' => :build
+
   fails_with :clang do
     build 318
     cause <<-EOS.undent
@@ -17,14 +17,17 @@ class RedisPhp < Formula
   end unless ARGV.build_head?
 
   def install
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/redis.so'
+    prefix.install "modules/redis.so"
   end
 
   def caveats; <<-EOS.undent
-    To finish installing redis-php:
+    To finish installing php54-redis:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/redis.so"
       * Restart your webserver.

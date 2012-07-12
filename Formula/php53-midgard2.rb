@@ -1,25 +1,27 @@
 require 'formula'
 
-class Midgard2Php < Formula
+class Php53Midgard2 < Formula
   homepage 'http://www.midgard-project.org'
-  url 'http://www.midgard-project.org/midcom-serveattachmentguid-025abaac43f811e0b064792d116f21f421f4/php5-midgard2-10.05.4.tar.gz'
-  md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
+  url 'https://github.com/midgardproject/midgard-php5/tarball/10.05.6'
+  md5 'ba43c97c4c3c940d1b9b331986f33ee6'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 
   def install
-    system "phpize"
-    system "./configure", "--with-php-config=/usr/bin/php-config"
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/midgard2.so'
+    prefix.install "modules/midgard2.so"
   end
 
   def caveats; <<-EOS.undent
-    To finish installing midgard2-php:
+    To finish installing php53-midgard2:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/midgard2.so"
       * Restart your webserver.
