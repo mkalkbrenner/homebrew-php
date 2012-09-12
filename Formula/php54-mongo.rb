@@ -1,12 +1,13 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Mongo < Formula
+class Php54Mongo < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/mongo'
-  url 'http://pecl.php.net/get/mongo-1.2.10.tgz'
-  md5 'e74fd1b235278a895795f19692923a16'
+  url 'http://pecl.php.net/get/mongo-1.2.12.tgz'
+  md5 'b8f2b50c818c28ae2674c46e639203ab'
   head 'https://github.com/mongodb/mongo-php-driver.git'
 
   depends_on 'autoconf' => :build
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "mongo-#{version}" unless ARGV.build_head?
@@ -14,21 +15,10 @@ class Php54Mongo < Formula
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/mongo.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php54-mongo:
-      * Add the following lines to #{etc}/php.ini:
-        [mongo]
-        extension="#{prefix}/mongo.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the mongo module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

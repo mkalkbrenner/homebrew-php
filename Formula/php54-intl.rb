@@ -1,13 +1,14 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Intl < Formula
+class Php54Intl < AbstractPhpExtension
   homepage 'http://php.net/manual/en/book.intl.php'
-  url 'http://www.php.net/get/php-5.4.3.tar.bz2/from/this/mirror'
-  md5 '51f9488bf8682399b802c48656315cac'
-  version '5.4.3'
+  url 'http://www.php.net/get/php-5.4.6.tar.bz2/from/this/mirror'
+  md5 'c9aa0f4996d1b91ee9e45afcfaeb5d2e'
+  version '5.4.6'
 
   depends_on 'autoconf' => :build
   depends_on 'icu4c'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "ext/intl"
@@ -15,21 +16,11 @@ class Php54Intl < Formula
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--enable-intl"
     system "make"
     prefix.install "modules/intl.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php54-intl:
-      * Add the following line to #{etc}/php.ini:
-        extension="#{prefix}/intl.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the intl module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

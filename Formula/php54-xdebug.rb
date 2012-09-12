@@ -1,35 +1,29 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Xdebug < Formula
+class Php54Xdebug < AbstractPhpExtension
   homepage 'http://xdebug.org'
-  url 'http://xdebug.org/files/xdebug-2.2.0.tgz'
-  md5 '27d8ad8224ffab04d12eecb5997a4f5d'
+  url 'http://xdebug.org/files/xdebug-2.2.1.tgz'
+  md5 '5e5c467e920240c20f165687d7ac3709'
+  head 'https://github.com/derickr/xdebug.git'
 
   depends_on 'autoconf' => :build
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
+  def extension_type; "zend_extension"; end
 
   def install
-    Dir.chdir "xdebug-#{version}"
+    Dir.chdir "xdebug-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/issues/issue/69
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-debug",
                           "--disable-dependency-tracking",
                           "--enable-xdebug"
     system "make"
     prefix.install "modules/xdebug.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php54-xdebug:
-      * Add the following line to #{etc}/php.ini:
-        zend_extension="#{prefix}/xdebug.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the xdebug module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

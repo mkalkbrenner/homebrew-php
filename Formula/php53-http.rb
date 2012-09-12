@@ -1,16 +1,17 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Oauth < AbstractPhpExtension
-  homepage 'http://pecl.php.net/package/oauth'
-  url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
-  md5 '9a9f35e45786534d8580abfffc8c273c'
-  head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
+class Php53Http < AbstractPhpExtension
+  homepage 'http://pecl.php.net/package/pecl_http'
+  url 'http://pecl.php.net/get/pecl_http-1.7.4.tgz'
+  md5 '288bae57b89d8de4bdd7d7dc5954cf8c'
+  version '1.7.4'
+  head 'http://svn.php.net/repository/pecl/http/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
   depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
-    Dir.chdir "oauth-#{version}" unless ARGV.build_head?
+    Dir.chdir "pecl_http-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -18,7 +19,7 @@ class Php53Oauth < AbstractPhpExtension
     safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install "modules/oauth.so"
+    prefix.install "modules/http.so"
     write_config_file unless ARGV.include? "--without-config-file"
   end
 end

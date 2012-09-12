@@ -1,25 +1,24 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Pcntl < AbstractPhpExtension
-  homepage 'http://php.net/manual/en/book.pcntl.php'
-  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
-  md5 '99cfd78531643027f60c900e792d21be'
-  version '5.3.16'
+class Php53Igbinary < AbstractPhpExtension
+  homepage 'http://pecl.php.net/package/igbinary'
+  url 'http://pecl.php.net/get/igbinary-1.1.1.tgz'
+  md5 '4ad53115ed7d1d452cbe50b45dcecdf2'
+  head 'git://github.com/igbinary/igbinary.git', :using => :git
 
   depends_on 'autoconf' => :build
   depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
-    Dir.chdir "ext/pcntl"
+    Dir.chdir "igbinary-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}",
-                          "--disable-dependency-tracking"
+    system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install "modules/pcntl.so"
+    prefix.install %w(modules/igbinary.so)
     write_config_file unless ARGV.include? "--without-config-file"
   end
 end

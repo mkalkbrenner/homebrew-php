@@ -2,6 +2,39 @@
 
 A centralized repository for PHP-related brews.
 
+## Common Issues
+
+Bugs inevitably happen - none of us is running EVERY conceivable setup - but hopefully the install process can be made smoother through the following tips:
+
+- Upgrade your Mac to the latest patch version. So if you are on `10.7.0`, upgrade to `10.7.4` etc.
+- Ensure XCode is installed and up to date.
+- If you are using XCode 4, install the `Command Line Tools`.
+- If you already have the `Command Line Tools`, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). Many users have reported success after doing so.
+- Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists.
+- If you are using Mountain Lion `10.8.x`, please install [XQuartz](http://xquartz.macosforge.org/landing/) so that the `png.h` header exists for compilation of certain brews. Mountain Lion removes X11, which contained numerous headers. A permanent fix is forthcoming.
+- If you upgraded to Mountain Lion `10.8.x`, please also upgrade to the latest XCode, 4.4.
+- File an awesome bug report, using the information in the next section.
+
+Doing all of these might be a hassle, but will more than likely ensure you either have a working install or get help as soon as possible.
+
+### Filing Bug Reports
+
+Please include the following information in your bug report:
+
+- OS X Version: ex. 10.7.3, 10.6.3
+- Homebrew Version: `brew -v`
+- PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
+- XCode Version: 4.4, 4.3, 4.0, 3 etc.
+  - If you are on Mountain Lion `10.8.x`, please also upgrade to the latest XCode, 4.4.
+  - If using 4.3, verify whether you have the `Command Line Tools` installed as well
+  - If on Snow Leopard, you may want to install the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/)
+- Output of `gcc -v`
+- Output of `php -v`
+- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
+- Output of `brew doctor` within a [gist](http://gist.github.com)
+
+This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
+
 ## Background
 
 This repository contains **PHP-related** formulae for [Homebrew](https://github.com/mxcl/homebrew).
@@ -17,27 +50,68 @@ this repository.
 ## Requirements
 
 * Homebrew
-* Snow Leopard or Lion - Untested against Mountain Lion
+* Snow Leopard, Lion, Mountain Lion. Untested everywhere else
+* The homebrew `dupes` tap - `brew tap homebrew/dupes`
 
 ## Installation
 
 _[Brew Tap]_
 
-Run the following in your commandline:
+Setup the `homebrew/dupes` tap which has dependencies we need:
+
+    brew tap homebrew/dupes
+
+Then, run the following in your commandline:
 
     brew tap josegonzalez/homebrew-php
 
 ## Usage
 
+Tap the `homebrew/dupes` repository into your brew installation:
+
+    brew tap homebrew/dupes
+
 Tap the repository into your brew installation:
 
     brew tap josegonzalez/homebrew-php
+
+**Note:** For a list of available configuration options run:
+
+    brew options php54
 
 Then install php53, php54, or any formulae you might need:
 
     brew install php54
 
 That's it!
+
+Please also follow the instructions from brew info at the end of the install to ensure you properly installed your PHP version.
+
+### Installing Multiple Versions
+
+Using multiple PHP versions from `homebrew-php` is pretty straightforward.
+
+If using Apache, you will need to update the `LoadModule` call. For convenience, simply comment out the old PHP version:
+
+    # /etc/apache2/httpd.conf
+    # Swapping from PHP53 to PHP54
+    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
+    LoadModule php5_module    /usr/local/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
+
+If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
+
+    # Swapping from PHP53 to PHP54
+    cp /usr/local/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
+    launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+
+If you would like to swap the PHP you use on the command line, you should update the `$PATH` variable in either your `.bashrc` or `.bash_profile`:
+
+    # Swapping from PHP53 to PHP54
+    # export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+    export PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
+
+Please be aware that you must make this type of change EACH time you swap between PHP `minor` versions. You will typically only need to update the Apache/FPM when upgrading your php `patch` version.
 
 ### PEAR Extensions
 
@@ -55,22 +129,6 @@ Some caveats:
 - Updating your installed php will result in the binaries no longer existing within your path. In such cases, you will need to reinstall the pear extensions. Alternatives include installing `pear` outside of `homebrew-php` or using the `homebrew-php` version of your extension.
 - Uninstalling your `homebrew-php` php formula will also remove the extensions.
 
-## Bug Reports
-
-Please include the following information in your bug report:
-
-- OS X Version: ex. 10.7.3, 10.6.3
-- Homebrew Version: `brew -v`
-- PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
-- XCode Version: 4.3, 4.0, 3 etc.
-  - If using 4.3, verify whether you have the `Command Line Tools` installed as well
-- Output of `gcc -v`
-- Output of `php -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
-- Output of `brew doctor` within a [gist](http://gist.github.com)
-
-This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
-
 ## Contributing
 
 The following kinds of brews are allowed:
@@ -84,51 +142,44 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 ### PHP Extension definitions
 
-PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP53 in `solr.rb`, we would have `Php53Solr` inside of `php53-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
+PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP54 in `solr.rb`, we would have `Php54Solr` inside of `php54-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
 
-The template for the `php53-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
+The template for the `php54-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
-    require 'formula'
+    require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-    class Php53Example < Formula
+    class Php54Example < AbstractPhpExtension
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
-      md5 'SOMEHASHHERE'
+      sha1 'SOMEHASHHERE'
       version '1.0'
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
 
       depends_on 'autoconf' => :build
+      depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
 
       def install
-        Dir.chdir "example-#{version}" unless ARGV.build_head?
+        Dir.chdir "example-#{version}" unless build.head?
 
         # See https://github.com/mxcl/homebrew/pull/5947
         ENV.universal_binary
 
-        system "phpize"
+        safe_phpize
         system "./configure", "--prefix=#{prefix}"
         system "make"
         prefix.install "modules/example.so"
-      end
-
-      def caveats; <<-EOS.undent
-         To finish installing php53-example:
-           * Add the following lines to #{etc}/php.ini:
-             [example]
-             extension="#{prefix}/example.so"
-           * Restart your webserver.
-           * Write a PHP page that calls "phpinfo();"
-           * Load it in a browser and look for the info on the example module.
-           * If you see it, you have been successful!
-         EOS
+        write_config_file unless build.include? "without-config-file"
       end
     end
 
+Defining extensions inheriting AbstractPhp5 will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
+
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 
-The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
+The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.15` and `5.4.5`.
 
 ## Todo
 

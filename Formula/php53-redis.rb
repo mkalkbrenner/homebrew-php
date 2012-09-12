@@ -1,12 +1,13 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Redis < Formula
+class Php53Redis < AbstractPhpExtension
   homepage 'https://github.com/nicolasff/phpredis'
   url 'https://github.com/nicolasff/phpredis/tarball/2.2.0'
   md5 '9a89b0aeae1906bcfdc8a80d14d62405'
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   fails_with :clang do
     build 318
@@ -20,20 +21,10 @@ class Php53Redis < Formula
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/redis.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php53-redis:
-      * Add the following line to #{etc}/php.ini:
-        extension="#{prefix}/redis.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the redis module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

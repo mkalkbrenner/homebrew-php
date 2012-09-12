@@ -1,6 +1,6 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Xhprof < Formula
+class Php54Xhprof < AbstractPhpExtension
   homepage 'https://github.com/facebook/xhprof'
   url 'https://github.com/facebook/xhprof/tarball/270b75dddf871271fe81ed416e122bd158a883f6'
   md5 '7a33371d7aeea57a808919deade28028'
@@ -9,30 +9,20 @@ class Php54Xhprof < Formula
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "extension" do
       # See https://github.com/mxcl/homebrew/pull/5947
       ENV.universal_binary
 
-      system "phpize"
+      safe_phpize
       system "./configure", "--prefix=#{prefix}"
       system "make"
       prefix.install "modules/xhprof.so"
     end
 
     prefix.install %w(xhprof_html xhprof_lib)
-  end
-
-  def caveats; <<-EOS.undent
-     To finish installing php54-xhprof:
-       * Add the following line to #{etc}/php.ini:
-         [xhprof]
-         extension="#{prefix}/xhprof.so"
-       * Restart your webserver.
-       * Write a PHP page that calls "phpinfo();"
-       * Load it in a browser and look for the info on the xhprof module.
-       * If you see it, you have been successful!
-     EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

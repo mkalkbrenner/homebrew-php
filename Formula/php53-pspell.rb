@@ -1,13 +1,14 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Pspell < Formula
+class Php53Pspell < AbstractPhpExtension
   homepage 'http://php.net/manual/en/book.pspell.php'
-  url 'http://www.php.net/get/php-5.3.13.tar.bz2/from/this/mirror'
-  md5 '370be99c5cdc2e756c82c44d774933c8'
-  version '5.3.13'
+  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
+  md5 '99cfd78531643027f60c900e792d21be'
+  version '5.3.16'
 
-  depends_on 'autoconf' => :build
   depends_on 'aspell'
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "ext/pspell"
@@ -15,22 +16,12 @@ class Php53Pspell < Formula
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-debug",
                           "--with-pspell=#{Formula.factory('aspell').prefix}"
     system "make"
     prefix.install "modules/pspell.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php53-pspell:
-      * Add the following line to #{etc}/php.ini:
-        extension="#{prefix}/pspell.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the pspell module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

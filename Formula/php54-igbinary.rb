@@ -1,17 +1,16 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Imagick < AbstractPhpExtension
-  homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
-  md5 'de9cca809fb2db61f4cbd9fac4f69314'
-  head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
+class Php54Igbinary < AbstractPhpExtension
+  homepage 'http://pecl.php.net/package/igbinary'
+  url 'http://pecl.php.net/get/igbinary-1.1.1.tgz'
+  md5 '4ad53115ed7d1d452cbe50b45dcecdf2'
+  head 'git://github.com/igbinary/igbinary.git', :using => :git
 
   depends_on 'autoconf' => :build
-  depends_on 'imagemagick'
   depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
-    Dir.chdir "imagick-#{version}" unless ARGV.build_head?
+    Dir.chdir "igbinary-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -19,7 +18,7 @@ class Php54Imagick < AbstractPhpExtension
     safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install "modules/imagick.so"
+    prefix.install %w(modules/igbinary.so)
     write_config_file unless ARGV.include? "--without-config-file"
   end
 end
