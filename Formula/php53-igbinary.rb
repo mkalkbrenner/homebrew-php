@@ -1,24 +1,25 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Igbinary < AbstractPhpExtension
+class Php53Igbinary < AbstractPhp53Extension
   homepage 'http://pecl.php.net/package/igbinary'
   url 'http://pecl.php.net/get/igbinary-1.1.1.tgz'
-  md5 '4ad53115ed7d1d452cbe50b45dcecdf2'
-  head 'git://github.com/igbinary/igbinary.git', :using => :git
+  sha1 'cebe34d18dd167a40a712a6826415e3e5395ab27'
+  head 'https://github.com/igbinary/igbinary.git', :using => :git
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
-    Dir.chdir "igbinary-#{version}" unless ARGV.build_head?
+    Dir.chdir "igbinary-#{version}" unless build.head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install %w(modules/igbinary.so)
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 end

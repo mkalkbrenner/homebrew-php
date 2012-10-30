@@ -156,7 +156,7 @@ The template for the `php54-example` pecl extension would be as follows. Please 
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
 
       depends_on 'autoconf' => :build
-      depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+      depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
 
       def install
@@ -173,13 +173,13 @@ The template for the `php54-example` pecl extension would be as follows. Please 
       end
     end
 
-Defining extensions inheriting AbstractPhp5 will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
+Defining extensions inheriting AbstractPhpExtension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
 
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.15` and `5.4.5`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.16` and `5.4.6`.
 
 ## Todo
 

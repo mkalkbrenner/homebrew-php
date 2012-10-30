@@ -16,7 +16,7 @@ class InvalidPhpizeError < RuntimeError
     @name = name
     super <<-EOS.undent
       Version of phpize (PHP#{installed_php_version}) in $PATH does not support building this extension
-             version (PHP#{required_php_version}). Consider installing  with the `--with-homebrew-php` flag.
+             version (PHP#{required_php_version}). Consider installing  with the `--without-homebrew-php` flag.
     EOS
   end
 end
@@ -27,7 +27,7 @@ class AbstractPhpExtension < Formula
       raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
       init = super
 
-      unless ARGV.include? '--with-homebrew-php'
+      if build.include? 'without-homebrew-php'
         installed_php_version = nil
         i = IO.popen("#{phpize} -v")
         out = i.readlines.join("")
@@ -49,15 +49,14 @@ class AbstractPhpExtension < Formula
       # Hack so that we pass all brew doctor tests
       reraise = true
       e.backtrace.each do |l|
+        reraise = false if l.match(/cleanup\.rb/)
         reraise = false if l.match(/doctor\.rb/)
       end
       raise e if reraise
     end
   end
 
-  def options
-    [ ['--with-homebrew-php', 'Ignore default PHP and use homebrew-php54 instead'] ]
-  end
+  option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
 
   def php_branch
     matches = /^Php5([3-9]+)/.match(self.class.name)
@@ -77,18 +76,26 @@ class AbstractPhpExtension < Formula
   end
 
   def phpize
-    if ARGV.include? '--with-homebrew-php'
-      "#{(Formula.factory php_formula).bin}/phpize"
-    else
+    if build.include? 'without-homebrew-php'
       "phpize"
+    else
+      "#{(Formula.factory php_formula).bin}/phpize"
     end
   end
 
   def phpini
-    if ARGV.include? '--with-homebrew-php'
-      "#{(Formula.factory php_formula).config_path}/php.ini"
-    else
+    if build.include? 'without-homebrew-php'
       "php.ini presented by \"php --ini\""
+    else
+      "#{(Formula.factory php_formula).config_path}/php.ini"
+    end
+  end
+
+  def phpconfig
+    if build.include? 'without-homebrew-php'
+      ""
+    else
+      "--with-php-config=#{(Formula.factory php_formula).bin}/php-config"
     end
   end
 
@@ -124,7 +131,7 @@ class AbstractPhpExtension < Formula
   def caveats
     caveats = [ "To finish installing #{extension} for PHP #{php_branch}:" ]
 
-    if ARGV.include? "--without-config-file"
+    if build.include? "without-config-file"
       caveats << "  * Add the following line to #{phpini}:\n"
       caveats << config_file
     else
@@ -167,15 +174,15 @@ EOS
 
   def options
     options = []
-    options << ["--without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
+    options << ["without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
     options
   end
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
-  depends_on "php53" if ARGV.include? '--with-homebrew-php'
+  depends_on "php53" unless build.include?('without-homebrew-php')
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
-  depends_on "php54" if ARGV.include? '--with-homebrew-php'
+  depends_on "php54" unless build.include?('without-homebrew-php')
 end
