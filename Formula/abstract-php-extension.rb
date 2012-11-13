@@ -166,7 +166,7 @@ EOS
   end
 
   def write_config_file
-    if config_file && !config_filepath.file?
+    if config_file
       config_scandir_path.mkpath
       config_filepath.write(config_file)
     end
