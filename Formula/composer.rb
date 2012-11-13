@@ -5,22 +5,22 @@ def php_installed?
 end
 
 def composer_reqs?
-  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`.include? "All settings correct"
+  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`.include? "All settings correct"
 end
 
 class Composer < Formula
   homepage 'http://getcomposer.org'
-  url 'http://getcomposer.org/download/1.0.0-alpha5/composer.phar'
-  sha1 '572615d4ccf9390f32b254fe340fb9abfa88e457'
-  version '1.0.0-alpha5'
+  url 'http://getcomposer.org/download/1.0.0-alpha6/composer.phar'
+  sha1 'f01c2bbbd5d9d56fe7b2250081d66c40dbe9a3e6'
+  version '1.0.0-alpha6'
 
-  depends_on 'php' => :recommended unless php_installed?
+  depends_on 'php53' => :recommended unless php_installed?
 
   def install
     unless composer_reqs?
       raise <<-EOS.undent
         Composer PHP requirements check has failed. Please run
-        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`
+        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`
         to identify and fix any issues
       EOS
     end
