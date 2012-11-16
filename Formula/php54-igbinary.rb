@@ -1,13 +1,11 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Igbinary < AbstractPhp54Extension
+  init
   homepage 'http://pecl.php.net/package/igbinary'
   url 'http://pecl.php.net/get/igbinary-1.1.1.tgz'
   sha1 'cebe34d18dd167a40a712a6826415e3e5395ab27'
   head 'https://github.com/igbinary/igbinary.git', :using => :git
-
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "igbinary-#{version}" unless build.head?

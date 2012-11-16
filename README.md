@@ -8,9 +8,11 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 
 - Upgrade your Mac to the latest patch version. So if you are on `10.7.0`, upgrade to `10.7.4` etc.
 - Ensure XCode is installed and up to date.
-- If you are using XCode 4, install the `Command Line Tools`.
+- If you are using XCode 4, install the `Command Line Tools`. If you think you have it installed, please ensure that an update of XCode or OS X did not remove them. You can verify this by launching XCode, opening preferences, going to the Downloads tab, and clicking the `Install` button:
+![command line tool installation](http://f.cl.ly/items/411X3k0m2O1p1U2Y0I30/Image%202012.11.15%2011:32:41%20AM.png)
 - If you already have the `Command Line Tools`, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). Many users have reported success after doing so.
-- Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists.
+- Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists. We try to detect and remove them ourselves, but sometimes this fails.
+- Run `brew doctor` and fix any issues you can.
 - If you are using Mountain Lion `10.8.x`, please install [XQuartz](http://xquartz.macosforge.org/landing/) so that the `png.h` header exists for compilation of certain brews. Mountain Lion removes X11, which contained numerous headers. A permanent fix is forthcoming.
 - If you upgraded to Mountain Lion `10.8.x`, please also upgrade to the latest XCode, 4.4.
 - File an awesome bug report, using the information in the next section.
@@ -95,13 +97,15 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
-    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
-    LoadModule php5_module    /usr/local/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
+    # $HOMEBREW_PREFIX is normally `/usr/local`
+    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
+    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
-    cp /usr/local/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    # $HOMEBREW_PREFIX is normally `/usr/local`
+    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
@@ -148,16 +152,13 @@ The template for the `php54-example` pecl extension would be as follows. Please 
 
     require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-    class Php54Example < AbstractPhpExtension
+    class Php54Example < AbstractPhp54Extension
+      init
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
       sha1 'SOMEHASHHERE'
       version '1.0'
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
-
-      depends_on 'autoconf' => :build
-      depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
-
 
       def install
         Dir.chdir "example-#{version}" unless build.head?
@@ -166,14 +167,15 @@ The template for the `php54-example` pecl extension would be as follows. Please 
         ENV.universal_binary
 
         safe_phpize
-        system "./configure", "--prefix=#{prefix}"
+        system "./configure", "--prefix=#{prefix}",
+                              phpconfig
         system "make"
         prefix.install "modules/example.so"
         write_config_file unless build.include? "without-config-file"
       end
     end
 
-Defining extensions inheriting AbstractPhpExtension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
+Defining extensions inheriting AbstractPhp5(34)Extension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
 
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 

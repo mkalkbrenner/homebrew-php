@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Zenddebugger < AbstractPhp53Extension
+  init
   homepage 'http://www.zend.com/community/pdt/downloads'
   if Hardware.is_64_bit? and not build.build_32_bit?
     url 'http://downloads.zend.com/studio_debugger/20100729/ZendDebugger-20100729-darwin9.5-x86_64.tar.gz'
@@ -11,9 +12,6 @@ class Php53Zenddebugger < AbstractPhp53Extension
     sha1 '89e22b0ac949fe88db014f485999e9a1af9a0810'
     version '20110410'
   end
-
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   skip_clean :all
 

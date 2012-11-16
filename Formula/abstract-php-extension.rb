@@ -47,16 +47,16 @@ class AbstractPhpExtension < Formula
       init
     rescue Exception => e
       # Hack so that we pass all brew doctor tests
-      reraise = true
-      e.backtrace.each do |l|
-        reraise = false if l.match(/cleanup\.rb/)
-        reraise = false if l.match(/doctor\.rb/)
-      end
-      raise e if reraise
+      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|uses)\.rb/) }
+      raise e if reraise.empty?
     end
   end
 
-  option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
+  def self.init
+    depends_on 'autoconf' => :build
+
+    option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
+  end
 
   def php_branch
     matches = /^Php5([3-9]+)/.match(self.class.name)
@@ -166,7 +166,11 @@ EOS
   end
 
   def write_config_file
-    if config_file
+    if config_filepath.file?
+      inreplace config_filepath do |s|
+        s.gsub!(/^(zend_)?extension=.+$/, "#{extension_type}=\"#{module_path}\"")
+      end
+    elsif config_file
       config_scandir_path.mkpath
       config_filepath.write(config_file)
     end
@@ -180,9 +184,15 @@ EOS
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
-  depends_on "php53" unless build.include?('without-homebrew-php')
+  def self.init
+    super
+    depends_on "php53" unless build.include?('without-homebrew-php')
+  end
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
-  depends_on "php54" unless build.include?('without-homebrew-php')
+  def self.init
+    super
+    depends_on "php54" unless build.include?('without-homebrew-php')
+  end
 end

@@ -1,14 +1,13 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Yaml < AbstractPhp54Extension
+  init
   homepage 'http://pecl.php.net/package/yaml'
   url 'http://pecl.php.net/get/yaml-1.1.0.tgz'
   sha1 '8ab77d3e49eed6944bbb3130c054288402f484d7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'libyaml'
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "yaml-#{version}" unless build.head?

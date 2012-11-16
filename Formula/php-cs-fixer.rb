@@ -1,20 +1,15 @@
 require 'formula'
-
-def php_installed?
-    `which php`.length > 0
-end
-
-def php_phar_module_enabled?
-    `php -m`.downcase.include? "phar"
-end
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'phar-requirement')
 
 class PhpCsFixer < Formula
   homepage 'http://cs.sensiolabs.org'
   url 'http://cs.sensiolabs.org/get/php-cs-fixer.phar'
-  sha1 '15fd2bb68070b7b0fb2562b5fe8e8683a71e5676'
+  sha1 'fa59fcce7d1ec1a90162926ff15bc9d72c6687b0'
   version '0.2'
 
-  depends_on 'php53' => :recommended unless php_installed? && php_phar_module_enabled?
+  depends_on PhpMetaRequirement.new
+  depends_on PharRequirement.new
 
   def install
     libexec.install "php-cs-fixer.phar"

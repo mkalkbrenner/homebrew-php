@@ -1,13 +1,11 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Http < AbstractPhp54Extension
+  init
   homepage 'http://pecl.php.net/package/pecl_http'
   url 'http://pecl.php.net/get/pecl_http-1.7.4.tgz'
   sha1 '3a2276c765fccb58ae0a96e71bde26657952d139'
   head 'http://svn.php.net/repository/pecl/http/trunk/', :using => :svn
-
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "pecl_http-#{version}" unless build.head?

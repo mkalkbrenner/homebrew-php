@@ -1,13 +1,11 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Dbase < AbstractPhp53Extension
+  init
   homepage 'http://pecl.php.net/package/dbase/5.1.0'
   url 'http://pecl.php.net/get/dbase-5.1.0.tgz'
   sha1 'e3740fae3eba6a5d65ca928445f15d58e529201d'
   version '5.1.0'
-
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "dbase-5.1.0"
