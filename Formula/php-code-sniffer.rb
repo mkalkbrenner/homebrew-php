@@ -1,16 +1,16 @@
 require 'formula'
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
+require File.expand_path("../../Requirements/php-meta-requirement", Pathname.new(__FILE__).realpath)
 
 class PhpCodeSniffer < Formula
   homepage 'http://pear.php.net/package/PHP_CodeSniffer'
-  url 'http://download.pear.php.net/package/PHP_CodeSniffer-1.4.0.tgz'
-  sha1 '084042071211f925b4c67a55e2c601e983d25b1d'
-  version '1.4.0'
+  url 'http://download.pear.php.net/package/PHP_CodeSniffer-1.4.4.tgz'
+  sha1 '4df07b8236fa5548c308cb107a0a6a45c7b2487a'
+  version '1.4.4'
 
-  depends_on PhpMetaRequirement.new
+  depends_on PhpMetaRequirement
 
   def install
-    prefix.install Dir['PHP_CodeSniffer-1.4.0/*']
+    prefix.install Dir["PHP_CodeSniffer-#{version}/*"]
     sh = libexec + "phpcs"
     sh.write("/usr/bin/env php #{prefix}/scripts/phpcs $*")
     chmod 0755, sh
@@ -22,7 +22,7 @@ class PhpCodeSniffer < Formula
       "phpcs --version".
 
     You can read more about phpcs by running:
-      "brew home phpcs".
+      "brew home php-code-sniffer".
     EOS
   end
 end

@@ -8,9 +8,9 @@ class Php53Apc < AbstractPhp53Extension
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
 
   devel do
-    url 'http://pecl.php.net/get/APC-3.1.11.tgz'
-    version '3.1.11'
-    md5 '199b69ed1423aa869acafff485ef5f06'
+    url 'http://pecl.php.net/get/APC-3.1.13.tgz'
+    version '3.1.13'
+    sha1 'cafd6ba92ac1c9f500a6c1e300bbe8819daddfae'
   end
 
   depends_on 'pcre'
@@ -24,8 +24,7 @@ class Php53Apc < AbstractPhp53Extension
   def install
     Dir.chdir "APC-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

@@ -1,5 +1,4 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'xhgui53-requirement')
 
 class Php53Xhgui < AbstractPhp53Extension
   init
@@ -9,13 +8,13 @@ class Php53Xhgui < AbstractPhp53Extension
   head 'https://github.com/preinheimer/xhprof.git'
   version '58ceef1'
 
-  depends_on Xhgui53Requirement.new
+  conflicts_with 'php53-xhprof'
+
   depends_on 'pcre'
 
   def install
     Dir.chdir "extension" do
-      # See https://github.com/mxcl/homebrew/pull/5947
-      ENV.universal_binary
+      ENV.universal_binary if build.universal?
 
       safe_phpize
       system "./configure", "--prefix=#{prefix}",
@@ -25,7 +24,7 @@ class Php53Xhgui < AbstractPhp53Extension
       prefix.install "modules/xhgui.so"
     end
 
-    prefix.install %w(xhprof_html xhprof_lib)
+    prefix.install %w(xhprof_html xhprof_lib external)
     write_config_file unless build.include? "without-config-file"
   end
 end

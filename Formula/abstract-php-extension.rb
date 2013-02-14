@@ -25,7 +25,7 @@ class AbstractPhpExtension < Formula
   def initialize name='__UNKNOWN__', path=nil
     begin
       raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
-      init = super
+      sup = super
 
       if build.include? 'without-homebrew-php'
         installed_php_version = nil
@@ -44,10 +44,10 @@ class AbstractPhpExtension < Formula
         end
       end
 
-      init
+      sup
     rescue Exception => e
       # Hack so that we pass all brew doctor tests
-      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|uses)\.rb/) }
+      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|leaves|uses)\.rb/) }
       raise e if reraise.empty?
     end
   end
@@ -178,7 +178,7 @@ EOS
 
   def options
     options = []
-    options << ["without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
+    options << ["--without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
     options
   end
 end

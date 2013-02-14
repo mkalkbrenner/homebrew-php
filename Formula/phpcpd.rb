@@ -1,6 +1,6 @@
 require 'formula'
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'phar-requirement')
+require File.expand_path("../../Requirements/php-meta-requirement", Pathname.new(__FILE__).realpath)
+require File.expand_path("../../Requirements/phar-requirement", Pathname.new(__FILE__).realpath)
 
 class Phpcpd < Formula
   homepage 'https://github.com/sebastianbergmann/phpcpd'
@@ -8,8 +8,8 @@ class Phpcpd < Formula
   sha1 '86d59e472a424ab41bb657d41b77dc01a4868dc7'
   version '1.4.0'
 
-  depends_on PhpMetaRequirement.new
-  depends_on PharRequirement.new
+  depends_on PhpMetaRequirement
+  depends_on PharRequirement
 
   def install
     libexec.install "phpcpd.phar"

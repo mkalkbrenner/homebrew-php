@@ -1,15 +1,15 @@
 require 'formula'
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'phar-requirement')
+require File.expand_path("../../Requirements/php-meta-requirement", Pathname.new(__FILE__).realpath)
+require File.expand_path("../../Requirements/phar-requirement", Pathname.new(__FILE__).realpath)
 
 class PhpMd < Formula
   homepage 'http://phpmd.org/'
-  url 'http://static.phpmd.org/php/1.4.0/phpmd.phar'
-  sha1 'a13ab5dd6abb9691c9e844770a79e8ae6be7a43e'
-  version '1.4.0'
+  url 'http://static.phpmd.org/php/1.4.1/phpmd.phar'
+  sha1 '84ea7e1a2df395f13bf54ebeb1c23474a1ce6b9d'
+  version '1.4.1'
 
-  depends_on PhpMetaRequirement.new
-  depends_on PharRequirement.new
+  depends_on PhpMetaRequirement
+  depends_on PharRequirement
 
   def install
     libexec.install "phpmd.phar"

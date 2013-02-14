@@ -1,6 +1,6 @@
 require 'formula'
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'composer-requirement')
+require File.expand_path("../../Requirements/php-meta-requirement", Pathname.new(__FILE__).realpath)
+require File.expand_path("../../Requirements/composer-requirement", Pathname.new(__FILE__).realpath)
 
 class Composer < Formula
   homepage 'http://getcomposer.org'
@@ -8,13 +8,13 @@ class Composer < Formula
   sha1 'f01c2bbbd5d9d56fe7b2250081d66c40dbe9a3e6'
   version '1.0.0-alpha6'
 
-  depends_on PhpMetaRequirement.new
-  depends_on ComposerRequirement.new
+  depends_on PhpMetaRequirement
+  depends_on ComposerRequirement
 
   def install
     libexec.install "composer.phar"
     sh = libexec + "composer"
-    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
+    sh.write("#!/usr/bin/env bash\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
   end

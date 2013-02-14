@@ -7,11 +7,16 @@ class Php53Http < AbstractPhp53Extension
   sha1 '3a2276c765fccb58ae0a96e71bde26657952d139'
   head 'http://svn.php.net/repository/pecl/http/trunk/', :using => :svn
 
+  devel do
+    url 'http://pecl.php.net/get/pecl_http-2.0.0beta4.tgz'
+    version '2.0.0beta4'
+    sha1 'f15a7494561c8be16df72a94386c0501a02dbeaa'
+  end
+
   def install
     Dir.chdir "pecl_http-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

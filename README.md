@@ -8,9 +8,11 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 
 - Upgrade your Mac to the latest patch version. So if you are on `10.7.0`, upgrade to `10.7.4` etc.
 - Ensure XCode is installed and up to date.
+- Run `brew update`. If you tapped an old version of `homebrew-php` or have an old brew installation, this may cause some installation issues.
+- Run `brew upgrade`. This will upgrade all installed formulae. Sometimes an old version of a formula is installed and this breaks our dependency management. Unfortunately, there is currently no way to force homebrew to upgrade only those we depend upon. This is a possible fix for those with `libxml` related compilation issues.
+- If `brew doctor` complains about `Error: Failed to import: homebrew-php-requirement` or similar, you can find broken php requirement files using `find $(brew --prefix)/Library/Formula -type l -name "*requirement.rb"`. Run this with the `-delete` flag if you are sure the results of the find contain only the files producing import failures. You can also remove them manually.
 - If you are using XCode 4, install the `Command Line Tools`. If you think you have it installed, please ensure that an update of XCode or OS X did not remove them. You can verify this by launching XCode, opening preferences, going to the Downloads tab, and clicking the `Install` button:
 ![command line tool installation](http://f.cl.ly/items/411X3k0m2O1p1U2Y0I30/Image%202012.11.15%2011:32:41%20AM.png)
-- If you already have the `Command Line Tools`, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). Many users have reported success after doing so.
 - Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists. We try to detect and remove them ourselves, but sometimes this fails.
 - Run `brew doctor` and fix any issues you can.
 - If you are using Mountain Lion `10.8.x`, please install [XQuartz](http://xquartz.macosforge.org/landing/) so that the `png.h` header exists for compilation of certain brews. Mountain Lion removes X11, which contained numerous headers. A permanent fix is forthcoming.
@@ -18,6 +20,14 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 - File an awesome bug report, using the information in the next section.
 
 Doing all of these might be a hassle, but will more than likely ensure you either have a working install or get help as soon as possible.
+
+
+----
+**SUPERHACK DANGEROUS DONT DO IT**
+
+If none of the above works, and we are unable to fix your issue after you've filed a bug report, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). A small number of users have reported success after doing so.
+
+----
 
 ### Filing Bug Reports
 
@@ -32,7 +42,7 @@ Please include the following information in your bug report:
   - If on Snow Leopard, you may want to install the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/)
 - Output of `gcc -v`
 - Output of `php -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
+- Output of `brew install -V path/to/homebrew-php/the-formula-you-want-to-test.rb --with-your --opts-here` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
 This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
@@ -98,14 +108,14 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
-    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
+    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.20/libexec/apache2/libphp5.so
+    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.10/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.10/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
@@ -163,8 +173,7 @@ The template for the `php54-example` pecl extension would be as follows. Please 
       def install
         Dir.chdir "example-#{version}" unless build.head?
 
-        # See https://github.com/mxcl/homebrew/pull/5947
-        ENV.universal_binary
+        ENV.universal_binary if build.universal?
 
         safe_phpize
         system "./configure", "--prefix=#{prefix}",
@@ -181,7 +190,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.16` and `5.4.6`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.20` and `5.4.10`.
 
 ## Todo
 

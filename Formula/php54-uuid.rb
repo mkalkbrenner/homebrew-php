@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Uuid < AbstractPhp54Extension
   init
   homepage 'http://pecl.php.net/package/uuid'
-  url 'http://pecl.php.net/get/uuid-1.0.2.tgz'
-  sha1 'ad936b20fdbeecc803b9770c292e8d763026597d'
+  url 'http://pecl.php.net/get/uuid-1.0.3.tgz'
+  sha1 'f51820a310ade0eb7200375486bf88d721d89f17'
   head 'https://svn.php.net/repository/pecl/uuid/trunk', :using => :svn
 
   def patches
@@ -25,8 +25,7 @@ class Php54Uuid < AbstractPhp54Extension
   def install
     Dir.chdir "uuid-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

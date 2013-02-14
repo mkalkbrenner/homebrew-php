@@ -4,6 +4,10 @@ def postgres_installed?
   `which pg_config`.length > 0
 end
 
+def build_intl?
+  false
+end
+
 class AbstractPhp < Formula
   def initialize name='__UNKNOWN__', path=nil
     begin
@@ -11,7 +15,7 @@ class AbstractPhp < Formula
       super
     rescue Exception => e
       # Hack so that we pass all brew doctor tests
-      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|uses)\.rb/) }
+      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|leaves|uses)\.rb/) }
       raise e if reraise.empty?
     end
   end
@@ -22,28 +26,22 @@ class AbstractPhp < Formula
     # So PHP extensions don't report missing symbols
     skip_clean ['bin', 'sbin']
 
-    depends_on 'curl'
+    depends_on 'curl' unless MacOS.version >= :lion
     depends_on 'freetds' if build.include? 'with-mssql'
     depends_on 'freetype'
     depends_on 'gettext'
-    depends_on 'gmp' if build.include? 'with-gmp'
-    depends_on 'icu4c' if build.include? 'with-intl'
+    depends_on 'gmp' => :optional
+    depends_on 'icu4c' if build.include?('with-intl') && build_intl?
     depends_on 'imap-uw' if build.include? 'with-imap'
     depends_on 'jpeg'
     depends_on 'libpng'
-    depends_on 'libxml2' unless MacOS.version >= :mountain_lion
-    depends_on 'mcrypt'
+    depends_on 'libxml2' unless MacOS.version >= :lion
     depends_on 'openssl' if build.include? 'with-homebrew-openssl'
-    depends_on 'tidy' if build.include? 'with-tidy'
-    depends_on 'unixodbc' if build.include? 'with-unixodbc'
+    depends_on 'tidy' => :optional
+    depends_on 'unixodbc' => :optional
     depends_on 'homebrew/dupes/zlib'
 
     # Sanity Checks
-    mysql_opts = [ 'with-libmysql', 'with-mariadb', 'with-mysql' ]
-    if mysql_opts.select {|o| build.include? o}.length > 1
-      raise "Cannot specify more than one MySQL variant to build against."
-    end
-
     if build.include? 'with-pgsql'
       depends_on 'postgresql' => :recommended unless postgres_installed?
     end
@@ -53,22 +51,19 @@ class AbstractPhp < Formula
     end
 
     option '32-bit', "Build 32-bit only."
+    option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support'
-    option 'with-mariadb', 'Include MariaDB support'
-    option 'with-mysql', 'Include MySQL support'
+    option 'without-mysql', 'Remove MySQL/MariaDB support'
     option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
-    option 'with-unixodbc', 'Include unixODBC support'
     option 'with-cgi', 'Enable building of the CGI executable (implies --without-apache)'
     option 'with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'
     option 'without-apache', 'Build without shared Apache 2.0 Handler module'
     option 'with-intl', 'Include internationalization support'
     option 'with-imap', 'Include IMAP extension'
-    option 'with-gmp', 'Include GMP support'
-    option 'with-suhosin', 'Include Suhosin patch'
-    option 'with-tidy', 'Include Tidy support'
     option 'without-pear', 'Build without PEAR'
+    option 'with-thread-safety', 'Build with thread safety'
     option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
     option 'without-bz2', 'Build without bz2 support'
   end
@@ -132,8 +127,24 @@ INFO
     end
   end
 
+  def apache_apxs
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/bin/apxs"
+    else
+      '/usr/sbin/apxs'
+    end
+  end
+
+  def apache_libexec
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/libexec"
+    else
+      libexec
+    end
+  end
+
   def install_args
-    [
+    args = [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
       "--sysconfdir=#{config_path}",
@@ -163,11 +174,9 @@ INFO
       "--with-xmlrpc",
       "--with-kerberos=/usr",
       "--with-xsl=/usr",
-      "--with-curl=#{Formula.factory('curl').prefix}",
       "--with-gd",
       "--enable-gd-native-ttf",
       "--with-freetype-dir=#{Formula.factory('freetype').prefix}",
-      "--with-mcrypt=#{Formula.factory('mcrypt').prefix}",
       "--with-jpeg-dir=#{Formula.factory('jpeg').prefix}",
       "--with-png-dir=#{Formula.factory('libpng').prefix}",
       "--with-gettext=#{Formula.factory('gettext').prefix}",
@@ -176,20 +185,11 @@ INFO
       "--mandir=#{man}",
       "--with-mhash",
     ]
-  end
 
-  def default_config
-    "./php.ini-development"
-  end
+    args << "--with-curl" if MacOS.version >= :lion
+    args << "--with-curl=#{Formula.factory('curl').prefix}" unless MacOS.version >= :lion
 
-  def skip_pear_config_set?
-    build.include? 'without-pear'
-  end
-
-  def _install
-    args = install_args
-
-    unless MacOS.version >= :mountain_lion
+    unless MacOS.version >= :lion
       args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
     end
 
@@ -223,8 +223,8 @@ INFO
 
     # Build Apache module by default
     if build_apache?
-      args << "--with-apxs2=/usr/sbin/apxs"
-      args << "--libexecdir=#{libexec}"
+      args << "--with-apxs2=#{apache_apxs}"
+      args << "--libexecdir=#{apache_libexec}"
     end
 
     if build.include? 'with-gmp'
@@ -237,8 +237,9 @@ INFO
     end
 
     if build.include? 'with-intl'
-      args << "--enable-intl"
-      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
+      opoo "INTL is broken as of mxcl/homebrew#03ed757c, please install php#{php_version_path.to_s}-intl" unless build_intl?
+      args << "--enable-intl" if build_intl?
+      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}" if build_intl?
     end
 
     if build.include? 'with-mssql'
@@ -251,21 +252,21 @@ INFO
       args << "--with-mysqli=#{$HOMEBREW_PREFIX}/bin/mysql_config"
       args << "--with-mysql=#{$HOMEBREW_PREFIX}"
       args << "--with-pdo-mysql=#{$HOMEBREW_PREFIX}"
-    end
-
-    if build.include?('with-mysql') || build.include?('with-mariadb')
+    elsif !build.include? 'without-mysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.include?('with-pgsql') && File.directory?(Formula.factory('postgresql').prefix.to_s)
-      args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
-      args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
-    elsif build.include? 'with-pgsql'
-      args << "--with-pgsql=#{`pg_config --includedir`}"
-      args << "--with-pdo-pgsql=#{`which pg_config`}"
+    if build.include?('with-pgsql')
+      if File.directory?(Formula.factory('postgresql').prefix.to_s)
+        args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
+        args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
+      else
+        args << "--with-pgsql=#{`pg_config --includedir`}"
+        args << "--with-pdo-pgsql=#{`which pg_config`}"
+      end
     end
 
     if build.include? 'with-tidy'
@@ -284,6 +285,31 @@ INFO
       args << "--without-pear"
     end
 
+    if build.include? 'with-thread-safety'
+      args << "--enable-maintainer-zts"
+    end
+
+    args
+  end
+
+  def default_config
+    "./php.ini-development"
+  end
+
+  def skip_pear_config_set?
+    build.include? 'without-pear'
+  end
+
+  def patches
+    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
+    # outdated system libraries being first on library search path:
+    # https://bugs.php.net/bug.php?id=44294
+    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
+  end
+
+  def _install
+    args = install_args
+
     system "./buildconf" if build.head?
     system "./configure", *args
 
@@ -294,7 +320,7 @@ INFO
         "INSTALL_IT = $(mkinstalldirs) '#{libexec}/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='#{libexec}/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so"
     end
 
-    if build.include? 'with-intl'
+    if build.include?('with-intl') && build_intl?
       inreplace 'Makefile' do |s|
         s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
       end
@@ -309,6 +335,8 @@ INFO
     chmod_R 0775, lib+"php"
 
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
+
+    sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm" if build.include? 'with-fpm'
 
     if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
       config_path.install "sapi/fpm/php-fpm.conf"
@@ -337,7 +365,7 @@ INFO
 
       s << <<-EOS.undent
         To enable PHP in Apache add the following to httpd.conf and restart Apache:
-            LoadModule php5_module    #{libexec}/apache2/libphp5.so
+            LoadModule php5_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path.to_s}/libexec/apache2/libphp5.so
       EOS
     end
 
@@ -367,6 +395,28 @@ INFO
       using --without-homebrew-php to enable compiling against system PHP.
     EOS
 
+    if build.include?('with-intl') && !build_intl?
+    s << <<-EOS.undent
+      ✩✩✩✩✩ INTL Support ✩✩✩✩✩
+
+      icu4c is broken as of mxcl/homebrew#03ed757c, so you will need to install intl as
+      a separate extension:
+
+          brew install php#{php_version_path.to_s}-intl
+    EOS
+    end
+
+    if build.include?('with-mcrypt')
+    s << <<-EOS.undent
+      ✩✩✩✩  Mcrypt ✩✩✩✩
+
+      mcrypt is no longer included by default, install it as a separate extension:
+
+          brew install php#{php_version_path.to_s}-mcrypt
+    EOS
+    end
+
+
     if build.include? 'with-fpm'
       s << <<-EOS.undent
         ✩✩✩✩ FPM ✩✩✩✩
@@ -381,6 +431,8 @@ INFO
                 launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
                 cp #{prefix}/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist ~/Library/LaunchAgents/
                 launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
+
+        The control script is located at #{sbin}/php#{php_version_path.to_s}-fpm
       EOS
 
       if MacOS.version >= :mountain_lion
@@ -424,6 +476,8 @@ INFO
         <string>#{config_path}/php-fpm.conf</string>
       </array>
       <key>RunAtLoad</key>
+      <true/>
+      <key>LaunchOnlyOnce</key>
       <true/>
       <key>UserName</key>
       <string>#{`whoami`.chomp}</string>

@@ -3,17 +3,16 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Mcrypt < AbstractPhp53Extension
   init
   homepage 'http://php.net/manual/en/book.mcrypt.php'
-  url 'http://www.php.net/get/php-5.3.18.tar.bz2/from/this/mirror'
-  sha1 '561b7ed1ad147346d97f4cac78159e5918a7b5b9'
-  version '5.3.18'
+  url 'http://www.php.net/get/php-5.3.21.tar.bz2/from/this/mirror'
+  sha1 'd67d2569b4782cf2faa049f22b08819ad8b15009'
+  version '5.3.21'
 
   depends_on 'mcrypt'
 
   def install
     Dir.chdir "ext/mcrypt"
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary unless Hardware.is_64_bit?
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

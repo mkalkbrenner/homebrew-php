@@ -3,13 +3,12 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Twig < AbstractPhp54Extension
   init
   homepage 'http://twig.sensiolabs.org/'
-  url 'https://github.com/fabpot/Twig/tarball/v1.9.2'
-  sha1 '5e734f152d09df1f49de70cc27b031887c4408dd'
-  head 'https://github.com/fabpot/Twig.git', :using => :git
+  url 'https://github.com/fabpot/Twig.git', :tag => 'v1.12.1'
+  version '1.12.1'
+  head 'https://github.com/fabpot/Twig.git'
 
   def install
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     Dir.chdir 'ext/twig' do
       safe_phpize

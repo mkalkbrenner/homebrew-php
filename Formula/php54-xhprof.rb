@@ -1,5 +1,4 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'xhprof54-requirement')
 
 class Php54Xhprof < AbstractPhp54Extension
   init
@@ -9,13 +8,13 @@ class Php54Xhprof < AbstractPhp54Extension
   head 'https://github.com/facebook/xhprof.git'
   version '270b75d'
 
-  depends_on Xhprof54Requirement.new
+  conflicts_with 'php54-xhgui'
+
   depends_on 'pcre'
 
   def install
     Dir.chdir "extension" do
-      # See https://github.com/mxcl/homebrew/pull/5947
-      ENV.universal_binary
+      ENV.universal_binary if build.universal?
 
       safe_phpize
       system "./configure", "--prefix=#{prefix}",
