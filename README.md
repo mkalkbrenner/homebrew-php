@@ -18,6 +18,12 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 - If you are using Mountain Lion `10.8.x`, please install [XQuartz](http://xquartz.macosforge.org/landing/) so that the `png.h` header exists for compilation of certain brews. Mountain Lion removes X11, which contained numerous headers. A permanent fix is forthcoming.
 - If you upgraded to Mountain Lion `10.8.x`, please also upgrade to the latest XCode, 4.4.
 - File an awesome bug report, using the information in the next section.
+- If you have a failing install due to `GD build test failed`, try running the following before attempting to reinstall:
+
+```
+    brew rm freetype jpeg libpng gd zlib
+    brew install freetype jpeg libpng gd zlib
+```
 
 Doing all of these might be a hassle, but will more than likely ensure you either have a working install or get help as soon as possible.
 
@@ -108,14 +114,14 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.23/libexec/apache2/libphp5.so
-    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.13/libexec/apache2/libphp5.so
+    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.25/libexec/apache2/libphp5.so
+    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.15/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.13/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.15/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
@@ -192,7 +198,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.23` and `5.4.13`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.25` and `5.4.15`.
 
 ## Todo
 

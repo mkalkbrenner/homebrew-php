@@ -5,8 +5,8 @@ require File.expand_path("../../Requirements/phar-requirement", Pathname.new(__F
 class Phpdocumentor < Formula
   homepage 'http://www.phpdoc.org'
   url 'http://www.phpdoc.org/phpDocumentor.phar'
-  sha1 'ca66cc4e95aaefff7bc4341bd9d2d1d25c47eea3'
-  version '2.0.0a12'
+  sha1 '327821ad42ef0d7314d641bcd9cccd3774fdfc89'
+  version '2.0.0b7'
 
   depends_on PhpMetaRequirement
   depends_on PharRequirement

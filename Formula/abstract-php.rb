@@ -124,7 +124,7 @@ INFO
       mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
       mv("#{config_pearrc}-backup", config_pearrc) if File.exists? "#{config_pearrc}-backup"
       mv("#{user_pearrc}-backup", user_pearrc) if File.exists? "#{user_pearrc}-backup"
-      throw e
+      raise
     end
   end
 
@@ -207,6 +207,7 @@ INFO
     end
 
     if build.include? 'with-fpm'
+      args << "--enable-fastcgi"
       args << "--enable-fpm"
       args << "--with-fpm-user=_www"
       args << "--with-fpm-group=_www"
@@ -301,7 +302,7 @@ INFO
     # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
     # outdated system libraries being first on library search path:
     # https://bugs.php.net/bug.php?id=44294
-    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
+    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff" if MacOS.version == :leopard
   end
 
   def _install
@@ -333,17 +334,32 @@ INFO
 
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
 
-    sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm" if build.include? 'with-fpm'
+    if build.include? 'with-fpm'
+      if File.exists?('sapi/fpm/init.d.php-fpm')
+        sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm"
+      end
 
-    if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
-      config_path.install "sapi/fpm/php-fpm.conf"
-      inreplace config_path+"php-fpm.conf" do |s|
-        s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
-        s.sub!(/^;include\s*=.+$/,";include=#{config_path}/fpm.d/*.conf")
-        s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 10')
-        s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 3')
-        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 2')
-        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 5')
+      if File.exists?('sapi/cgi/fpm/php-fpm')
+        sbin.install 'sapi/cgi/fpm/php-fpm' => "php#{php_version_path.to_s}-fpm"
+      end
+
+      if !File.exists?(config_path+"php-fpm.conf")
+        if File.exists?('sapi/fpm/php-fpm.conf')
+          config_path.install 'sapi/fpm/php-fpm.conf'
+        end
+
+        if File.exists?('sapi/cgi/fpm/php-fpm.conf')
+          config_path.install 'sapi/cgi/fpm/php-fpm.conf'
+        end
+
+        inreplace config_path+"php-fpm.conf" do |s|
+          s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
+          s.sub!(/^;include\s*=.+$/,";include=#{config_path}/fpm.d/*.conf")
+          s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 10')
+          s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 3')
+          s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 2')
+          s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 5')
+        end
       end
     end
   end

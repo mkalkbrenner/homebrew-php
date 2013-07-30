@@ -1,9 +1,11 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Opcache < AbstractPhp54Extension
+  init
   homepage 'https://github.com/zend-dev/ZendOptimizerPlus'
-  url 'https://github.com/zend-dev/ZendOptimizerPlus/archive/v7.0.1.tar.gz'
-  sha1 '61fcbf613ec31deed1470d88107e8d462036a720'
+  url 'https://github.com/zend-dev/ZendOptimizerPlus/archive/v7.0.2.tar.gz'
+  sha1 'f35625d237f8dd2f6a01e50e3062657fce9b8be4'
+  head 'https://github.com/zendtech/ZendOptimizerPlus.git'
 
   depends_on 'pcre'
   depends_on 'autoconf'
@@ -16,11 +18,10 @@ class Php54Opcache < AbstractPhp54Extension
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           phpconfig
-    system "make", "install"
+    system "make"
+    prefix.install "modules/opcache.so"
     write_config_file unless build.include? "without-config-file"
   end
-  
-  def module_path; "#{(Formula.factory php_formula).lib}/php/extensions/no-debug-zts-20100525/opcache.so"; end
 
   def config_file
     super + <<-EOS.undent

@@ -5,9 +5,9 @@ require File.expand_path("../../Requirements/phar-building-requirement", Pathnam
 
 class PhpCsFixer < Formula
   homepage 'http://cs.sensiolabs.org'
-  url 'https://github.com/fabpot/PHP-CS-Fixer/archive/v0.1.0.tar.gz'
-  sha1 '3d25398022d97bf62663d0fe274104a94bca67ef'
-  version '0.1.0'
+  url 'https://github.com/fabpot/PHP-CS-Fixer/archive/v0.2.0.tar.gz'
+  sha1 'b656560c28b31da179b1a4a53a23b9e356d582ff'
+  version '0.2.0'
   head 'https://github.com/fabpot/PHP-CS-Fixer.git'
 
   def self.init
@@ -34,7 +34,7 @@ class PhpCsFixer < Formula
 
     libexec.install "php-cs-fixer.phar"
     sh = libexec + "php-cs-fixer"
-    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/php-cs-fixer.phar $*")
+    sh.write("#!/bin/sh\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/php-cs-fixer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
   end
