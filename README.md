@@ -95,11 +95,11 @@ Tap the repository into your brew installation:
 
 **Note:** For a list of available configuration options run:
 
-    brew options php54
+    brew options php55
 
-Then install php53, php54, or any formulae you might need:
+Then install php53, php54, php55, or any formulae you might need:
 
-    brew install php54
+    brew install php55
 
 That's it!
 
@@ -155,7 +155,7 @@ The following kinds of brews are allowed:
 
 - PHP Extensions: They may be built with PECL, but installation via homebrew is sometimes much easier.
 - PHP Utilities: php-version, php-build fall under this category
-- Common PHP Web Applications: phpmyadmin goes here. Note that Wordpress would not because it requires other migration steps, such as database migrations etc.
+- Common PHP Web Applications: phpmyadmin goes here. Note that WordPress would not because it requires other migration steps, such as database migrations etc.
 - PHP Frameworks: These are to be reviewed on a case-by-case basis. Generally, only a recent, stable version of a popular framework will be allowed.
 
 If you have any concerns as to whether your formula belongs in PHP, just open a pull request with the formula and we'll take it from there.
@@ -192,13 +192,15 @@ The template for the `php54-example` pecl extension would be as follows. Please 
 
 Before testing the extension, you will need run the command `brew tap --repair` to create a symlink in `$HOMEBREW_PREFIX/Library/Formula`.
 
-Defining extensions inheriting AbstractPhp5(34)Extension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
+Before finalizing the extension, run the command `brew audit` to check that your formula respects Homebrew best practice and syntax.
+
+Defining extensions inheriting AbstractPhp5(345). Extension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [abstract-php-extension.rb](Formula/abstract-php-extension.rb) for more details.
 
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.25` and `5.4.15`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.26`, `5.4.20` and `5.5.4`.
 
 ## Todo
 

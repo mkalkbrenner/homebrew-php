@@ -7,7 +7,6 @@ class PhpCsFixer < Formula
   homepage 'http://cs.sensiolabs.org'
   url 'https://github.com/fabpot/PHP-CS-Fixer/archive/v0.2.0.tar.gz'
   sha1 'b656560c28b31da179b1a4a53a23b9e356d582ff'
-  version '0.2.0'
   head 'https://github.com/fabpot/PHP-CS-Fixer.git'
 
   def self.init
@@ -15,9 +14,10 @@ class PhpCsFixer < Formula
     depends_on PharRequirement
     depends_on PharBuildingRequirement
     depends_on "composer"
-    depends_on "php53" if Formula.factory("php53").installed?
-    depends_on "php54" if Formula.factory("php54").installed?
-  end
+    depends_on "php53" if Formula.factory("php53").linked_keg.exist?
+    depends_on "php54" if Formula.factory("php54").linked_keg.exist?
+    depends_on "php55" if Formula.factory("php55").linked_keg.exist?
+ end
 
   init
 

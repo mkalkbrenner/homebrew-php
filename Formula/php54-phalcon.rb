@@ -3,10 +3,9 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Phalcon < AbstractPhp54Extension
   init
   homepage 'http://phalconphp.com/'
-  url 'https://github.com/phalcon/cphalcon/tarball/1.1.0'
-  sha1 'cc3dbc94885aa6e7b1a87570dbbdac5e831eacd3'
-  head 'git://github.com/phalcon/cphalcon.git', :using => :git
-  version '1.1.0'
+  url 'https://github.com/phalcon/cphalcon/archive/v1.2.3.tar.gz'
+  sha1 '431998a4db613c4173301e36053afdfacece5c25'
+  head 'https://github.com/phalcon/cphalcon.git'
 
   depends_on 'pcre'
 
@@ -18,8 +17,6 @@ class Php54Phalcon < AbstractPhp54Extension
     end
 
     ENV.universal_binary if build.universal?
-    ENV.gcc
-    ENV['CFLAGS'] = '-O2 -fno-delete-null-pointer-checks -finline-functions -fomit-frame-pointer'
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

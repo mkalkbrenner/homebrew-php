@@ -38,7 +38,7 @@ class AbstractPhp < Formula
     depends_on 'libxml2' unless MacOS.version >= :lion
     depends_on 'openssl' if build.include? 'with-homebrew-openssl'
     depends_on 'homebrew/dupes/tidy' if build.include? 'with-tidy'
-    depends_on 'unixodbc' => :optional
+    depends_on 'unixodbc'
     depends_on 'homebrew/dupes/zlib'
 
     # Sanity Checks
@@ -67,6 +67,7 @@ class AbstractPhp < Formula
     option 'with-thread-safety', 'Build with thread safety'
     option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
     option 'without-bz2', 'Build without bz2 support'
+    option 'without-pcntl', 'Build without Process Control support'
   end
 
   def config_path
@@ -156,7 +157,6 @@ INFO
       "--enable-ftp",
       "--enable-sockets",
       "--enable-zip",
-      "--enable-pcntl",
       "--enable-shmop",
       "--enable-sysvsem",
       "--enable-sysvshm",
@@ -179,6 +179,8 @@ INFO
       "--with-gettext=#{Formula.factory('gettext').opt_prefix}",
       "--with-snmp=/usr",
       "--with-libedit",
+      "--with-unixODBC=#{Formula.factory('unixodbc').opt_prefix}",
+      "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').opt_prefix}",
       "--mandir=#{man}",
       "--with-mhash",
     ]
@@ -271,20 +273,16 @@ INFO
       args << "--with-tidy=#{Formula.factory('tidy').opt_prefix}"
     end
 
-    if build.include? 'with-unixodbc'
-      args << "--with-unixODBC=#{Formula.factory('unixodbc').opt_prefix}"
-      args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').opt_prefix}"
-    else
-      args << "--with-iodbc"
-      args << "--with-pdo-odbc=generic,/usr,iodbc"
-    end
-
     if build.include? 'without-pear'
       args << "--without-pear"
     end
 
     if build.include? 'with-thread-safety'
       args << "--enable-maintainer-zts"
+    end
+
+    unless build.include? 'without-pcntl'
+      args << "--enable-pcntl"
     end
 
     args
@@ -302,7 +300,7 @@ INFO
     # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
     # outdated system libraries being first on library search path:
     # https://bugs.php.net/bug.php?id=44294
-    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff" if MacOS.version == :leopard
+    "https://gist.github.com/ablyler/6579338/raw/5713096862e271ca78e733b95e0235d80fed671a/Makefile.global.diff" if MacOS.version == :leopard
   end
 
   def _install
@@ -310,6 +308,13 @@ INFO
 
     system "./buildconf" if build.head?
     system "./configure", *args
+
+    # https://bugs.php.net/bug.php?id=62460
+    if php_version.to_s == '5.3'
+      inreplace "Makefile",
+        'EXEEXT = .dSYM',
+        'EXEEXT = '
+    end
 
     if build_apache?
       # Use Homebrew prefix for the Apache libexec folder

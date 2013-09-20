@@ -5,9 +5,7 @@ class Php55MysqlndMs < AbstractPhp55Extension
   homepage 'http://pecl.php.net/package/mysqlnd_ms'
   url 'http://pecl.php.net/get/mysqlnd_ms-1.4.2.tgz'
   sha1 'b074ee9f696ec17422638e1d554a0665320f4df9'
-  head 'https://svn.php.net/repository/pecl/mysqlnd_ms/trunk/', :using => :svn
-
-  depends_on 'autoconf' => :build
+  head 'https://svn.php.net/repository/pecl/mysqlnd_ms/trunk/'
 
   def extension
     "mysqlnd_ms"

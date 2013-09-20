@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php55Mongo < AbstractPhp55Extension
   init
   homepage 'http://pecl.php.net/package/mongo'
-  url 'http://pecl.php.net/get/mongo-1.4.1.tgz'
-  sha1 '8cdb575497609ba3bade4055dad58c98779e3f49'
+  url 'http://pecl.php.net/get/mongo-1.4.3.tgz'
+  sha1 '9cc3b308c6dccb4bbf376fce4bcc2268aa7a7c1d'
   head 'https://github.com/mongodb/mongo-php-driver.git'
 
   def install
