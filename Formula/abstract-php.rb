@@ -66,9 +66,14 @@ class AbstractPhp < Formula
     option 'with-tidy', 'Include Tidy support'
     option 'with-thread-safety', 'Build with thread safety'
     option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
+    option 'with-homebrew-libxslt', 'Include LibXSLT support via Homebrew'
     option 'without-bz2', 'Build without bz2 support'
     option 'without-pcntl', 'Build without Process Control support'
   end
+
+  # Fixes the pear .lock permissions issue that keeps it from operating correctly.
+  # Thanks mistym & #machomebrew
+  skip_clean 'lib/php/.lock'
 
   def config_path
     etc+"php/"+php_version.to_s
@@ -170,7 +175,6 @@ INFO
       "--with-ldap-sasl=/usr",
       "--with-xmlrpc",
       "--with-kerberos=/usr",
-      "--with-xsl=/usr",
       "--with-gd",
       "--enable-gd-native-ttf",
       "--with-freetype-dir=#{Formula.factory('freetype').opt_prefix}",
@@ -206,6 +210,12 @@ INFO
       args << "--with-openssl=" + Formula.factory('openssl').opt_prefix.to_s
     else
       args << "--with-openssl=/usr"
+    end
+
+    if build.include? 'with-homebrew-libxslt'
+      args << "--with-xsl=" + Formula.factory('libxslt').opt_prefix.to_s
+    else
+      args << "--with-xsl=/usr"
     end
 
     if build.include? 'with-fpm'
@@ -405,9 +415,10 @@ INFO
     s << <<-EOS.undent
       ✩✩✩✩ Extensions ✩✩✩✩
 
-      If you are having issues with custom extension compiling, ensure that this php is
-      in your PATH:
-          PATH="$(brew --prefix josegonzalez/php/php#{php_version_path.to_s})/bin:$PATH"
+      If you are having issues with custom extension compiling, ensure that
+      you are using the brew version, by placing #{HOMEBREW_PREFIX}/bin before /usr/sbin in your PATH:
+      
+            PATH="#{HOMEBREW_PREFIX}/bin:$PATH"
 
       PHP#{php_version_path.to_s} Extensions will always be compiled against this PHP. Please install them
       using --without-homebrew-php to enable compiling against system PHP.
