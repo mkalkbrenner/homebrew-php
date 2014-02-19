@@ -2,8 +2,8 @@ require 'formula'
 
 class Phpmyadmin < Formula
   homepage 'http://www.phpmyadmin.net'
-  url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.7/phpMyAdmin-4.0.7-all-languages.tar.gz'
-  sha1 '5c61d5c4148cb64d90773347ea23df723126eeab'
+  url 'https://github.com/phpmyadmin/phpmyadmin/archive/RELEASE_4_1_4.tar.gz'
+  sha1 'eabab851311fb891179f57157668975941b0b4b4'
   head 'https://github.com/phpmyadmin/phpmyadmin.git'
 
   if build.include?('without-mcrypt') && MacOS.prefer_64_bit?

@@ -1,4 +1,5 @@
 require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-version')
 
 class UnsupportedPhpApiError < RuntimeError
   attr :name
@@ -49,6 +50,15 @@ class AbstractPhpExtension < Formula
       # Hack so that we pass all brew doctor tests
       reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|leaves|uses)\.rb/) }
       raise e if reraise.empty?
+    end
+  end
+
+  # Hack to allow uses to work, which requries version
+  def version
+    if defined?(active_spec) && defined?(active_spec.version)
+      active_spec.version
+    else
+      'abstract'
     end
   end
 
@@ -145,10 +155,18 @@ class AbstractPhpExtension < Formula
     end
 
     caveats << <<-EOS
-  * Restart your webserver.
-  * Write a PHP page that calls "phpinfo();"
-  * Load it in a browser and look for the info on the #{extension} module.
-  * If you see it, you have been successful!
+  * Validate installation via one of the following methods:
+  *
+  * Using PHP from a webserver:
+  * - Restart your webserver.
+  * - Write a PHP page that calls "phpinfo();"
+  * - Load it in a browser and look for the info on the #{extension} module.
+  * - If you see it, you have been successful!
+  *
+  * Using PHP from the command line:
+  * - Run "php -i" (command-line "phpinfo()")
+  * - Look for the info on the #{extension} module.
+  * - If you see it, you have been successful!
 EOS
 
     caveats.join("\n")
@@ -189,6 +207,8 @@ EOS
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
+  include AbstractPhpVersion::Php53Defs
+
   def self.init opts=[]
     super()
     depends_on "php53" => opts unless build.include?('without-homebrew-php')
@@ -196,6 +216,8 @@ class AbstractPhp53Extension < AbstractPhpExtension
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
+  include AbstractPhpVersion::Php54Defs
+
   def self.init opts=[]
     super()
     depends_on "php54" => opts unless build.include?('without-homebrew-php')
@@ -203,8 +225,19 @@ class AbstractPhp54Extension < AbstractPhpExtension
 end
 
 class AbstractPhp55Extension < AbstractPhpExtension
+  include AbstractPhpVersion::Php55Defs
+
   def self.init opts=[]
     super()
     depends_on "php55" => opts unless build.include?('without-homebrew-php')
+  end
+end
+
+class AbstractPhp56Extension < AbstractPhpExtension
+  include AbstractPhpVersion::Php56Defs
+
+  def self.init opts=[]
+    super()
+    depends_on "php56" => opts unless build.include?('without-homebrew-php')
   end
 end

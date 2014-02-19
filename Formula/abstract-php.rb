@@ -1,4 +1,7 @@
+#encoding: utf-8
+
 require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-version')
 
 def postgres_installed?
   `which pg_config`.length > 0
@@ -20,13 +23,22 @@ class AbstractPhp < Formula
     end
   end
 
+  # Hack to allow uses to work, which requries version
+  def version
+    if defined?(active_spec) && defined?(active_spec.version)
+      active_spec.version
+    else
+      'abstract'
+    end
+  end
+
   def self.init
     homepage 'http://php.net'
 
     # So PHP extensions don't report missing symbols
     skip_clean ['bin', 'sbin']
 
-    depends_on 'curl' unless MacOS.version >= :lion
+    depends_on 'curl' if build.include?('with-homebrew-curl') || MacOS.version < :lion
     depends_on 'freetds' if build.include? 'with-mssql'
     depends_on 'freetype'
     depends_on 'gettext'
@@ -50,13 +62,14 @@ class AbstractPhp < Formula
       raise "Cannot specify more than one executable to build."
     end
 
-    option '32-bit', "Build 32-bit only."
     option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
+    option 'with-homebrew-curl', 'Include Curl support via Homebrew'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support'
     option 'without-mysql', 'Remove MySQL/MariaDB support'
     option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
+    option 'with-pdo-oci', 'Include Oracle databases (requries ORACLE_HOME be set)'
     option 'with-cgi', 'Enable building of the CGI executable (implies --without-apache)'
     option 'with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'
     option 'without-apache', 'Build without shared Apache 2.0 Handler module'
@@ -189,8 +202,11 @@ INFO
       "--with-mhash",
     ]
 
-    args << "--with-curl" if MacOS.version >= :lion
-    args << "--with-curl=#{Formula.factory('curl').opt_prefix}" unless MacOS.version >= :lion
+    if build.include?('with-homebrew-curl') || MacOS.version < :lion
+      args << "--with-curl=#{Formula.factory('curl').opt_prefix}"
+    else
+      args << "--with-curl"
+    end
 
     unless MacOS.version >= :lion
       args << "--with-libxml-dir=#{Formula.factory('libxml2').opt_prefix}"
@@ -269,13 +285,21 @@ INFO
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.include?('with-pgsql')
+    if build.include? 'with-pgsql'
       if File.directory?(Formula.factory('postgresql').opt_prefix.to_s)
         args << "--with-pgsql=#{Formula.factory('postgresql').opt_prefix}"
         args << "--with-pdo-pgsql=#{Formula.factory('postgresql').opt_prefix}"
       else
         args << "--with-pgsql=#{`pg_config --includedir`}"
         args << "--with-pdo-pgsql=#{`which pg_config`}"
+      end
+    end
+
+    if build.include? 'with-pdo-oci'
+      if ENV.has_key?('ORACLE_HOME')
+        args << "--with-pdo-oci=#{ENV['ORACLE_HOME']}"
+      else
+        raise "Environmental variable ORACLE_HOME must be set to use --with-pdo-oci option."
       end
     end
 
@@ -318,13 +342,6 @@ INFO
 
     system "./buildconf" if build.head?
     system "./configure", *args
-
-    # https://bugs.php.net/bug.php?id=62460
-    if php_version.to_s == '5.3'
-      inreplace "Makefile",
-        'EXEEXT = .dSYM',
-        'EXEEXT = '
-    end
 
     if build_apache?
       # Use Homebrew prefix for the Apache libexec folder
@@ -417,11 +434,20 @@ INFO
 
       If you are having issues with custom extension compiling, ensure that
       you are using the brew version, by placing #{HOMEBREW_PREFIX}/bin before /usr/sbin in your PATH:
-      
+
             PATH="#{HOMEBREW_PREFIX}/bin:$PATH"
 
       PHP#{php_version_path.to_s} Extensions will always be compiled against this PHP. Please install them
       using --without-homebrew-php to enable compiling against system PHP.
+    EOS
+
+    s << <<-EOS.undent
+      ✩✩✩✩ PHP CLI ✩✩✩✩
+
+      If you wish to swap the PHP you use on the command line, you should add the following to ~/.bashrc,
+      ~/.zshrc, ~/.profile or your shell's equivalent configuration file:
+
+            export PATH="$(brew --prefix josegonzalez/php/php#{php_version.to_s.gsub('.','')})/bin:$PATH"
     EOS
 
     if build.include?('with-intl') && !build_intl?
@@ -446,7 +472,7 @@ INFO
     end
 
 
-    if build.include? 'with-fpm'
+    if build.include?('with-fpm')
       s << <<-EOS.undent
         ✩✩✩✩ FPM ✩✩✩✩
 
@@ -488,6 +514,9 @@ INFO
       system "#{sbin}/php-fpm -y #{config_path}/php-fpm.conf -t"
     end
   end
+
+  # Override Formula#plist_name
+  def plist_name; "homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}" end
 
   def php_fpm_startup_plist; <<-EOPLIST.undent
     <?xml version="1.0" encoding="UTF-8"?>
