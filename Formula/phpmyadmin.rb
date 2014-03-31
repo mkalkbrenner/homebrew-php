@@ -2,8 +2,8 @@ require 'formula'
 
 class Phpmyadmin < Formula
   homepage 'http://www.phpmyadmin.net'
-  url 'https://github.com/phpmyadmin/phpmyadmin/archive/RELEASE_4_1_4.tar.gz'
-  sha1 'eabab851311fb891179f57157668975941b0b4b4'
+  url 'https://github.com/phpmyadmin/phpmyadmin/archive/RELEASE_4_1_11.tar.gz'
+  sha1 '2292ba2daffd48a1ad12275212a09633f883d9fb'
   head 'https://github.com/phpmyadmin/phpmyadmin.git'
 
   if build.include?('without-mcrypt') && MacOS.prefer_64_bit?
@@ -11,9 +11,10 @@ class Phpmyadmin < Formula
   end
 
   unless build.include? 'without-mcrypt'
-    depends_on "php53-mcrypt" if Formula.factory("php53").linked_keg.exist?
-    depends_on "php54-mcrypt" if Formula.factory("php54").linked_keg.exist?
-    depends_on "php55-mcrypt" if Formula.factory("php55").linked_keg.exist?
+    depends_on "php53-mcrypt" if Formula['php53'].linked_keg.exist?
+    depends_on "php54-mcrypt" if Formula['php54'].linked_keg.exist?
+    depends_on "php55-mcrypt" if Formula['php55'].linked_keg.exist?
+    depends_on "php56-mcrypt" if Formula['php56'].linked_keg.exist?
   end
 
   unless MacOS.prefer_64_bit?

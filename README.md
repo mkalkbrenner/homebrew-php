@@ -38,7 +38,7 @@ If you have recently upgraded your Mac OS X version or Xcode, you may have some 
 
 - Ensure you have properly upgraded CLT depending on your Xcode version.
 - Proceed step by step to isolate the responsible formula. If you need to install `php55` and `php55-imagick`, don't do `brew install php55 php55-imagick`. Just do `brew install php55`, ensure everything is working as expected, check the output of `phpinfo()`, restart your Apache server with `sudo apachectl restart`. Then you can install the next formula `brew install php55-imagick`.
-- If `php53`, `php54` or `php55` build fails, remove all their dependencies and reinstall the formula. For instance: If `brew install php55` fails, do the following: `brew rm php55 && brew deps php55 | xargs brew rm`. If `brew install php55 -- with-gmp` fails, do the following: `brew rm php55 && brew deps php55 --with-gmp | xargs brew rm`. Then reinstall a clean version of the formula: `brew update && brew upgrade && brew install php55`.
+- If `php53`, `php54` or `php55` build fails, remove all their dependencies and reinstall the formula. For instance: If `brew install php55` fails, do the following: `brew rm php55 && brew deps php55 | xargs brew rm`. If `brew install php55 --with-gmp` fails, do the following: `brew rm php55 && brew deps php55 --with-gmp | xargs brew rm`. Then reinstall a clean version of the formula: `brew update && brew upgrade && brew install php55`.
 - If an extension build fails, try also to remove all its dependencies and reinstall it.
 - Sometimes it appears that a formula is not available anymore, do the following: `brew tap --repair`.
 
@@ -63,7 +63,7 @@ Please include the following information in your bug report:
   - If on Snow Leopard, you may want to install the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/)
 - Output of `gcc -v`
 - Output of `php -v`
-- Output of `brew install -V path/to/homebrew-php/the-formula-you-want-to-test.rb --with-your --opts-here` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
+- Output of `brew install -v path/to/homebrew-php/the-formula-you-want-to-test.rb --with-your --opts-here` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
 This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
@@ -85,6 +85,7 @@ this repository.
 * [Homebrew](https://github.com/mxcl/homebrew)
 * Snow Leopard, Lion, Mountain Lion. Untested everywhere else.
 * The homebrew `dupes` tap - `brew tap homebrew/dupes`
+* The homebrew `versions` tap - `brew tap homebrew/versions`
 
 ## Installation
 
@@ -93,6 +94,10 @@ _[Brew Tap]_
 Setup the `homebrew/dupes` tap which has dependencies we need:
 
     brew tap homebrew/dupes
+
+Setup the `homebrew/versions` tap which has dependencies we need:
+
+    brew tap homebrew/versions
 
 Then, run the following in your commandline:
 
@@ -103,6 +108,10 @@ Then, run the following in your commandline:
 Tap the `homebrew/dupes` repository into your brew installation:
 
     brew tap homebrew/dupes
+
+Tap the `homebrew/versions` repository into your brew installation:
+
+    brew tap homebrew/versions
 
 Tap the repository into your brew installation:
 
@@ -224,7 +233,9 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.25` and `5.5.9`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.26` and `5.5.10`.
+
+Please also consider adding PHP extensions for the PHP 5. alpha version : `5.6.0-alpha3`.
 
 ## Todo
 

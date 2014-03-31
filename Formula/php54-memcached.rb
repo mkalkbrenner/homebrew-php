@@ -8,7 +8,12 @@ class Php54Memcached < AbstractPhp54Extension
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
   option 'with-igbinary', "Build with igbinary support"
-  depends_on 'libmemcached'
+  option 'with-sasl', "Build with sasl support"
+  if build.with? "sasl"
+    depends_on "libmemcached" => "with-sasl"
+  else
+    depends_on "libmemcached"
+  end
   depends_on 'php54-igbinary' if build.include?('with-igbinary')
 
   def patches
@@ -24,14 +29,15 @@ class Php54Memcached < AbstractPhp54Extension
     args = []
     args << "--prefix=#{prefix}"
     args << phpconfig
-    args << "--with-libmemcached-dir=#{Formula.factory('libmemcached').opt_prefix}"
+    args << "--with-libmemcached-dir=#{Formula['libmemcached'].opt_prefix}"
     args << "--enable-memcached-igbinary" if build.include? 'with-igbinary'
+    args << "--enable-memcached-sasl" if build.include? 'with-sasl'
 
     safe_phpize
 
     if build.include? 'with-igbinary'
       system "mkdir -p ext/igbinary"
-      cp "#{Formula.factory('php54-igbinary').opt_prefix}/include/igbinary.h", "ext/igbinary/igbinary.h"
+      cp "#{Formula['php54-igbinary'].opt_prefix}/include/igbinary.h", "ext/igbinary/igbinary.h"
     end
 
     system "./configure", *args
