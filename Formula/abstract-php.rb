@@ -12,7 +12,7 @@ def build_intl?
 end
 
 class AbstractPhp < Formula
-  def initialize name='__UNKNOWN__', path=nil
+  def initialize name="__UNKNOWN__", *args
     begin
       raise "One does not simply install an AbstractPhp formula" if name == "abstract-php"
       super
@@ -48,22 +48,22 @@ class AbstractPhp < Formula
     end
 
     depends_on 'curl' if build.include?('with-homebrew-curl') || MacOS.version < :lion
-    depends_on 'freetds' if build.include? 'with-mssql'
+    depends_on 'freetds' if build.include?('with-mssql')
     depends_on 'freetype'
     depends_on 'gettext'
     depends_on 'gmp' => :optional
     depends_on 'icu4c' if build.include?('with-intl') && build_intl?
-    depends_on 'imap-uw' if build.include? 'with-imap'
+    depends_on 'imap-uw' if build.include?('with-imap')
     depends_on 'jpeg'
     depends_on 'libpng'
     depends_on 'libxml2' unless MacOS.version >= :lion
-    depends_on 'openssl' if build.include? 'with-homebrew-openssl'
-    depends_on 'homebrew/dupes/tidy' if build.include? 'with-tidy'
+    depends_on 'openssl' if build.include?('with-homebrew-openssl')
+    depends_on 'homebrew/dupes/tidy' if build.include?('with-tidy')
     depends_on 'unixodbc'
     depends_on 'homebrew/dupes/zlib'
 
     # Sanity Checks
-    if build.include? 'with-pgsql'
+    if build.with? 'pgsql'
       depends_on 'postgresql' => :recommended unless postgres_installed?
     end
 
@@ -74,7 +74,7 @@ class AbstractPhp < Formula
     option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
     option 'with-homebrew-curl', 'Include Curl support via Homebrew'
     option 'with-debug', 'Compile with debugging symbols'
-    option 'with-libmysql', 'Include (old-style) libmysql support'
+    option 'with-libmysql', 'Include (old-style) libmysql support instead of mysqlnd'
     option 'without-mysql', 'Remove MySQL/MariaDB support'
     option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
@@ -83,7 +83,6 @@ class AbstractPhp < Formula
     option 'with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'
     option 'with-phpdbg', 'Enable building of the phpdbg SAPI executable (PHP 5.4 and above)'
     option 'with-apache', 'Enable building of shared Apache 2.0 Handler module, overriding any options which disable apache'
-    option 'without-apache', 'Build without shared Apache 2.0 Handler module'
     option 'with-intl', 'Include internationalization support'
     option 'with-imap', 'Include IMAP extension'
     option 'without-pear', 'Build without PEAR'
@@ -108,7 +107,7 @@ class AbstractPhp < Formula
   end
 
   def build_apache?
-    build.include?('with-apache') || !(build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm'))
+    build.with?('apache') || !(build.with?('cgi') || build.with?('fpm'))
   end
 
   def php_version
@@ -149,7 +148,7 @@ INFO
       rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
       rm_f("#{config_pearrc}-backup") if File.exists? "#{config_pearrc}-backup"
       rm_f("#{user_pearrc}-backup") if File.exists? "#{user_pearrc}-backup"
-    rescue Exception => e
+    rescue Exception
       mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
       mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
       mv("#{config_pearrc}-backup", config_pearrc) if File.exists? "#{config_pearrc}-backup"
@@ -170,7 +169,22 @@ INFO
     end
   end
 
-  def install_args
+  def default_config
+    "./php.ini-development"
+  end
+
+  def skip_pear_config_set?
+    build.without? 'pear'
+  end
+
+  def patches
+    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
+    # outdated system libraries being first on library search path:
+    # https://bugs.php.net/bug.php?id=44294
+    "https://gist.github.com/ablyler/6579338/raw/5713096862e271ca78e733b95e0235d80fed671a/Makefile.global.diff" if MacOS.version == :leopard
+  end
+
+  def _install
     args = [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
@@ -223,38 +237,38 @@ INFO
       args << "--with-libxml-dir=#{Formula['libxml2'].opt_prefix}"
     end
 
-    unless build.include? 'without-bz2'
+    if build.with? 'bz2'
       args << '--with-bz2=/usr'
     end
 
-    if build.include? 'with-debug'
+    if build.with? 'debug'
       args << "--enable-debug"
     else
       args << "--disable-debug"
     end
 
-    if build.include? 'with-homebrew-openssl'
+    if build.with? 'homebrew-openssl'
       args << "--with-openssl=" + Formula['openssl'].opt_prefix.to_s
     else
       args << "--with-openssl=/usr"
     end
 
-    if build.include? 'with-homebrew-libxslt'
+    if build.with? 'homebrew-libxslt'
       args << "--with-xsl=" + Formula['libxslt'].opt_prefix.to_s
     else
       args << "--with-xsl=/usr"
     end
 
-    if build.include? 'with-fpm'
+    if build.with? 'fpm'
       args << "--enable-fastcgi"
       args << "--enable-fpm"
       args << "--with-fpm-user=_www"
       args << "--with-fpm-group=_www"
       (prefix+'var/log').mkpath
       touch prefix+'var/log/php-fpm.log'
-      (prefix+"homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist").write php_fpm_startup_plist
-      (prefix+"homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist").chmod 0644
-    elsif build.include? 'with-cgi'
+      plist_path.write plist
+      plist_path.chmod 0644
+    elsif build.with? 'cgi'
       args << "--enable-cgi"
     end
 
@@ -264,39 +278,39 @@ INFO
       args << "--libexecdir=#{libexec}"
     end
 
-    if build.include? 'with-gmp'
+    if build.with? 'gmp'
       args << "--with-gmp=#{Formula['gmp'].opt_prefix}"
     end
 
-    if build.include? 'with-imap'
+    if build.with? 'imap'
       args << "--with-imap=#{Formula['imap-uw'].opt_prefix}"
       args << "--with-imap-ssl=/usr"
     end
 
-    if build.include? 'with-intl'
+    if build.with? 'intl'
       opoo "INTL is broken as of mxcl/homebrew#03ed757c, please install php#{php_version_path.to_s}-intl" unless build_intl?
       args << "--enable-intl" if build_intl?
       args << "--with-icu-dir=#{Formula['icu4c'].opt_prefix}" if build_intl?
     end
 
-    if build.include? 'with-mssql'
+    if build.with? 'mssql'
       args << "--with-mssql=#{Formula['freetds'].opt_prefix}"
       args << "--with-pdo-dblib=#{Formula['freetds'].opt_prefix}"
     end
 
-    if build.include? 'with-libmysql'
+    if build.with? 'libmysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=#{HOMEBREW_PREFIX}/bin/mysql_config"
       args << "--with-mysql=#{HOMEBREW_PREFIX}"
       args << "--with-pdo-mysql=#{HOMEBREW_PREFIX}"
-    elsif !build.include? 'without-mysql'
+    elsif build.with? 'mysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.include? 'with-pgsql'
+    if build.with? 'pgsql'
       if File.directory?(Formula['postgresql'].opt_prefix.to_s)
         args << "--with-pgsql=#{Formula['postgresql'].opt_prefix}"
         args << "--with-pdo-pgsql=#{Formula['postgresql'].opt_prefix}"
@@ -306,7 +320,7 @@ INFO
       end
     end
 
-    if build.include? 'with-pdo-oci'
+    if build.with? 'pdo-oci'
       if ENV.has_key?('ORACLE_HOME')
         args << "--with-pdo-oci=#{ENV['ORACLE_HOME']}"
       else
@@ -314,46 +328,26 @@ INFO
       end
     end
 
-    if build.include? 'with-tidy'
+    if build.with? 'tidy'
       args << "--with-tidy=#{Formula['tidy'].opt_prefix}"
     end
 
-    if build.include? 'without-pear'
+    if build.without? 'pear'
       args << "--without-pear"
     end
 
-    if build.include? 'with-thread-safety'
+    if build.with? 'thread-safety'
       args << "--enable-maintainer-zts"
     end
 
-    unless build.include? 'without-pcntl'
+    if build.with? 'pcntl'
       args << "--enable-pcntl"
     end
 
-    if build.include? 'with-phpdbg'
+    if build.with? 'phpdbg'
       args << "--enable-phpdbg"
     end
 
-    args
-  end
-
-  def default_config
-    "./php.ini-development"
-  end
-
-  def skip_pear_config_set?
-    build.include? 'without-pear'
-  end
-
-  def patches
-    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
-    # outdated system libraries being first on library search path:
-    # https://bugs.php.net/bug.php?id=44294
-    "https://gist.github.com/ablyler/6579338/raw/5713096862e271ca78e733b95e0235d80fed671a/Makefile.global.diff" if MacOS.version == :leopard
-  end
-
-  def _install
-    args = install_args
     system "./buildconf" if build.head?
     system "./configure", *args
 
@@ -380,7 +374,7 @@ INFO
 
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
 
-    if build.include? 'with-fpm'
+    if build.with? 'fpm'
       if File.exists?('sapi/fpm/init.d.php-fpm')
         sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm"
       end
@@ -433,7 +427,7 @@ INFO
           #{config_path}/php.ini
     EOS
 
-    unless build.include? 'without-pear'
+    if build.with? 'pear'
       s << <<-EOS.undent
         ✩✩✩✩ PEAR ✩✩✩✩
 
@@ -461,7 +455,7 @@ INFO
       If you wish to swap the PHP you use on the command line, you should add the following to ~/.bashrc,
       ~/.zshrc, ~/.profile or your shell's equivalent configuration file:
 
-            export PATH="$(brew --prefix josegonzalez/php/php#{php_version.to_s.gsub('.','')})/bin:$PATH"
+            export PATH="$(brew --prefix homebrew/php/php#{php_version.to_s.gsub('.','')})/bin:$PATH"
     EOS
 
     if build.include?('with-intl') && !build_intl?
@@ -493,13 +487,13 @@ INFO
         To launch php-fpm on startup:
             * If this is your first install:
                 mkdir -p ~/Library/LaunchAgents
-                cp #{prefix}/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist ~/Library/LaunchAgents/
-                launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
+                cp #{plist_path} ~/Library/LaunchAgents/
+                launchctl load -w ~/Library/LaunchAgents/#{plist_name}.plist
 
-            * If this is an upgrade and you already have the homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist loaded:
-                launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
-                cp #{prefix}/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist ~/Library/LaunchAgents/
-                launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
+            * If this is an upgrade and you already have the #{plist_name}.plist loaded:
+                launchctl unload -w ~/Library/LaunchAgents/#{plist_name}.plist
+                cp #{plist_path} ~/Library/LaunchAgents/
+                launchctl load -w ~/Library/LaunchAgents/#{plist_name}.plist
 
         The control script is located at #{sbin}/php#{php_version_path.to_s}-fpm
       EOS
@@ -515,7 +509,7 @@ INFO
       s << <<-EOS.undent
         You may also need to edit the plist to use the correct "UserName".
 
-        Please note that the plist was called 'org.php-fpm.plist' in old versions
+        Please note that the plist was called 'homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist' in old versions
         of this formula.
       EOS
     end
@@ -529,10 +523,7 @@ INFO
     end
   end
 
-  # Override Formula#plist_name
-  def plist_name; "homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}" end
-
-  def php_fpm_startup_plist; <<-EOPLIST.undent
+  def plist; <<-EOPLIST.undent
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
@@ -540,7 +531,7 @@ INFO
       <key>KeepAlive</key>
       <true/>
       <key>Label</key>
-      <string>homebrew-php.josegonzalez.php#{php_version_path.to_s}</string>
+      <string>#{plist_name}</string>
       <key>ProgramArguments</key>
       <array>
         <string>#{sbin}/php-fpm</string>

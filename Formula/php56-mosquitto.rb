@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php56Mosquitto < AbstractPhp56Extension
   init
   homepage 'https://github.com/mgdm/Mosquitto-PHP/'
-  url 'http://pecl.php.net/get/Mosquitto-0.2.1.tgz'
-  sha1 '0fefee84da5f84dcf78ad0c5deea35f5cce451e4'
+  url 'http://pecl.php.net/get/Mosquitto-0.2.2.tgz'
+  sha1 'b63a5816c89b617d95c0620743edb082a5b0382b'
   head 'https://github.com/mgdm/Mosquitto-PHP.git'
 
   depends_on 'mosquitto'
@@ -18,6 +18,6 @@ class Php56Mosquitto < AbstractPhp56Extension
     system "./configure", "--prefix=#{prefix}", phpconfig
     system "make"
     prefix.install "modules/mosquitto.so"
-    write_config_file unless build.include? "without-config-file"
+    write_config_file if build.with? "config-file"
   end
 end

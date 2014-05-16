@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Timezonedb < AbstractPhp54Extension
   init
   homepage 'http://pecl.php.net/package/timezonedb'
-  url 'http://pecl.php.net/get/timezonedb-2013.9.tgz'
-  sha1 '2eca11ebd81ba1d3e649e6289506ed0442c23e1f'
+  url 'http://pecl.php.net/get/timezonedb-2014.3.tgz'
+  sha1 '4a301b2c122652082f9f06669c6ceee6c7c53f66'
   head 'https://svn.php.net/repository/pecl/timezonedb/trunk/'
 
   def install
@@ -17,7 +17,6 @@ class Php54Timezonedb < AbstractPhp54Extension
                           phpconfig
     system "make"
     prefix.install "modules/timezonedb.so"
-    write_config_file unless build.include? "without-config-file"
+    write_config_file if build.with? "config-file"
   end
-
 end

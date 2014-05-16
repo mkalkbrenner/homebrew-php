@@ -4,8 +4,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php56Sphinx < AbstractPhp56Extension
   init
   homepage 'http://pecl.php.net/package/sphinx'
-  url 'http://pecl.php.net/get/sphinx-1.3.0.tgz'
-  sha1 '87a25a6dc8fecaade453ca55ff5d1822bbef0b1a'
+  url 'http://pecl.php.net/get/sphinx-1.3.1.tgz'
+  sha1 '969ecd6dbff65e7af67b5c448af8a0015fd494d0'
 
   depends_on 'libsphinxclient'
 
@@ -21,6 +21,6 @@ class Php56Sphinx < AbstractPhp56Extension
     system "./configure", *args
     system "make"
     prefix.install "modules/sphinx.so"
-    write_config_file unless build.include? "without-config-file"
+    write_config_file if build.with? "config-file"
   end
 end

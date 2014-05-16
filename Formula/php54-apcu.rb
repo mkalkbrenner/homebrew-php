@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Apcu < AbstractPhp54Extension
   init
   homepage 'http://pecl.php.net/package/apcu'
-  url 'http://pecl.php.net/get/apcu-4.0.2.tgz'
-  sha1 'dd8a2ed00304501318f678a7f5b7364af4fc7dcf'
+  url 'http://pecl.php.net/get/apcu-4.0.4.tgz'
+  sha1 'c196548421fd7fdbbbc23050f0d786f0ae45f290'
   head 'https://github.com/krakjoe/apcu.git'
 
   option 'with-apc-bc', "Wether APCu should provide APC full compatibility support"
@@ -17,7 +17,7 @@ class Php54Apcu < AbstractPhp54Extension
 
     args = []
     args << "--enable-apcu"
-    args << "--enable-apc-bc" if build.include? 'with-apc-bc'
+    args << "--enable-apc-bc" if build.with? 'apc-bc'
 
     safe_phpize
 
@@ -26,7 +26,7 @@ class Php54Apcu < AbstractPhp54Extension
                           *args
     system "make"
     prefix.install "modules/apcu.so"
-    write_config_file unless build.include? "without-config-file"
+    write_config_file if build.with? "config-file"
   end
 
   def config_file
