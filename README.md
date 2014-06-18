@@ -24,7 +24,7 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 - File an awesome bug report, using the information in the next section.
 - If you have a failing install due to `GD build test failed`, try running the following before attempting to reinstall:
 
-```
+```sh
 brew rm freetype jpeg libpng gd zlib
 brew install freetype jpeg libpng gd zlib
 ```
@@ -34,7 +34,6 @@ Doing all of these might be a hassle, but will more than likely ensure you eithe
 ## Common upgrade issues
 
 If you have recently upgraded your Mac OS X version or Xcode, you may have some compilation or missing libraries issues. The following information may help you solve most of the problems:
-
 
 - Ensure you have properly upgraded CLT depending on your Xcode version.
 - Proceed step by step to isolate the responsible formula. If you need to install `php55` and `php55-imagick`, don't do `brew install php55 php55-imagick`. Just do `brew install php55`, ensure everything is working as expected, check the output of `phpinfo()`, restart your Apache server with `sudo apachectl restart`. Then you can install the next formula `brew install php55-imagick`.
@@ -81,37 +80,53 @@ _[Brew Tap]_
 
 Setup the `homebrew/dupes` tap which has dependencies we need:
 
-    brew tap homebrew/dupes
+```sh
+brew tap homebrew/dupes
+```
 
 Setup the `homebrew/versions` tap which has dependencies we need:
 
-    brew tap homebrew/versions
+```sh
+brew tap homebrew/versions
+```
 
 Then, run the following in your command-line:
 
-    brew tap homebrew/homebrew-php
+```sh
+brew tap homebrew/homebrew-php
+```
 
 ## Usage
 
 Tap the `homebrew/dupes` repository into your brew installation:
 
-    brew tap homebrew/dupes
+```sh
+brew tap homebrew/dupes
+```
 
 Tap the `homebrew/versions` repository into your brew installation:
 
-    brew tap homebrew/versions
+```sh
+brew tap homebrew/versions
+```
 
 Tap the repository into your brew installation:
 
-    brew tap homebrew/homebrew-php
+```sh
+brew tap homebrew/homebrew-php
+```
 
 **Note:** For a list of available configuration options run:
 
-    brew options php55
+```sh
+brew options php55
+```
 
-Then install php53, php54, php55, or any formulae you might need:
+Then install `php53`, `php54`, `php55`, or any formulae you might need:
 
-    brew install php55
+```sh
+brew install php55
+```
 
 That's it!
 
@@ -127,8 +142,8 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 # /etc/apache2/httpd.conf
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.28/libexec/apache2/libphp5.so
-LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.12/libexec/apache2/libphp5.so
+# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.29/libexec/apache2/libphp5.so
+LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.13/libexec/apache2/libphp5.so
 ```
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
@@ -136,7 +151,7 @@ If using FPM, you will need to unload the `plist` controlling php, or manually s
 ```sh
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-cp $HOMEBREW_PREFIX/Cellar/php55/5.5.12/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
+cp $HOMEBREW_PREFIX/Cellar/php55/5.5.13/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 ```
@@ -155,7 +170,9 @@ Please be aware that you must make this type of change EACH time you swap betwee
 
 If installing `php53`, `php54` or `php55`, please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
 
-    pear install PHP_CodeSniffer
+```sh
+pear install PHP_CodeSniffer
+```
 
 It would be nice to be able to use the `phpcs` command via command-line, or other utilities. You will need to add the installed php's `bin` directory to your path. The following would be added to your `.bashrc` or `.bash_profile` when running the `php55` brew:
 
@@ -173,7 +190,7 @@ Some caveats:
 
 The following kinds of brews are allowed:
 
-- PHP Extensions: They may be built with PECL, but installation via Homebrew is sometimes much easier.
+- PHP Extensions: they may be built with PECL, but installation via Homebrew is sometimes much easier.
 - PHP Utilities: php-version, php-build fall under this category.
 - Common PHP Web Applications: phpMyAdmin goes here. Note that WordPress would not qualify because it requires other migration steps, such as database migrations etc.
 - PHP Frameworks: these are to be reviewed on a case-by-case basis. Generally, only a recent, stable version of a popular framework will be allowed.
@@ -221,14 +238,14 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.28` and `5.5.12`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.29` and `5.5.13`.
 
-Please also consider adding PHP extensions for PHP 5.6 beta version : `5.6.0-beta2`.
+Please also consider adding PHP extensions for PHP 5.6 beta version : `5.6.0-beta4`.
 
 ## Todo
 
-* ~~Proper PHP Versioning? See issue [#1](https://github.com/homebrew/homebrew-php/issues/8)~~
-* ~~Pull out all PHP-related brews from Homebrew~~
+- [x] Proper PHP Versioning? See issue [#1](https://github.com/homebrew/homebrew-php/issues/8)
+- [x] Pull out all PHP-related brews from Homebrew
 
 ## License
 
