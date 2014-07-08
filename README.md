@@ -2,6 +2,13 @@
 
 A centralized repository for PHP-related brews.
 
+## Bugs happen
+
+The more information you provide and the more detailed your report is, the easier for us to fix it.
+The best practice in filling a bug report can be seen for this issue https://github.com/Homebrew/homebrew-php/issues/1225.
+
+Please refer to [this section](#filing-bug-reports) for more information.
+
 ## Common Issues
 
 Bugs inevitably happen - none of us is running EVERY conceivable setup - but hopefully the install process can be made smoother through the following tips:
@@ -43,6 +50,27 @@ If you have recently upgraded your Mac OS X version or Xcode, you may have some 
 
 ### Filing Bug Reports
 
+The best practice for filling bug reports can be found here : https://github.com/Homebrew/homebrew-php/issues/1225.
+
+A blank bug report template can be found [here](https://gist.githubusercontent.com/lucasmichot/413c340c3fd97fef4cc0/raw/ce219a1cf2cd128764fce83628c47bf7e0d8adef/homebrew-php-bug-report-template).
+
+You can also copy/paste this markdown and add it in the description of your bug report:
+
+```
+<problem description>
+
+Parameter | Value
+------------------ | ------------------
+**OS X Version:** | <your OSX version>
+**Homebrew Version:** | <your Homebrew version>
+**PHP Version in use:** | <your PHP version>
+**Xcode Version:** | <your Xcode version>
+**Output of gcc -v:** | <result of the CLI output>
+**Output of php -v:** | <result of the CLI output>
+**Output of brew install -v path/to/homebrew-php/the-formula-you-want-to-test.rb --with-your --opts-here within a gist** | <result of the CLI output>
+**Output of brew doctor within a gist** | <the link to your public Gist>
+```
+
 Please include the following information in your bug report:
 
 - OS X Version: ex. 10.7.3, 10.6.3
@@ -76,8 +104,6 @@ The purpose of this repository is to allow PHP developers to quickly retrieve wo
 
 ## Installation
 
-_[Brew Tap]_
-
 Setup the `homebrew/dupes` tap which has dependencies we need:
 
 ```sh
@@ -98,31 +124,13 @@ brew tap homebrew/homebrew-php
 
 ## Usage
 
-Tap the `homebrew/dupes` repository into your brew installation:
-
-```sh
-brew tap homebrew/dupes
-```
-
-Tap the `homebrew/versions` repository into your brew installation:
-
-```sh
-brew tap homebrew/versions
-```
-
-Tap the repository into your brew installation:
-
-```sh
-brew tap homebrew/homebrew-php
-```
-
 **Note:** For a list of available configuration options run:
 
 ```sh
 brew options php55
 ```
 
-Then install `php53`, `php54`, `php55`, or any formulae you might need:
+Once the tap is installed, you can install `php53`, `php54`, `php55`, or any formulae you might need via:
 
 ```sh
 brew install php55
@@ -142,8 +150,8 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 # /etc/apache2/httpd.conf
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.29/libexec/apache2/libphp5.so
-LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.13/libexec/apache2/libphp5.so
+# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.30/libexec/apache2/libphp5.so
+LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.14/libexec/apache2/libphp5.so
 ```
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
@@ -151,7 +159,7 @@ If using FPM, you will need to unload the `plist` controlling php, or manually s
 ```sh
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-cp $HOMEBREW_PREFIX/Cellar/php55/5.5.13/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
+cp $HOMEBREW_PREFIX/Cellar/php55/5.5.14/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 ```
@@ -238,9 +246,9 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.29` and `5.5.13`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.30` and `5.5.14`.
 
-Please also consider adding PHP extensions for PHP 5.6 beta version : `5.6.0-beta4`.
+Please also consider adding PHP extensions for PHP 5.6: `5.6.0-rc2`.
 
 ## Todo
 

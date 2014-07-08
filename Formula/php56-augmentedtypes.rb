@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Augmentedtypes < AbstractPhp54Extension
+class Php56Augmentedtypes < AbstractPhp56Extension
   init
   homepage 'https://github.com/box/augmented_types'
   url 'https://github.com/box/augmented_types/archive/v0.6.2.tar.gz'

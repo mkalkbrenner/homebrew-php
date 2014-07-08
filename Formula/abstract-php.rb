@@ -12,7 +12,7 @@ def build_intl?
 end
 
 class AbstractPhp < Formula
-  def initialize name="__UNKNOWN__", *args
+  def initialize(name, *args)
     begin
       raise "One does not simply install an AbstractPhp formula" if name == "abstract-php"
       super
@@ -38,7 +38,7 @@ class AbstractPhp < Formula
     homepage 'http://php.net'
 
     # So PHP extensions don't report missing symbols
-    skip_clean ['bin', 'sbin']
+    skip_clean 'bin', 'sbin'
 
     head do
       depends_on 'autoconf' => :build
