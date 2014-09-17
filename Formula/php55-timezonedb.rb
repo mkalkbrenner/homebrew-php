@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Timezonedb < AbstractPhp55Extension
   init
   homepage 'http://pecl.php.net/package/timezonedb'
-  url 'http://pecl.php.net/get/timezonedb-2014.5.tgz'
-  sha1 '5d5a3e860fb86debffb9e2137c03b2046974fa2f'
+  url 'http://pecl.php.net/get/timezonedb-2014.7.tgz'
+  sha1 '794dee202e627566ad51b6c44e234c10c8c7afbc'
   head 'https://svn.php.net/repository/pecl/timezonedb/trunk/'
 
   def install

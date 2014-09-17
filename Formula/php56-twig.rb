@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Twig < AbstractPhp56Extension
   init
   homepage 'http://twig.sensiolabs.org/'
-  url 'https://github.com/fabpot/Twig/archive/v1.15.1.tar.gz'
-  sha1 '6431a8544f3a95f01d3e36d723daec037131629a'
+  url 'https://github.com/fabpot/Twig/archive/v1.16.0.tar.gz'
+  sha1 '078d346665f30c32d0c33e19c8e8075b7955d156'
   head 'https://github.com/fabpot/Twig.git'
 
   def install

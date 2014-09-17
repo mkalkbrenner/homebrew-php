@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Xhp < AbstractPhp55Extension
   init
@@ -12,7 +12,6 @@ class Php55Xhp < AbstractPhp55Extension
   depends_on 're2c'
 
   fails_with :clang do
-    build 500
     cause <<-EOS.undent
       Clang which does not support the standard rope implementation. Use gcc instead.
       Source: https://github.com/facebook/xhp/commit/8aa2d9fa6bf3a114e113ba5c554181279545fb2f

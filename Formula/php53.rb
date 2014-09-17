@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'abstract-php')
+require File.expand_path("../../Abstract/abstract-php", __FILE__)
 
 class Php53 < AbstractPhp
   init
@@ -14,7 +14,7 @@ class Php53 < AbstractPhp
   depends_on 'autoconf' => :build
   depends_on 're2c' => :build
   depends_on 'flex' => :build
-  depends_on 'bison27' => :build
+  depends_on 'homebrew/versions/bison27' => :build
 
   depends_on 'libevent' if build.with? 'fpm'
 
@@ -29,10 +29,9 @@ class Php53 < AbstractPhp
   end
 
   def install_args
-    super + [
-      "--enable-zend-multibyte",
-      "--enable-sqlite-utf8",
-    ]
+    args = super
+    args << "--enable-zend-multibyte" unless build.include? 'disable-zend-multibyte'
+    args << "--enable-sqlite-utf8"
   end
 
   def php_version
@@ -67,7 +66,7 @@ index d506892..51617e8 100755
 
  case $host_alias in
 -*darwin9*|*darwin10*|*darwin11*|*darwin12*)
-+*darwin9*|*darwin10*|*darwin11*|*darwin12*|*darwin13*)
++*darwin9*|*darwin10*|*darwin11*|*darwin12*|*darwin13*|*darwin14*)
    ac_cv_exeext=
    ;;
  esac
@@ -80,7 +79,7 @@ index 4bf50ad..b0c9747 100644
  dnl This hack works around it. Ugly.
  case $host_alias in
 -*darwin9*|*darwin10*|*darwin11*|*darwin12*)
-+*darwin9*|*darwin10*|*darwin11*|*darwin12*|*darwin13*)
++*darwin9*|*darwin10*|*darwin11*|*darwin12*|*darwin13*|*darwin14*)
    ac_cv_exeext=
    ;;
  esac

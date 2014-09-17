@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'abstract-php')
+require File.expand_path("../../Abstract/abstract-php", __FILE__)
 
 class Php56 < AbstractPhp
   init
@@ -20,7 +20,7 @@ class Php56 < AbstractPhp
     args << "--enable-dtrace" if build.without? 'phpdbg'
     # dtrace is not compatible with phpdbg: https://github.com/krakjoe/phpdbg/issues/38
     args << "--disable-phpdbg" if build.without? 'phpdbg'
-    if build.include('disable-opcache')
+    if build.include? 'disable-opcache'
       args << "--disable-opcache"
     else
       args << "--enable-opcache"

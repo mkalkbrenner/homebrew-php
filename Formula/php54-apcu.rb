@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Apcu < AbstractPhp54Extension
   init
@@ -7,7 +7,7 @@ class Php54Apcu < AbstractPhp54Extension
   sha1 'f4841f20b333638381b3180ffa1f66b69de1de0f'
   head 'https://github.com/krakjoe/apcu.git'
 
-  option 'with-apc-bc', "Wether APCu should provide APC full compatibility support"
+  option 'with-apc-bc', "Whether APCu should provide APC full compatibility support"
   depends_on 'pcre'
 
   def install

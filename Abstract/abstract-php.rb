@@ -7,33 +7,7 @@ def postgres_installed?
   `which pg_config`.length > 0
 end
 
-def build_intl?
-  false
-end
-
 class AbstractPhp < Formula
-  def initialize(name, *args)
-    begin
-      raise "One does not simply install an AbstractPhp formula" if name == "abstract-php"
-      super
-    rescue Exception => e
-      # Hack so that we pass all brew doctor tests
-      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|leaves|uses)\.rb/) }
-      raise e if reraise.empty?
-    end
-  end
-
-  # Hack to allow 'brew uses' to work, which requires deps, version, and requirements
-  %w(deps requirements version).each do |method|
-    define_method(method) do
-      if defined?(active_spec) && active_spec.respond_to?(method)
-        active_spec.send(method)
-      else
-        method === 'version' ? 'abstract' : []
-      end
-    end
-  end
-
   def self.init
     homepage 'http://php.net'
 
@@ -44,7 +18,7 @@ class AbstractPhp < Formula
       depends_on 'autoconf' => :build
       depends_on 're2c' => :build
       depends_on 'flex' => :build
-      depends_on 'bison27' => :build
+      depends_on 'homebrew/versions/bison27' => :build
     end
 
     depends_on 'curl' if build.include?('with-homebrew-curl') || MacOS.version < :lion
@@ -52,7 +26,7 @@ class AbstractPhp < Formula
     depends_on 'freetype'
     depends_on 'gettext'
     depends_on 'gmp' => :optional
-    depends_on 'icu4c' if build.include?('with-intl') && build_intl?
+    depends_on 'icu4c'
     depends_on 'imap-uw' if build.include?('with-imap')
     depends_on 'jpeg'
     depends_on 'libpng'
@@ -84,7 +58,6 @@ class AbstractPhp < Formula
     option 'with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'
     option 'with-phpdbg', 'Enable building of the phpdbg SAPI executable (PHP 5.4 and above)'
     option 'with-apache', 'Enable building of shared Apache 2.0 Handler module, overriding any options which disable apache'
-    option 'with-intl', 'Include internationalization support'
     option 'with-imap', 'Include IMAP extension'
     option 'without-pear', 'Build without PEAR'
     option 'with-tidy', 'Include Tidy support'
@@ -92,8 +65,10 @@ class AbstractPhp < Formula
     option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
     option 'with-homebrew-libxslt', 'Include LibXSLT support via Homebrew'
     option 'without-bz2', 'Build without bz2 support'
+    option 'without-snmp', 'Build without SNMP support'
     option 'without-pcntl', 'Build without Process Control support'
     option 'disable-opcache', 'Build without Opcache extension'
+    option 'disable-zend-multibyte', 'Disable auto-detection of Unicode encoded scripts (PHP 5.2 and 5.3 only)'
   end
 
   # Fixes the pear .lock permissions issue that keeps it from operating correctly.
@@ -186,7 +161,7 @@ INFO
     "https://gist.github.com/ablyler/6579338/raw/5713096862e271ca78e733b95e0235d80fed671a/Makefile.global.diff" if MacOS.version == :leopard
   end
 
-  def _install
+  def install_args
     args = [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
@@ -197,6 +172,7 @@ INFO
       "--enable-dba",
       "--with-ndbm=/usr",
       "--enable-exif",
+      "--enable-intl",
       "--enable-soap",
       "--enable-wddx",
       "--enable-ftp",
@@ -218,10 +194,10 @@ INFO
       "--with-gd",
       "--enable-gd-native-ttf",
       "--with-freetype-dir=#{Formula['freetype'].opt_prefix}",
+      "--with-icu-dir=#{Formula['icu4c'].opt_prefix}",
       "--with-jpeg-dir=#{Formula['jpeg'].opt_prefix}",
       "--with-png-dir=#{Formula['libpng'].opt_prefix}",
       "--with-gettext=#{Formula['gettext'].opt_prefix}",
-      "--with-snmp=/usr",
       "--with-libedit",
       "--with-unixODBC=#{Formula['unixodbc'].opt_prefix}",
       "--with-pdo-odbc=unixODBC,#{Formula['unixodbc'].opt_prefix}",
@@ -233,6 +209,16 @@ INFO
       args << "--with-curl=#{Formula['curl'].opt_prefix}"
     else
       args << "--with-curl"
+    end
+
+    if build.with? 'snmp'
+      if MacOS.version >= :yosemite && (build.include?('with-thread-safety') || build.include?('with-homebrew-openssl'))
+        raise "Please add --without-snmp if you wish to use --with-thread-safety or --with-homebrew-openssl on >= Yosemite.  See issue #1311 (http://git.io/NBAOvA) for details."
+      end
+
+      args << "--with-snmp=/usr"
+    else
+      args << "--without-snmp"
     end
 
     unless MacOS.version >= :lion
@@ -287,12 +273,6 @@ INFO
     if build.with? 'imap'
       args << "--with-imap=#{Formula['imap-uw'].opt_prefix}"
       args << "--with-imap-ssl=/usr"
-    end
-
-    if build.with? 'intl'
-      opoo "INTL is broken as of mxcl/homebrew#03ed757c, please install php#{php_version_path.to_s}-intl" unless build_intl?
-      args << "--enable-intl" if build_intl?
-      args << "--with-icu-dir=#{Formula['icu4c'].opt_prefix}" if build_intl?
     end
 
     if build.with? 'mssql'
@@ -350,8 +330,12 @@ INFO
       args << "--enable-phpdbg"
     end
 
+    return args
+  end
+
+  def _install
     system "./buildconf" if build.head?
-    system "./configure", *args
+    system "./configure", *install_args()
 
     if build_apache?
       # Use Homebrew prefix for the Apache libexec folder
@@ -360,10 +344,8 @@ INFO
         "INSTALL_IT = $(mkinstalldirs) '#{libexec}/apache2' \\2 LIBEXECDIR='#{libexec}/apache2' \\4"
     end
 
-    if build.include?('with-intl') && build_intl?
-      inreplace 'Makefile' do |s|
-        s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
-      end
+    inreplace 'Makefile' do |s|
+      s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
     end
 
     system "make"
@@ -375,6 +357,12 @@ INFO
     chmod_R 0775, lib+"php"
 
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
+
+    # remove intl.ini, since it is now always compiled into php
+    intl_config = config_path + "conf.d/ext-intl.ini"
+    if intl_config.file?
+      File.delete intl_config
+    end
 
     if build.with? 'fpm'
       if File.exist?('sapi/fpm/init.d.php-fpm')
@@ -397,6 +385,7 @@ INFO
         inreplace config_path+"php-fpm.conf" do |s|
           s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
           s.sub!(/^;include\s*=.+$/,";include=#{config_path}/fpm.d/*.conf")
+          s.sub!(/^;?listen\.mode\s*=.+$/,'listen.mode = 0666')
           s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 10')
           s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 3')
           s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 2')
@@ -459,17 +448,6 @@ INFO
 
             export PATH="$(brew --prefix homebrew/php/php#{php_version.to_s.gsub('.','')})/bin:$PATH"
     EOS
-
-    if build.include?('with-intl') && !build_intl?
-    s << <<-EOS.undent
-      ✩✩✩✩✩ INTL Support ✩✩✩✩✩
-
-      icu4c is broken as of mxcl/homebrew#03ed757c, so you will need to install intl as
-      a separate extension:
-
-          brew install php#{php_version_path.to_s}-intl
-    EOS
-    end
 
     if build.include?('with-mcrypt')
     s << <<-EOS.undent

@@ -150,8 +150,8 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 # /etc/apache2/httpd.conf
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.30/libexec/apache2/libphp5.so
-LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.14/libexec/apache2/libphp5.so
+# LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.32/libexec/apache2/libphp5.so
+LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.16/libexec/apache2/libphp5.so
 ```
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
@@ -159,7 +159,7 @@ If using FPM, you will need to unload the `plist` controlling php, or manually s
 ```sh
 # Swapping from PHP 5.4 to PHP 5.5
 # $HOMEBREW_PREFIX is normally `/usr/local`
-cp $HOMEBREW_PREFIX/Cellar/php55/5.5.14/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
+cp $HOMEBREW_PREFIX/Cellar/php55/5.5.16/homebrew.mxcl.php55.plist ~/Library/LaunchAgents/
 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 ```
@@ -212,7 +212,7 @@ PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `
 The template for the `php55-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
 ```ruby
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Example < AbstractPhp55Extension
   init
@@ -246,9 +246,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.28`, `5.4.30` and `5.5.14`.
-
-Please also consider adding PHP extensions for PHP 5.6: `5.6.0-rc2`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.32`, `5.5.16` and `5.6.0`.
 
 ## Todo
 

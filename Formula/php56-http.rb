@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), 'abstract-php-extension')
+require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Http < AbstractPhp56Extension
   init
   homepage 'http://pecl.php.net/package/pecl_http'
-  url 'http://pecl.php.net/get/pecl_http-2.0.6.tgz'
-  sha1 '9a2193bb5b032106f759ac622d3dd055140a0295'
+  url 'http://pecl.php.net/get/pecl_http-2.1.0.tgz'
+  sha1 '2b836f1ba1f1efbffc2d54681fee0126479df903'
   head 'https://git.php.net/repository/pecl/http/pecl_http.git'
 
   depends_on 'curl' => :build
