@@ -31,7 +31,7 @@ class PhpCodeSniffer < Formula
       File.delete libexec+phpcs_script_name
     end
     libexec.install_symlink prefix+'scripts'+phpcs_script_name
-    
+
     if File.symlink? bin+phpcs_script_name
       File.delete bin+phpcs_script_name
     end
@@ -47,7 +47,7 @@ class PhpCodeSniffer < Formula
 
       if File.symlink? bin+phpcbf_script_name
         File.delete bin+phpcbf_script_name
-      end      
+      end
       bin.install_symlink prefix+'scripts'+phpcbf_script_name
     end
 
@@ -55,9 +55,7 @@ class PhpCodeSniffer < Formula
     # be substituting @data_dir@ with #{etc} and making sure the
     # folder #{etc}/PHP_CodeSniffer exists.
     (etc+'PHP_CodeSniffer').mkpath
-    inreplace "#{prefix}/CodeSniffer.php" do |s|
-      s.gsub! /@data_dir@/, "#{etc}"
-    end
+    inreplace "#{prefix}/CodeSniffer.php", /@data_dir@/, etc
 
     # Create a place for other formulas to link their standards.
     phpcs_standards.mkpath

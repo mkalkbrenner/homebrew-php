@@ -42,9 +42,7 @@ class Php53 < AbstractPhp
     53
   end
 
-  def patches
-    DATA
-  end
+  patch :DATA
 end
 
 __END__

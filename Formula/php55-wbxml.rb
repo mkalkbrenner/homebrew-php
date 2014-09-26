@@ -9,10 +9,8 @@ class Php55Wbxml < AbstractPhp55Extension
 
   depends_on 'libwbxml'
 
-  def patches
-    # php-wbxml looks for the libwbxml headers in the wrong location
-    DATA
-  end
+  # php-wbxml looks for the libwbxml headers in the wrong location
+  patch :DATA
 
   def install
     Dir.chdir "wbxml-#{version}" unless build.head?
