@@ -2,19 +2,13 @@ require 'formula'
 require File.join(File.dirname(__FILE__), 'abstract-php-version')
 
 class UnsupportedPhpApiError < RuntimeError
-  attr :name
-
-  def initialize name
-    @name = name
+  def initialize
     super "Unsupported PHP API Version"
   end
 end
 
 class InvalidPhpizeError < RuntimeError
-  attr :name
-
-  def initialize (installed_php_version, required_php_version)
-    @name = name
+  def initialize(installed_php_version, required_php_version)
     super <<-EOS.undent
       Version of phpize (PHP#{installed_php_version}) in $PATH does not support building this extension
              version (PHP#{required_php_version}). Consider installing  with the `--without-homebrew-php` flag.
@@ -31,7 +25,7 @@ class AbstractPhpExtension < Formula
       i = IO.popen("#{phpize} -v")
       out = i.readlines.join("")
       i.close
-      { 53 => 20090626, 54 => 20100412 }.each do |v, api|
+      { 53 => 20090626, 54 => 20100412, 55 => 20121113 }.each do |v, api|
         installed_php_version = v.to_s if out.match(/#{api}/)
       end
 
