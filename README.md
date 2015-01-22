@@ -1,4 +1,4 @@
-# Homebrew-PHP
+# Homebrew PHP
 
 A centralized repository for PHP-related brews.
 
@@ -89,7 +89,7 @@ This will help us diagnose your issues much quicker, as well as find commonaliti
 
 ## Background
 
-This repository contains **PHP-related** formulae for [Homebrew](https://github.com/mxcl/homebrew).
+This repository contains **PHP-related** formulae for [Homebrew](https://github.com/Homebrew/homebrew).
 
 (This replaces the PHP formulae that used to live under [adamv's homebrew-alt repository](https://github.com/adamv/homebrew-alt).)
 
@@ -97,7 +97,7 @@ The purpose of this repository is to allow PHP developers to quickly retrieve wo
 
 ## Requirements
 
-* [Homebrew](https://github.com/mxcl/homebrew)
+* [Homebrew](https://github.com/Homebrew/homebrew)
 * Snow Leopard, Lion, Mountain Lion, Mavericks. Untested everywhere else.
 * The Homebrew `dupes` tap - `brew tap homebrew/dupes`
 * The Homebrew `versions` tap - `brew tap homebrew/versions`
@@ -151,7 +151,7 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 # Swapping from PHP 5.5 to PHP 5.6
 # $HOMEBREW_PREFIX is normally `/usr/local`
 # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php55/5.5.18/libexec/apache2/libphp5.so
-LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php56/5.6.2/libexec/apache2/libphp5.so
+LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php56/5.6.4/libexec/apache2/libphp5.so
 ```
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
@@ -159,7 +159,7 @@ If using FPM, you will need to unload the `plist` controlling php, or manually s
 ```sh
 # Swapping from PHP 5.5 to PHP 5.6
 # $HOMEBREW_PREFIX is normally `/usr/local`
-cp $HOMEBREW_PREFIX/Cellar/php56/5.6.2/homebrew.mxcl.php56.plist ~/Library/LaunchAgents/
+cp $HOMEBREW_PREFIX/Cellar/php56/5.6.4/homebrew.mxcl.php56.plist ~/Library/LaunchAgents/
 launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php56.plist
 ```
@@ -246,7 +246,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.33`, `5.5.18` and `5.6.2`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.36`, `5.5.20` and `5.6.4`.
 
 ## Todo
 

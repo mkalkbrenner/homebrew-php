@@ -3,13 +3,9 @@
 require 'formula'
 require File.join(File.dirname(__FILE__), 'abstract-php-version')
 
-def postgres_installed?
-  `which pg_config`.length > 0
-end
-
 class AbstractPhp < Formula
   def self.init
-    homepage 'http://php.net'
+    homepage 'https://php.net'
 
     # So PHP extensions don't report missing symbols
     skip_clean 'bin', 'sbin'
@@ -37,10 +33,10 @@ class AbstractPhp < Formula
     depends_on 'homebrew/dupes/zlib'
     depends_on 'libtool' => :build if build.without? 'disable-opcache'
 
+    deprecated_option "with-pgsql" => "with-postgresql"
+    depends_on :postgresql => :optional
+
     # Sanity Checks
-    if build.with? 'pgsql'
-      depends_on 'postgresql' => :recommended unless postgres_installed?
-    end
 
     if build.include?('with-cgi') && build.include?('with-fpm')
       raise "Cannot specify more than one executable to build."
@@ -51,7 +47,6 @@ class AbstractPhp < Formula
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support instead of mysqlnd'
     option 'without-mysql', 'Remove MySQL/MariaDB support'
-    option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
     option 'with-pdo-oci', 'Include Oracle databases (requries ORACLE_HOME be set)'
     option 'with-cgi', 'Enable building of the CGI executable (implies --without-apache)'
@@ -68,7 +63,6 @@ class AbstractPhp < Formula
     option 'without-snmp', 'Build without SNMP support'
     option 'without-pcntl', 'Build without Process Control support'
     option 'disable-opcache', 'Build without Opcache extension'
-    option 'disable-zend-multibyte', 'Disable auto-detection of Unicode encoded scripts (PHP 5.2 and 5.3 only)'
   end
 
   # Fixes the pear .lock permissions issue that keeps it from operating correctly.
@@ -76,7 +70,7 @@ class AbstractPhp < Formula
   skip_clean 'lib/php/.lock'
 
   def config_path
-    etc+"php/"+php_version.to_s
+    etc+"php"+php_version
   end
 
   def home_path
@@ -297,8 +291,8 @@ INFO
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.with? 'pgsql'
-      if File.directory?(Formula['postgresql'].opt_prefix.to_s)
+    if build.with? 'postgresql'
+      if Formula['postgresql'].opt_prefix.directory?
         args << "--with-pgsql=#{Formula['postgresql'].opt_prefix}"
         args << "--with-pdo-pgsql=#{Formula['postgresql'].opt_prefix}"
       else
@@ -371,11 +365,11 @@ INFO
 
     if build.with? 'fpm'
       if File.exist?('sapi/fpm/init.d.php-fpm')
-        sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm"
+        sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path}-fpm"
       end
 
       if File.exist?('sapi/cgi/fpm/php-fpm')
-        sbin.install 'sapi/cgi/fpm/php-fpm' => "php#{php_version_path.to_s}-fpm"
+        sbin.install 'sapi/cgi/fpm/php-fpm' => "php#{php_version_path}-fpm"
       end
 
       if !File.exist?(config_path+"php-fpm.conf")
@@ -414,7 +408,7 @@ INFO
 
       s << <<-EOS.undent
         To enable PHP in Apache add the following to httpd.conf and restart Apache:
-            LoadModule php5_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path.to_s}/libexec/apache2/libphp5.so
+            LoadModule php5_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path}/libexec/apache2/libphp5.so
       EOS
     end
 
@@ -429,7 +423,7 @@ INFO
 
         If PEAR complains about permissions, 'fix' the default PEAR permissions and config:
             chmod -R ug+w #{lib}/php
-            pear config-set php_ini #{etc}/php/#{php_version.to_s}/php.ini
+            pear config-set php_ini #{etc}/php/#{php_version}/php.ini
       EOS
     end
 
@@ -441,7 +435,7 @@ INFO
 
             PATH="#{HOMEBREW_PREFIX}/bin:$PATH"
 
-      PHP#{php_version_path.to_s} Extensions will always be compiled against this PHP. Please install them
+      PHP#{php_version_path} Extensions will always be compiled against this PHP. Please install them
       using --without-homebrew-php to enable compiling against system PHP.
     EOS
 
@@ -451,7 +445,7 @@ INFO
       If you wish to swap the PHP you use on the command line, you should add the following to ~/.bashrc,
       ~/.zshrc, ~/.profile or your shell's equivalent configuration file:
 
-            export PATH="$(brew --prefix homebrew/php/php#{php_version.to_s.gsub('.','')})/bin:$PATH"
+            export PATH="$(brew --prefix homebrew/php/php#{php_version.gsub('.','')})/bin:$PATH"
     EOS
 
     if build.include?('with-mcrypt')
@@ -460,7 +454,7 @@ INFO
 
       mcrypt is no longer included by default, install it as a separate extension:
 
-          brew install php#{php_version_path.to_s}-mcrypt
+          brew install php#{php_version_path}-mcrypt
     EOS
     end
 
@@ -480,7 +474,7 @@ INFO
                 cp #{plist_path} ~/Library/LaunchAgents/
                 launchctl load -w ~/Library/LaunchAgents/#{plist_name}.plist
 
-        The control script is located at #{sbin}/php#{php_version_path.to_s}-fpm
+        The control script is located at #{sbin}/php#{php_version_path}-fpm
       EOS
 
       if MacOS.version >= :mountain_lion
@@ -494,7 +488,7 @@ INFO
       s << <<-EOS.undent
         You may also need to edit the plist to use the correct "UserName".
 
-        Please note that the plist was called 'homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist' in old versions
+        Please note that the plist was called 'homebrew-php.josegonzalez.php#{php_version.gsub('.','')}.plist' in old versions
         of this formula.
       EOS
     end

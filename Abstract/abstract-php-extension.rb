@@ -46,11 +46,12 @@ class AbstractPhpExtension < Formula
   end
 
   def php_branch
-    matches = /^Php5([3-9]+)/.match(self.class.name)
+    class_name = self.class.name.split("::").last
+    matches = /^Php5([3-9]+)/.match(class_name)
     if matches
       "5." + matches[1]
     else
-      raise "Unable to guess PHP branch for #{self.class.name}"
+      raise "Unable to guess PHP branch for #{class_name}"
     end
   end
 
@@ -59,19 +60,16 @@ class AbstractPhpExtension < Formula
   end
 
   def safe_phpize
-    cmd = ''
-    cmd << "PHP_AUTOCONF=\"#{Formula['autoconf'].opt_prefix}/bin/autoconf\" "
-    cmd << "PHP_AUTOHEADER=\"#{Formula['autoconf'].opt_prefix}/bin/autoheader\" "
-    cmd << phpize
-
-    system cmd
+    ENV["PHP_AUTOCONF"] = "#{Formula["autoconf"].opt_bin}/autoconf"
+    ENV["PHP_AUTOHEADER"] = "#{Formula["autoconf"].opt_bin}/autoheader"
+    system phpize
   end
 
   def phpize
     if build.without? 'homebrew-php'
       "phpize"
     else
-      "#{(Formula[php_formula]).bin}/phpize"
+      "#{Formula[php_formula].opt_bin}/phpize"
     end
   end
 
@@ -79,7 +77,7 @@ class AbstractPhpExtension < Formula
     if build.without? 'homebrew-php'
       "php.ini presented by \"php --ini\""
     else
-      "#{(Formula[php_formula]).config_path}/php.ini"
+      "#{Formula[php_formula].config_path}/php.ini"
     end
   end
 
@@ -87,16 +85,17 @@ class AbstractPhpExtension < Formula
     if build.without? 'homebrew-php'
       ""
     else
-      "--with-php-config=#{(Formula[php_formula]).bin}/php-config"
+      "--with-php-config=#{Formula[php_formula].opt_bin}/php-config"
     end
   end
 
   def extension
-    matches = /^Php5[3-9](.+)/.match(self.class.name)
+    class_name = self.class.name.split("::").last
+    matches = /^Php5[3-9](.+)/.match(class_name)
     if matches
       matches[1].downcase
     else
-      raise "Unable to guess PHP extension name for #{self.class.name}"
+      raise "Unable to guess PHP extension name for #{class_name}"
     end
   end
 
