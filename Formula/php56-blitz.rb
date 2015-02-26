@@ -3,8 +3,15 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php56Blitz < AbstractPhp56Extension
   init
   homepage 'http://alexeyrybak.com/blitz/blitz_en.html'
-  url 'http://alexeyrybak.com/blitz/all-releases/blitz-0.8.14.tar.gz'
-  sha1 'f81cf59139849df553c40ea17667de107d48e9b7'
+  url 'https://github.com/alexeyrybak/blitz/archive/v0.8.17.tar.gz'
+  sha1 '9c47e7daf585493dcf5f5bad9e202228c28ed748'
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha1 "9f7e1a330354cb03905ab9aec3adae94f3e6fa96" => :yosemite
+    sha1 "918311273d2bd48ff4950ca21c4b561defd597e2" => :mavericks
+    sha1 "c4e63adaedfa5571da13875177292231c8df56e3" => :mountain_lion
+  end
 
   head 'https://github.com/alexeyrybak/blitz.git'
 

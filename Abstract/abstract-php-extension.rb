@@ -105,7 +105,7 @@ class AbstractPhpExtension < Formula
   end
 
   def module_path
-    prefix / "#{extension}.so"
+    opt_prefix / "#{extension}.so"
   end
 
   def config_file
@@ -167,7 +167,7 @@ EOS
   def write_config_file
     if config_filepath.file?
       inreplace config_filepath do |s|
-        s.gsub!(/^(zend_)?extension=.+$/, "#{extension_type}=\"#{module_path}\"")
+        s.gsub!(/^(;)?(\s*)(zend_)?extension=.+$/, "\\1\\2#{extension_type}=\"#{module_path}\"")
       end
     elsif config_file
       config_scandir_path.mkpath

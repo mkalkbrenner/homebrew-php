@@ -3,13 +3,8 @@ require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 
 class PhpCodeSniffer < Formula
   homepage 'http://pear.php.net/package/PHP_CodeSniffer'
-  url 'http://download.pear.php.net/package/PHP_CodeSniffer-1.5.6.tgz'
-  sha1 '11d1640fb6b9012cabbd6185b8988849def50eb1'
-
-  devel do
-    url 'http://download.pear.php.net/package/PHP_CodeSniffer-2.0.0.tgz'
-    sha1 '26bbeee20f95f7590450266f837104293aa14453'
-  end
+  url 'http://download.pear.php.net/package/PHP_CodeSniffer-2.2.0.tgz'
+  sha1 '5f4a25bfda4339fb80f61f8d324ec83a4c070ea0'
 
   depends_on PhpMetaRequirement
 
@@ -37,19 +32,15 @@ class PhpCodeSniffer < Formula
     end
     bin.install_symlink prefix+'scripts'+phpcs_script_name
 
-    # The alpha release comes with "PHP Code Beautifier and Fixer".
-    # See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically
-    if build.devel?
-      if File.symlink? libexec+phpcbf_script_name
-        File.delete libexec+phpcbf_script_name
-      end
-      libexec.install_symlink prefix+'scripts'+phpcbf_script_name
-
-      if File.symlink? bin+phpcbf_script_name
-        File.delete bin+phpcbf_script_name
-      end
-      bin.install_symlink prefix+'scripts'+phpcbf_script_name
+    if File.symlink? libexec+phpcbf_script_name
+      File.delete libexec+phpcbf_script_name
     end
+    libexec.install_symlink prefix+'scripts'+phpcbf_script_name
+
+    if File.symlink? bin+phpcbf_script_name
+      File.delete bin+phpcbf_script_name
+    end
+    bin.install_symlink prefix+'scripts'+phpcbf_script_name
 
     # Make sure the config file is preserved on upgrades. We do that
     # be substituting @data_dir@ with #{etc} and making sure the
@@ -75,8 +66,6 @@ class PhpCodeSniffer < Formula
   end
 
   def caveats; <<-EOS.undent
-    Install the alpha release of PHP CodeSniffer with the --devel option.
-
     Verify your installation by running:
 
       #{phpcs_script_name} --version
