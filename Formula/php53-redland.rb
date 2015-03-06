@@ -4,8 +4,15 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php53Redland < AbstractPhp53Extension
   init
   homepage 'http://librdf.org'
-  url 'http://download.librdf.org/source/redland-bindings-1.0.16.1.tar.gz'
-  sha1 '98c20b64cf5e99cbf29fcb84490e73e2a828213a'
+  url 'http://download.librdf.org/source/redland-bindings-1.0.17.1.tar.gz'
+  sha256 'ff72b587ab55f09daf81799cb3f9d263708fad5df7a5458f0c28566a2563b7f5'
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha1 "bfd3b0035add6db855102234339b1dfd8f0dffa0" => :yosemite
+    sha1 "19f385bebe9d397b7d6816cbeee7300a1a3f6a41" => :mavericks
+    sha1 "20a279b9541218a18e208284c043d7ea05592732" => :mountain_lion
+  end
 
   depends_on 'pkg-config' => :build
   depends_on 'redland'

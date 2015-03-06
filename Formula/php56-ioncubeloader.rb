@@ -1,15 +1,15 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php54Ioncubeloader < AbstractPhp54Extension
+class Php56Ioncubeloader < AbstractPhp56Extension
   init
   homepage "http://www.ioncube.com/loaders.php"
   if Hardware.is_64_bit?
     version "4.7.5"
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha1 "0b98bf9f06ed18ba2ed732ef6b5754c208dbe68a" => :yosemite
-    sha1 "2ba11dbf011cba849cb1a502dcffc748f40ef396" => :mavericks
-    sha1 "e1b6b6c88e40cb01dcec63fe8216183d8d1a401b" => :mountain_lion
+    sha1 "1afa94ee86d9bb533d28d0cc94788dff6f14c15b" => :yosemite
+    sha1 "45b8eb3729394694dbecb94a8866b64c21dded6a" => :mavericks
+    sha1 "da195600da8f73ea5503b35a0e1ec1015e58ef06" => :mountain_lion
   end
 
     url "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_dar_x86-64.tar.gz"
@@ -23,7 +23,7 @@ class Php54Ioncubeloader < AbstractPhp54Extension
   end
 
   def install
-    prefix.install "ioncube_loader_dar_5.4.so" => "ioncubeloader.so"
+    prefix.install "ioncube_loader_dar_5.6.so" => "ioncubeloader.so"
     write_config_file if build.with? "config-file"
   end
 

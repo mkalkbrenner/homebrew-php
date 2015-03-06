@@ -1,18 +1,17 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php54Opcache < AbstractPhp54Extension
+class Php55Opcache < AbstractPhp55Extension
   init
-  homepage "https://github.com/zend-dev/ZendOptimizerPlus"
-  url "https://github.com/zendtech/ZendOptimizerPlus/archive/v7.0.4.tar.gz"
-  sha1 "faefc5fcb5236edad3837dd496f97685ea5cd5da"
-  sha256 "3f930ad426eb2140d64691677f6755046ac55aa0099da2023bf0251f7c85685c"
-  head "https://github.com/zendtech/ZendOptimizerPlus.git"
+  homepage "http://php.net/manual/en/book.opcache.php"
+  url      PHP_SRC_TARBALL
+  sha256   PHP_CHECKSUM[:sha256]
+  version  PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha1 "1e98bd00fd80d3b3a45195cb58f64d1a34e9b11e" => :yosemite
-    sha1 "11f5dd70d930749ff26a4f7df8318d30123603c9" => :mavericks
-    sha1 "09a97ba8b3fa91ad4453aeadd105ab5598e2c7ca" => :mountain_lion
+    sha1 "3768e7a67852e06d223b60662bc59289901156d6" => :yosemite
+    sha1 "9a56a7fcb78c59ed8db591890038582c00c580fd" => :mavericks
+    sha1 "4872eba92c1a1e9ca5f4fdc83cab3724f6d319a5" => :mountain_lion
   end
 
   depends_on "pcre"
@@ -22,6 +21,8 @@ class Php54Opcache < AbstractPhp54Extension
   end
 
   def install
+    Dir.chdir "ext/opcache"
+
     ENV.universal_binary if build.universal?
 
     safe_phpize
@@ -30,6 +31,10 @@ class Php54Opcache < AbstractPhp54Extension
     system "make"
     prefix.install "modules/opcache.so"
     write_config_file if build.with? "config-file"
+  end
+
+  test do
+    shell_output("php -m").include?("Zend OPcache")
   end
 
   def config_file

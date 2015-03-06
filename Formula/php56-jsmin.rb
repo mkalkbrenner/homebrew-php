@@ -3,9 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php56Jsmin < AbstractPhp56Extension
   init
   homepage 'http://pecl.php.net/package/jsmin'
-  url 'http://pecl.php.net/get/jsmin-0.1.1.tgz'
-  sha1 'b1abfb443ce5df80866fc9350a792f3be814f568'
+  url 'http://pecl.php.net/get/jsmin-1.1.0.tgz'
+  sha1 'e081d7c66a9401b9cd8b0ad585f357a4d7e335ef'
   head 'https://github.com/sqmk/pecl-jsmin.git'
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha1 "260710b687ea64b79261664e4270f3ad1f4fab00" => :yosemite
+    sha1 "57aad90eca916479b7aab08c2d156e3b3500839e" => :mavericks
+    sha1 "90216a5363bcedfe27e932ac5e797fc1863abb51" => :mountain_lion
+  end
 
   def install
     Dir.chdir "jsmin-#{version}" unless build.head?
