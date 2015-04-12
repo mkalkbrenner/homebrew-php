@@ -11,9 +11,9 @@ class Php55 < AbstractPhp
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha1 "b7c1d5f599b0b7733813bcd84c0d286b0fbe84f7" => :yosemite
-    sha1 "8c4d5acad807b5dce82308616524dc8ffe56e526" => :mavericks
-    sha1 "a48eabb39c05ea7a82997df781cf689aaa341151" => :mountain_lion
+    sha256 "3b08a56caf7253d8e46e581c8e21936f730fd83026bbe0f74cff04dff48c59b8" => :yosemite
+    sha256 "ea359b94027c971036436d37e2b6d01aeae09b74fb1c4cb827874b71aa6db2de" => :mavericks
+    sha256 "ee19f627838129b455c1394b73d9be359d7c28b6e54e3d72e794cd609d7c351f" => :mountain_lion
   end
 
   head    PHP_GITHUB_URL, :branch => PHP_BRANCH
@@ -32,9 +32,11 @@ class Php55 < AbstractPhp
 
   def install_args
     args = super
-    args << "--enable-zend-signals"
+
     # dtrace is not compatible with phpdbg: https://github.com/krakjoe/phpdbg/issues/38
     args << "--enable-dtrace" if build.without? 'phpdbg'
+
+    args << "--enable-zend-signals"
   end
 
   def _install

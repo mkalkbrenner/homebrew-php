@@ -3,9 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php53Imagick < AbstractPhp53Extension
   init
   homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
-  sha1 '29b6dcd534cde6b37ebe3ee5077b71a9eed685c2'
+  url 'http://pecl.php.net/get/imagick-3.1.2.tgz'
+  sha1 '7cee88bc8f6f178165c9d43e302d99cedfbb3dff'
   head 'https://svn.php.net/repository/pecl/imagick/trunk/'
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha256 "714da9657822c0a8df5c7cf8d2c1c14ca2c1be88d7cc642918b95dd9bc7e61ec" => :yosemite
+    sha256 "0f6adf22d66cd52ddca6a389673daec60f7f265bc2f7cd533930b520a2df2d7c" => :mavericks
+    sha256 "749ab9fd907d9067c66a3ce24a1d7b39aa34b835652ce567b2350d6867aac794" => :mountain_lion
+  end
 
   depends_on 'pkg-config' => :build
   depends_on 'imagemagick'
@@ -25,6 +32,7 @@ class Php53Imagick < AbstractPhp53Extension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          "--with-imagick=#{Formula['imagemagick'].opt_prefix}",
                           phpconfig
     system "make"
     prefix.install "modules/imagick.so"
@@ -35,9 +43,9 @@ end
 __END__
 diff --git a/imagick-3.1.0RC2/config.m4 b/imagick-3.1.0RC2/config.m4
 index 6caa29a..1c6cdfb 100644
---- a/imagick-3.1.0RC2/config.m4
-+++ b/imagick-3.1.0RC2/config.m4
-@@ -54,6 +54,8 @@ if test $PHP_IMAGICK != "no"; then
+--- a/imagick-3.1.2/config.m4
++++ b/imagick-3.1.2/config.m4
+@@ -60,6 +60,8 @@ if test $PHP_IMAGICK != "no"; then
  
      if test -r $WAND_DIR/include/ImageMagick/wand/MagickWand.h; then
        AC_MSG_RESULT(found in $WAND_DIR/include/ImageMagick/wand/MagickWand.h)
