@@ -9,9 +9,9 @@ class Php56Opcache < AbstractPhp56Extension
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "2260993aa84e13b33f99df93f970a1edb294c18f31123f5070a1f30a5141f496" => :yosemite
-    sha256 "6efd63c6d8b9f0812f2ef326f03dc844da138562d35796e5b8e967a0e3967fe4" => :mavericks
-    sha256 "0dec1e6104923d49818da9892a6c1358aaf65cf32bd42e5870bf205c209d2074" => :mountain_lion
+    sha256 "448f06fc5cf00f98537dd6e03334f8827f892f9132dd1af7328e9d173520f60d" => :yosemite
+    sha256 "82835289c43799db4a18a76e07c3495e939c95efca705b97224d413960f1f5b8" => :mavericks
+    sha256 "0a9027372a9ec540f39548e698d97ad3c2ccfe95b2ed3d7b801a8aa3cd3905a6" => :mountain_lion
   end
 
   depends_on "pcre"

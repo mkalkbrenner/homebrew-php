@@ -9,22 +9,22 @@ class Php55 < AbstractPhp
   sha256  PHP_CHECKSUM[:sha256]
   version PHP_VERSION
 
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "3b08a56caf7253d8e46e581c8e21936f730fd83026bbe0f74cff04dff48c59b8" => :yosemite
-    sha256 "ea359b94027c971036436d37e2b6d01aeae09b74fb1c4cb827874b71aa6db2de" => :mavericks
-    sha256 "ee19f627838129b455c1394b73d9be359d7c28b6e54e3d72e794cd609d7c351f" => :mountain_lion
-  end
-
   head    PHP_GITHUB_URL, :branch => PHP_BRANCH
 
-  if build.with? 'phpdbg'
-    # needed to regenerate the configure script
-    depends_on 'autoconf' => :build
-    depends_on 're2c' => :build
-    depends_on 'flex' => :build
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha256 "292fecaf31fb6cea07b62561609acd11fc08ab990d420953323136589db117d7" => :yosemite
+    sha256 "da15dc873c147b59b7d14d93f1754a0a8cc293025d4c4495b69495835516a64b" => :mavericks
+    sha256 "15a4d285a431ad9d34070584575644c72ac674b81a724f5d5d68b5e1ae355c8e" => :mountain_lion
+  end
 
-    resource 'phpdbg' do
+  if build.with? "phpdbg"
+    # needed to regenerate the configure script
+    depends_on "autoconf" => :build
+    depends_on "re2c" => :build
+    depends_on "flex" => :build
+
+    resource "phpdbg" do
       url PHPDBG_SRC_TARBAL
       sha256 PHPDBG_CHECKSUM[:sha256]
     end
@@ -34,17 +34,17 @@ class Php55 < AbstractPhp
     args = super
 
     # dtrace is not compatible with phpdbg: https://github.com/krakjoe/phpdbg/issues/38
-    args << "--enable-dtrace" if build.without? 'phpdbg'
+    args << "--enable-dtrace" if build.without? "phpdbg"
 
     args << "--enable-zend-signals"
   end
 
   def _install
-    if build.with? 'phpdbg'
-      resource('phpdbg').stage buildpath/'sapi/phpdbg'
+    if build.with? "phpdbg"
+      resource("phpdbg").stage buildpath/"sapi/phpdbg"
 
       # force the configure file to be rebuilt (needed to support phpdbg)
-      File.delete('configure')
+      File.delete("configure")
       system "./buildconf", "--force"
     end
 

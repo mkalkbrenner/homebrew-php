@@ -1,19 +1,10 @@
-require 'formula'
 require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 require File.expand_path("../../Requirements/phar-requirement", __FILE__)
 
 class Phpunit < Formula
-  homepage 'http://phpunit.de/manual/current/en/'
-  url 'https://phar.phpunit.de/phpunit-4.5.0.phar'
-  sha1 '314423c2dfd2f09bebf04886bc1e34e12c80d409'
-
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    cellar :any
-    sha1 "b679109c8569b13469f45ea022462b98d0576657" => :yosemite
-    sha1 "bdbf99ab174e1e0ecffcde91db8de1ea6f0acba9" => :mavericks
-    sha1 "f16bc737fb24a20bcffdf309b81105c430abaa8c" => :mountain_lion
-  end
+  homepage "http://phpunit.de/manual/current/en/"
+  url "https://phar.phpunit.de/phpunit-4.6.4.phar"
+  sha256 "b2e2b274758d8c8b882ec838f9c71e33fafc83c68cf6ec1ce811d11d29e8d501"
 
   def install
     libexec.install "phpunit-#{version}.phar"
