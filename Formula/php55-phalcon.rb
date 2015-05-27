@@ -3,9 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php55Phalcon < AbstractPhp55Extension
   init
   homepage "http://phalconphp.com/"
-  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.0.tar.gz"
-  sha256 "148d10dc733ae0166e34dca44d036776c120e00b427b2333f639d1dd2d110a21"
+  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.1.tar.gz"
+  sha256 "f5bf0048c0096b447362d12f37a8d65feedbc35544b44bd97909e3f1d1d1a42a"
   head "https://github.com/phalcon/cphalcon.git"
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha256 "58dbdc88c3e30ce22db7ea644ec83be49e40c5f2e654f9db78256d994ad3aeed" => :yosemite
+    sha256 "1281e2443a598db4cfd3deaa8d33537dab623e33d4769f93d12df831b19156cf" => :mavericks
+    sha256 "319ab50f217546f38cd910f8d8dbf47b9a7982b6f57f269da2aad1cb0bf9a5d6" => :mountain_lion
+  end
 
   depends_on "pcre"
 

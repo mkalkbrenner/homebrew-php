@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55Parsekit < AbstractPhp55Extension
+class Php53Parsekit < AbstractPhp53Extension
   init
   homepage "https://pecl.php.net/package/parsekit"
   desc "PHP Opcode Analyser"
@@ -11,16 +11,9 @@ class Php55Parsekit < AbstractPhp55Extension
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
     cellar :any
-    sha256 "c5b8fde36728ffae5af884ebd0d3837d57e6578f168a5d93bbbd4f969f4bdda9" => :yosemite
-    sha256 "34080f494ccd497856252227a4dc5f51ce666910715a4526ab2d1b60604e7fca" => :mavericks
-    sha256 "12c3bada1be25dc8d5ae06d1a1b21c261dc76c1a4a5c070741ecb02fbf13b076" => :mountain_lion
-  end
-
-  patch do
-    # Fix incompatibility issues with parsekit 1.3.0
-    # and PHP 5.4 (https://bugs.php.net/61187)
-    url "https://gist.githubusercontent.com/SteelPangolin/5252ea888d09c51b7d35/raw/298c52816c6d8794aecf14416db20c29fadbde0d/parsekit"
-    sha256 "dab4d3918b3c64360773de724076d6def0a1a89abf36e019c27c81b850955712"
+    sha256 "56a16622ca9276f9b7ad38f4fb827840a5294de36c521079906293ce0f5418a0" => :yosemite
+    sha256 "b0bccbbddc882af1585e4566026013e618265322eb2603d0640737aa4307ac18" => :mavericks
+    sha256 "27d3ec7b1b90e692396e34c5bbca37b09d610c79aca3c92d15d751b5db18bbf1" => :mountain_lion
   end
 
   def install

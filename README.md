@@ -207,7 +207,7 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 ### PHP Extension definitions
 
-PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP55 in `solr.rb`, we would have `Php55Solr` inside of `php56-solr.rb`. This is to remove any possible conflicts with mainline Homebrew formulae.
+PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP56 in `solr.rb`, we would have `Php56Solr` inside of `php56-solr.rb`. This is to remove any possible conflicts with mainline Homebrew formulae.
 
 The template for the `php56-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
@@ -246,7 +246,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.40`, `5.5.24` and `5.6.8`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.41`, `5.5.25` and `5.6.9`.
 
 ## Todo
 

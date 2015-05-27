@@ -3,16 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php53Opcache < AbstractPhp53Extension
   init
   homepage "https://github.com/zend-dev/ZendOptimizerPlus"
-  url "https://github.com/zendtech/ZendOptimizerPlus/archive/v7.0.4.tar.gz"
-  sha1 "faefc5fcb5236edad3837dd496f97685ea5cd5da"
-  sha256 "3f930ad426eb2140d64691677f6755046ac55aa0099da2023bf0251f7c85685c"
+  url "https://github.com/zendtech/ZendOptimizerPlus/archive/v7.0.5.tar.gz"
+  sha256 "2654d9611e386cc59887d4e8cfba2c010ed4480c7c9c5094ad99fdcf858d94ee"
+
   head "https://github.com/zendtech/ZendOptimizerPlus.git"
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha1 "7a19680c1296354c18706aa22a430048e5d77ebc" => :yosemite
-    sha1 "2801573bb2b36724d1801ebc2685166249c68aed" => :mavericks
-    sha1 "7601a4301dcd2c3db7c15b7a9911b294b63ab6bd" => :mountain_lion
+    sha256 "eb7525b7fd7c405327875cfcc08d15c8c11206c2412d56d8d6122177a4343a02" => :yosemite
+    sha256 "7dc876a4d914017abc2c51a5fbea008da7b4cc59563ccd693bf7917031582db9" => :mavericks
+    sha256 "113e2d571cc0a4a60b2bc02dd33cf5e186f1d45bce80e97c017b3aa9f7f75b25" => :mountain_lion
   end
 
   depends_on "pcre"
@@ -208,5 +208,9 @@ class Php53Opcache < AbstractPhp53Extension
       ; Ensure conflicting APC is disabled
       apc.cache_by_default = false
     EOS
+  end
+
+  test do
+    shell_output("php -m").include?("OPcache")
   end
 end
