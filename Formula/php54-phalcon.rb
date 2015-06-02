@@ -3,15 +3,15 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php54Phalcon < AbstractPhp54Extension
   init
   homepage "http://phalconphp.com/"
-  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.1.tar.gz"
-  sha256 "f5bf0048c0096b447362d12f37a8d65feedbc35544b44bd97909e3f1d1d1a42a"
+  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.2.tar.gz"
+  sha256 "ed1d4cfa15c6bb2b0c80cbf63ad8e06fd8517e48413a7dc95c445409be350c84"
   head "https://github.com/phalcon/cphalcon.git"
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "0b1bc9cc384a00cfaa6916fafdd2f14d1920907d93e088b019dca64442637a54" => :yosemite
-    sha256 "1ee09599a201ff49a96ebabaaf0a097a754fa8321bf6c639b96dcb52b116506f" => :mavericks
-    sha256 "57848e2b5bc83195a056492813b11fd271bf6bd0787d6d47071e8d8aa0a1c298" => :mountain_lion
+    sha256 "f2733f4308693253e7b00db7cc426157006ac0e3be3633c2855d4010c5d8831c" => :yosemite
+    sha256 "bc7eeebe41fd08daddf5b8d654c5d40266880f9ee084f5d30d741f1bfb0cd7b0" => :mavericks
+    sha256 "5951e50ef301561d465533def53f8895610931eb2194b028a9a948dd6d61d962" => :mountain_lion
   end
 
   depends_on "pcre"
