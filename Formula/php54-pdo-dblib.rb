@@ -9,9 +9,9 @@ class Php54PdoDblib < AbstractPhp54Extension
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "f59cce6e8d3fc1e4363d79df0cb5dbb25913a85ace9343f616907515fc97bd30" => :yosemite
-    sha256 "d63cc6f5f4897698a029f51b45dd2e40887dcbdd15ae6bdd9d8382158a25ca82" => :mavericks
-    sha256 "ac503bf81c6fd61541a3df28b7494a98f2161869c1a588855c5688aa338af251" => :mountain_lion
+    sha256 "f2ad0be1cb5d3c422d80a99b2535d36119ecdce434cfd0d4ebb208d06a0516cf" => :yosemite
+    sha256 "34eb5697dc634fd74353a77e20e2c44380fe12489636a3db54eccbb2669b918a" => :mavericks
+    sha256 "154bd1ab9790fb5c4eec9c30056feb26e64eb407a55ec7f94fc7dcbf28b9a230" => :mountain_lion
   end
 
   depends_on "freetds"

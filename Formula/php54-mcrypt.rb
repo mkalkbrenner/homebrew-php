@@ -9,9 +9,9 @@ class Php54Mcrypt < AbstractPhp54Extension
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "da4b4ef9dbc233dd74a8ad33ba6e88becbc33293a41205d1aeeef04aeb7aad16" => :yosemite
-    sha256 "32c1bb241456ba87629c66cded09ef1eead94cc2e518faead6b8fa049bf44546" => :mavericks
-    sha256 "ab373d3c4d7332b84a4bb14004a5b9321ced45c77d940106484e639c292d0528" => :mountain_lion
+    sha256 "7a1656068162a22612633dfa74d6a9fd53f7f5911374a442af3f109c528020e0" => :yosemite
+    sha256 "a9fa29d0f4e6dc40b74aaf8b5e2230975e3aea35ff1a1c5324bacffa6b3aab95" => :mavericks
+    sha256 "073ef13627b6a66a19a348cbf648270c8ac5a04541ad949c3db5466318c30494" => :mountain_lion
   end
 
   depends_on "mcrypt"

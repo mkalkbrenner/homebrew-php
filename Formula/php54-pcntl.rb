@@ -9,9 +9,9 @@ class Php54Pcntl < AbstractPhp54Extension
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "0c9628a1d2eea562333d41a95c12c88d328534ca01d593042f05840563977712" => :yosemite
-    sha256 "9a4910a55ab2924d2f72cc2e6235cde5bfc379c8cd156ca5aa6b88a4cecfc15b" => :mavericks
-    sha256 "2527dcce2366da03c7c7ac8edd4d7450432fe87a2c9c874a0d4f47ed83380d5b" => :mountain_lion
+    sha256 "386dd6e9dedcc7948eb9c25e85592d90cd574956d71d64d93d1761f9a41b034c" => :yosemite
+    sha256 "43bb8a87c995970fd26ec0902fa4676a09c1ac68f70d721ea7dcd7970c567584" => :mavericks
+    sha256 "d659f0ee936024320f11d0e8672497c546a502ea4d559b7a29fccb5349bf2d89" => :mountain_lion
   end
 
   def install

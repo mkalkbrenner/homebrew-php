@@ -12,9 +12,9 @@ class Php56 < AbstractPhp
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "e914a56d20932082d90ada7809a9841b43f6ebca3f8dbb334752c5d703d58632" => :yosemite
-    sha256 "e7341ed3caa0bffceba1a61f9b7b91fbefaf5c75e8d74923722f02d950a96dd8" => :mavericks
-    sha256 "eec294166e8a2e28f207c4167cbaab4189adabc5c162d08192af463f654f5191" => :mountain_lion
+    sha256 "52f542102519bfa64a9a956415a4063b43b489f8521b1c89cdc499d22ca05098" => :yosemite
+    sha256 "ba5ff90508b45febeb519e1b4a2df6ec45cdc7ec6b72ab0726c5df5297f5e89c" => :mavericks
+    sha256 "1ccb76570852e5ca4116e47002cbfb1c8d31bbcde11ca9342dc8d5ef08086127" => :mountain_lion
   end
 
   def install_args

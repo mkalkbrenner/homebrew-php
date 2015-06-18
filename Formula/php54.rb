@@ -13,9 +13,9 @@ class Php54 < AbstractPhp
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "31dbf562d3a1aa595b4d09c69bae326de649528e0b171e27d410acb5b40bd3fd" => :yosemite
-    sha256 "d42d52a24741c5db5134ce99b0051c2286f4f2a59e303074932145f2eabe2e04" => :mavericks
-    sha256 "cd9bd3d0b59aa4fb8259fe342b8979d9295d16a5b2f4873d5b38ccd8fbff106f" => :mountain_lion
+    sha256 "d863b58566089e24f9201a91ac1062facc24c4a281c6ff1fc2a5f58f7525c6e7" => :yosemite
+    sha256 "ec038bfb4219a9df8e79549acfbf89805870c4efbe993387c4caf3483fbc15a6" => :mavericks
+    sha256 "4312ef60566c1c97aa4faa0cffcf9a1d6e2996e908054e7a0c8c06994363cafd" => :mountain_lion
   end
 
   if build.with? "phpdbg"

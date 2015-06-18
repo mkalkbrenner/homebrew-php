@@ -3,9 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php55Hprose < AbstractPhp55Extension
   init
   homepage "http://pecl.php.net/package/hprose"
-  url "http://pecl.php.net/get/hprose-1.5.2.tgz"
-  sha256 "9496d07d49dbae73677b076f6ff0ee4cf1bff861ac981eef76975b4aa9657623"
+  url "http://pecl.php.net/get/hprose-1.5.4.tgz"
+  sha256 "28733983073d5272b7096129dc23717c42485f905556082352bb0954b64bb996"
   head "https://github.com/hprose/hprose-pecl.git"
+
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-php"
+    sha256 "43de63e85884ba8bb82287301d781cce4f47c086f08fd62d08a6b1c48495ddda" => :yosemite
+    sha256 "bf1f86ec382091a55e926df033bf321fbab6dd27ab14826b44914693855a677c" => :mavericks
+    sha256 "de8fbd20f2ff2f9269e9db215ea795d0f9217d4e6285e9cf47bb88b92a18c3f2" => :mountain_lion
+  end
 
   def install
     Dir.chdir "hprose-#{version}" unless build.head?
