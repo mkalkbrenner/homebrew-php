@@ -1,17 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Intl < AbstractPhp56Extension
+class Php70Intl < AbstractPhp70Extension
   init
+  desc "A wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "91794058e556d1f531032949cf4848e2eb76cb64d4a342e4a964d97fbc833cef" => :yosemite
-    sha256 "5e4fba547b4ee1fea7e37107a5836d11970bf4013c403ba358005e0a969873cf" => :mavericks
-    sha256 "a7d5fece3ce4d8ae4638d8dd24c4745ea8d6e0d43056c32d0cf2c869eddeb2c2" => :mountain_lion
+    sha256 "e89b5ff9fe2f07703daa9c9e802bda5d93b9cacfd33db8aff5f0380646c20f57" => :yosemite
+    sha256 "0a9100507a6493381f1c68d9ad2aed0672efcba4443c954a35c66e03e24893d1" => :mavericks
+    sha256 "0475b72763ff72cd24ff0032bfaddafd4e6893b0d6ba74a3037ff5c039c03dad" => :mountain_lion
   end
 
   depends_on "icu4c"
@@ -26,7 +27,7 @@ class Php56Intl < AbstractPhp56Extension
                           phpconfig,
                           "--disable-dependency-tracking",
                           "--enable-intl",
-                          "--with-icu-dir=#{Formula['icu4c'].prefix}"
+                          "--with-icu-dir=#{Formula["icu4c"].prefix}"
     system "make"
     prefix.install "modules/intl.so"
     write_config_file if build.with? "config-file"

@@ -1,17 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Pcntl < AbstractPhp56Extension
+class Php70Pcntl < AbstractPhp70Extension
   init
+  desc "Process Control support"
   homepage "http://php.net/manual/en/book.pcntl.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "1cbd4e8dd23222e174179e49897cfe3c6d5d1895feb79ddb6edee59ce6b1029b" => :yosemite
-    sha256 "191a63c01295b254d4510f39f3e65b6b34e07218e40eafa5d88dae62b83d8351" => :mavericks
-    sha256 "0fea8d101e079f69ef1443410487fd8aa77db9c6f4f4cdf4de6732587d892fe2" => :mountain_lion
+    sha256 "38f7dcc1772c8c83d26fa87533a6a0e18aa514b98954c39a23f2547ed27da9b9" => :yosemite
+    sha256 "6dc8415da1056c2749e0888a3104590b6c0ec3bdfeb218826aa1faba5a7ada93" => :mavericks
+    sha256 "8b9ac888652e7638c8e2563f44fd526e655e21beeef28719eef598479bce2e4e" => :mountain_lion
   end
 
   def install
@@ -26,5 +27,9 @@ class Php56Pcntl < AbstractPhp56Extension
     system "make"
     prefix.install "modules/pcntl.so"
     write_config_file if build.with? "config-file"
+  end
+
+  test do
+    shell_output("php -m").include?("pcntl")
   end
 end

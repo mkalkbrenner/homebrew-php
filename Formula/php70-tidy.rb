@@ -1,17 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Tidy < AbstractPhp56Extension
+class Php70Tidy < AbstractPhp70Extension
   init
+  desc "Tidy HTML clean and repair utility"
   homepage "http://php.net/manual/en/book.tidy.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "eceaf9706530034cab44574be55ad1cd00d57f5321bbabfdc01a5e4f0480b4a5" => :yosemite
-    sha256 "ae5b48dfa422f79baeb31ff9052a985d92c698155554842afb6a4c14c7b3c40b" => :mavericks
-    sha256 "a03c52c64336fe2ab661611c7f48029911e232a05c76c73f4bf03cf27871d5d3" => :mountain_lion
+    sha256 "c123412183c7925f0a072f494619c57fa29fee15388fd469795c134f71192175" => :yosemite
+    sha256 "81d56a78974d678f5de369c15c64dd2da3c5ec7a4c043b423aefba9d41fc3554" => :mavericks
+    sha256 "4642e87fa95c016ebba474c872a657ec7a0eed9adfde069ea32f551f6bd6c5e2" => :mountain_lion
   end
 
   def install
@@ -27,5 +28,9 @@ class Php56Tidy < AbstractPhp56Extension
     system "make"
     prefix.install "modules/tidy.so"
     write_config_file if build.with? "config-file"
+  end
+
+  test do
+    shell_output("php -m").include?("tidy")
   end
 end

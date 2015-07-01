@@ -1,17 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Mcrypt < AbstractPhp56Extension
+class Php70Mcrypt < AbstractPhp70Extension
   init
+  desc "An interface to the mcrypt library"
   homepage "http://php.net/manual/en/book.mcrypt.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "07609694adb1377336019ef21d08ffba2451283623fb5898256bc56c72690fc5" => :yosemite
-    sha256 "a50a7ed26a8e815d2886da7984bb117db5de86a92c7ca05ecf74374327b96a81" => :mavericks
-    sha256 "2b7b8bf256e6024d954e96b6089d63b61c5ef4e9207a9ce1d4ef9a552d4afa72" => :mountain_lion
+    sha256 "410775f5c69b65c74a4c1ce2f034063aaaebe7f0e734d56e3eb82920efb9db4a" => :yosemite
+    sha256 "c3ccab8830b60d4794bd9485b30e1556d621e167756c15c8937c25f3f1d3f5d9" => :mavericks
+    sha256 "ac25dc36612e27e1c3490d799512114ae518b2b33d52873f780dd649578ed433" => :mountain_lion
   end
 
   depends_on "mcrypt"
@@ -25,9 +26,13 @@ class Php56Mcrypt < AbstractPhp56Extension
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,
                           "--disable-dependency-tracking",
-                          "--with-mcrypt=#{Formula['mcrypt'].opt_prefix}"
+                          "--with-mcrypt=#{Formula["mcrypt"].opt_prefix}"
     system "make"
     prefix.install "modules/mcrypt.so"
     write_config_file if build.with? "config-file"
+  end
+
+  test do
+    shell_output("php -m").include?("mcrypt")
   end
 end

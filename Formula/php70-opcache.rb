@@ -1,17 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Opcache < AbstractPhp56Extension
+class Php70Opcache < AbstractPhp70Extension
   init
+  desc "OPcache improves PHP performance"
   homepage "http://php.net/manual/en/book.opcache.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "714bfbae9ff17be099ba6c68fc60f576d57f8a1809e6beb1176e5bed032d413c" => :yosemite
-    sha256 "11543ea5aec82c21d1b131a17148e1cbdb77aee6d43c61ca9d6047452e92eaf7" => :mavericks
-    sha256 "eb92ec6705aeffa05b9c53943543699486debaf5d8d4f23c7e432760c5f64e4b" => :mountain_lion
+    sha256 "22829e054dc6b31c57024f6f47e8992217f159a4009ab2e4dc04513579540c24" => :yosemite
+    sha256 "0f1314f1f0a93d38943490238899abe9e059bfc887f3c6b5b44a066e0eaf26b7" => :mavericks
+    sha256 "b45f4a7958cf4e600412ec7055949855fe3a1e85b352ab25e6f9a54660542e2d" => :mountain_lion
   end
 
   depends_on "pcre"
@@ -213,5 +214,9 @@ class Php56Opcache < AbstractPhp56Extension
       ; Ensure conflicting APC is disabled
       apc.cache_by_default = false
     EOS
+  end
+
+  test do
+    shell_output("php -m").include?("Zend OPcache")
   end
 end

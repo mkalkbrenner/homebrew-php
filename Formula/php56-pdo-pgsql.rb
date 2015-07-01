@@ -9,9 +9,9 @@ class Php56PdoPgsql < AbstractPhp56Extension
 
   bottle do
     root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "d9abfa0ab01adc4df13b45b16b1f312149f6ceaead42cc6b1bbca855e0a219f0" => :yosemite
-    sha256 "ecb9d5941f5f9e3d51d65490526a177272d50ba01d531d234836bf4927ab0820" => :mavericks
-    sha256 "3c7db2cd076bab7fbb4d7b05045a2162df2cba92fa7e5ec8c5a99b56ca8185ee" => :mountain_lion
+    sha256 "24d0cbc8a4d1c79e727ee5611a62d5e73a3d6f31f22a728b3dd7313ffec9e05c" => :yosemite
+    sha256 "d3c7933fd8fb5fe8d8069d0a5646bf0a848ba5b94c693417ae5e40b80bda19e4" => :mavericks
+    sha256 "02530664045a51280e69cf474c5faa863df9d9b246d330815783fa026cf96d24" => :mountain_lion
   end
 
   depends_on "postgresql"
