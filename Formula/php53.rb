@@ -7,14 +7,14 @@ class Php53 < AbstractPhp
   url     PHP_SRC_TARBALL
   sha256  PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 2
 
   head    PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "11b113bda3131da95ae79e4eb109e708e421b59b4e431aa12bbb659c0dc81f9e" => :yosemite
-    sha256 "ba29274a773ae1ac7f9e0f7fe5689a8f9f37e4a3896407c8f3c9a281af16dfb2" => :mavericks
-    sha256 "5f4d2226bf008f7887723dd571fbf6a607f0ff8c0bf2afb411b5f6335fca219c" => :mountain_lion
+    sha256 "e6ae11720c61319c512cf2d29300fec8750840381c4b22e3974d6b16fb54dbb0" => :yosemite
+    sha256 "fda2fa6fef90c05eca6ce3847ca8f8ecd69a7f9e34ac943dbf87b2f94d07465a" => :mavericks
+    sha256 "eeaa173cf9e2aa5a62e2065f11897e17633ea4eaab607c15bd50a7311301f10f" => :mountain_lion
   end
 
   # build dependancy needed to fix issue #962
@@ -24,10 +24,6 @@ class Php53 < AbstractPhp
   depends_on "homebrew/versions/bison27" => :build
 
   depends_on 'libevent' unless build.without? 'fpm'
-
-  if build.with? 'phpdbg'
-    raise "phpdbg is not supported for this version of PHP"
-  end
 
   option 'disable-zend-multibyte', 'Disable auto-detection of Unicode encoded scripts'
 
@@ -53,7 +49,7 @@ class Php53 < AbstractPhp
 
   # Previous Bison and 10.9+ patches, and multi-SAPIs patch (http://pecl.php.net/~jani/patches/multi-sapi.patch) applied
   patch do
-    url "https://gist.githubusercontent.com/alanthing/9b786af22698eda39497/raw/0fcbbff7fe4b05ed7c011730cc80e50bd9123dec/multi-sapi-5.3.29-homebrew.patch"
-    sha256 "9d70a202321cd91acb31037dd0c5dcd5dc8fe32f325b8a291388f07e0bbdc533"
+    url "https://gist.githubusercontent.com/ablyler/c0264742cc1cca84b708/raw/a0a733810be241c22812669757d2294dedca9aad/multi-sapi-5.3.29-homebrew.patch"
+    sha256 "e0cabfbeb45d388e4b560459a971f43bcd7d3fb2f1c7d1d39e6ea0eeba8eab83"
   end
 end

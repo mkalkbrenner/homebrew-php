@@ -4,16 +4,16 @@ class Php70Opcache < AbstractPhp70Extension
   init
   desc "OPcache improves PHP performance"
   homepage "http://php.net/manual/en/book.opcache.php"
+  bottle do
+    cellar :any
+    sha256 "8a5e29b739a59c0b0d13020e1b43a6d8de15cffb703aaf2576e29e6b3e554548" => :yosemite
+    sha256 "cd4fd8cdcdeff2514981972447b6b1520a9d1f8c2d8017dd60a9290e1a1d9f0a" => :mavericks
+    sha256 "57ade06c688ca3799a4761bbe4e4ffe19a62953f21d330eaf5baec54712c2844" => :mountain_lion
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "22829e054dc6b31c57024f6f47e8992217f159a4009ab2e4dc04513579540c24" => :yosemite
-    sha256 "0f1314f1f0a93d38943490238899abe9e059bfc887f3c6b5b44a066e0eaf26b7" => :mavericks
-    sha256 "b45f4a7958cf4e600412ec7055949855fe3a1e85b352ab25e6f9a54660542e2d" => :mountain_lion
-  end
 
   depends_on "pcre"
 
@@ -220,3 +220,4 @@ class Php70Opcache < AbstractPhp70Extension
     shell_output("php -m").include?("Zend OPcache")
   end
 end
+

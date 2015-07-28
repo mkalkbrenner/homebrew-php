@@ -8,14 +8,14 @@ class Php54 < AbstractPhp
   url     PHP_SRC_TARBALL
   sha256  PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 2
 
   head    PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "d863b58566089e24f9201a91ac1062facc24c4a281c6ff1fc2a5f58f7525c6e7" => :yosemite
-    sha256 "ec038bfb4219a9df8e79549acfbf89805870c4efbe993387c4caf3483fbc15a6" => :mavericks
-    sha256 "4312ef60566c1c97aa4faa0cffcf9a1d6e2996e908054e7a0c8c06994363cafd" => :mountain_lion
+    sha256 "6282ab5f9e745a8425adb8587a6e677904e185cd97c240bbf03a00decf9d0b97" => :yosemite
+    sha256 "e1df5cfe248c8a515b9bbfd26e8f24b7d8d3a9486155992ce897403f45083397" => :mavericks
+    sha256 "a63e5573694b8e4d65d25ed80b054dd0ce61d70f0feca71d59e5d47cc3de3d9f" => :mountain_lion
   end
 
   if build.with? "phpdbg"

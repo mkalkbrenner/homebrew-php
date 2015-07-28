@@ -4,16 +4,15 @@ class Php70PdoDblib < AbstractPhp70Extension
   init
   desc "A unified Sybase-DB style driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_dblib"
+  bottle do
+    sha256 "f940196a01008100536f86eda5e0a5f7b7e67c624f2a859e8c41e1d98a958578" => :yosemite
+    sha256 "a51a5e9883376c265c26e0000980c5690678dbb854659a67d59cdea91cbc0f5d" => :mavericks
+    sha256 "620b0e363907043adf39b7638a979f45eeb5513cafa0d18f936d8d6a83e15bf4" => :mountain_lion
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "7bc9b33f1e0d47c052c70ca55a06a6b09242e4dc3ddc8b8e14cb77f14cc99a27" => :yosemite
-    sha256 "a535af9798b8861f3b1d3a3a23f742b24dddb0710883beb32600f4681fbbf7e2" => :mavericks
-    sha256 "c795bae56ab095d8b30889bcc30243769ca412a52a5b5d13f3121e06ef66f054" => :mountain_lion
-  end
 
   depends_on "freetds"
 
@@ -39,3 +38,4 @@ class Php70PdoDblib < AbstractPhp70Extension
     shell_output("php -m").include?("pdo_dblib")
   end
 end
+

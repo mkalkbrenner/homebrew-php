@@ -17,6 +17,17 @@ class AbstractPhp < Formula
       depends_on 'homebrew/versions/bison27' => :build
     end
 
+    # obtain list of php formulas
+    php_formulas = (Formula.names).grep(Regexp.new('php\d\d$')).sort
+
+    # remove our self from the list
+    php_formulas.delete(self.name.split("::")[2].downcase)
+
+    # conflict with out php versions
+    php_formulas.each do |php_formula_name|
+      conflicts_with php_formula_name, :because => "different php versions install the same binaries."
+    end
+
     depends_on 'curl' if build.include?('with-homebrew-curl') || MacOS.version < :lion
     depends_on 'enchant' => :optional
     depends_on 'freetds' if build.include?('with-mssql')
@@ -24,14 +35,21 @@ class AbstractPhp < Formula
     depends_on 'gettext'
     depends_on 'gmp' => :optional
     depends_on 'tidy-html5' if build.include?('with-tidy')
-    depends_on 'homebrew/dupes/zlib'
     depends_on 'icu4c'
     depends_on 'imap-uw' if build.include?('with-imap')
     depends_on 'jpeg'
     depends_on 'libpng'
     depends_on 'libxml2' if build.include?('with-homebrew-libxml2') || MacOS.version < :lion
-    depends_on 'openssl'
     depends_on 'unixodbc'
+    depends_on 'readline'
+    depends_on "net-snmp" if build.include?('with-snmp')
+
+    # ssl
+    if build.include?('with-homebrew-libressl')
+      depends_on 'libressl' 
+    else
+      depends_on 'openssl'
+    end
 
     deprecated_option "with-pgsql" => "with-postgresql"
     depends_on :postgresql => :optional
@@ -47,6 +65,7 @@ class AbstractPhp < Formula
     option 'with-cgi', 'Enable building of the CGI executable (implies --without-fpm)'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-homebrew-curl', 'Include Curl support via Homebrew'
+    option 'with-homebrew-libressl', 'Include LibreSSL instead of OpenSSL via Homebrew'
     option 'with-homebrew-libxslt', 'Include LibXSLT support via Homebrew'
     option 'with-homebrew-libxml2', 'Include Libxml2 support via Homebrew'
     option 'with-imap', 'Include IMAP extension'
@@ -190,12 +209,12 @@ INFO
       "--with-libedit",
       "--with-mhash",
       "--with-ndbm=/usr",
-      "--with-openssl=" + Formula['openssl'].opt_prefix.to_s,
       "--with-pdo-odbc=unixODBC,#{Formula['unixodbc'].opt_prefix}",
       "--with-png-dir=#{Formula['libpng'].opt_prefix}",
       "--with-unixODBC=#{Formula['unixodbc'].opt_prefix}",
       "--with-xmlrpc",
-      "--with-zlib=#{Formula['zlib'].opt_prefix}",
+      "--with-zlib=/usr",
+      "--with-readline=#{Formula['readline'].opt_prefix}",
     ]
 
     if build.include?('with-homebrew-libxml2') || MacOS.version < :lion
@@ -220,6 +239,12 @@ INFO
 
     if build.with? 'enchant'
       args << "--with-enchant=#{Formula['enchant'].opt_prefix}"
+    end
+
+    if build.include?('with-homebrew-libressl')
+      args << "--with-openssl=" + Formula['libressl'].opt_prefix.to_s
+    else
+      args << "--with-openssl=" + Formula['openssl'].opt_prefix.to_s
     end
 
     # Build PHP-FPM by default
@@ -308,6 +333,10 @@ INFO
     end
 
     if build.with? 'phpdbg'
+      if php_version.start_with?('5.3')
+        raise "phpdbg is not supported for this version of PHP"
+      end
+
       args << "--enable-phpdbg"
     end
 
@@ -316,11 +345,7 @@ INFO
     end
 
     if build.with? 'snmp'
-      if MacOS.version >= :yosemite
-        raise "Please omit \"--with-snmp\" on Yosemite.  See issue #1311 (http://git.io/NBAOvA) for details."
-      end
-
-      args << "--with-snmp=/usr"
+      args << "--with-snmp=#{Formula["net-snmp"].opt_prefix}"
     end
 
     if build.with? 'thread-safety'
@@ -408,10 +433,24 @@ INFO
         EOS
       end
 
-      s << <<-EOS.undent
-        To enable PHP in Apache add the following to httpd.conf and restart Apache:
-            LoadModule php5_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path}/libexec/apache2/libphp5.so
-      EOS
+      if php_version.start_with?('7.0')
+        s << <<-EOS.undent
+          To enable PHP in Apache add the following to httpd.conf and restart Apache:
+              LoadModule php7_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path}/libexec/apache2/libphp7.so
+              
+              <FilesMatch \.php$>
+                  SetHandler application/x-httpd-php
+              </FilesMatch>
+
+          Finally, check DirectoryIndex includes index.php
+              DirectoryIndex index.php index.html
+        EOS
+      else
+        s << <<-EOS.undent
+          To enable PHP in Apache add the following to httpd.conf and restart Apache:
+              LoadModule php5_module    #{HOMEBREW_PREFIX}/opt/php#{php_version_path}/libexec/apache2/libphp5.so
+        EOS
+      end
     end
 
     s << <<-EOS.undent

@@ -4,16 +4,15 @@ class Php70Pspell < AbstractPhp70Extension
   init
   desc "Extension to check the spelling"
   homepage "http://php.net/manual/en/book.pspell.php"
+  bottle do
+    sha256 "a99a6f9a358641bdde9fe058273792d90b5423cc21f59139389717e52c30e39a" => :yosemite
+    sha256 "1b3b6249b24d18a4f38380c3925b20ddd786de24209511a6c2c44f75c19df297" => :mavericks
+    sha256 "4751e2adc9bb818891a4398b742e57385d54d2c8709b4e9293e73c65e5b4430f" => :mountain_lion
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "e59823a2bc49db008172251fd7d0031d66b5c8082e6564e8a7609dd54129d93a" => :yosemite
-    sha256 "a49be7bf7854cd9ed417e4f9b1d63cb3958b39e7de7396009bb33044652dd3d4" => :mavericks
-    sha256 "5a12c9d347b9cb3f65f2a7957647a68756f3fd0f803c8d873db739f4ce401951" => :mountain_lion
-  end
 
   depends_on "aspell"
 
@@ -36,3 +35,4 @@ class Php70Pspell < AbstractPhp70Extension
     shell_output("php -m").include?("pspell")
   end
 end
+

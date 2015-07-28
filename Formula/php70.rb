@@ -12,10 +12,9 @@ class Php70 < AbstractPhp
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "af61e2c5846e3b1e80e55d219d36462a3c25658054ae150e28b055082c8e2c60" => :yosemite
-    sha256 "b06f6b9c8c14b5e37835c75ef7af9f4ccfc2019ebe7c3a0fd10e05871b8b66d6" => :mavericks
-    sha256 "8fe540fa4c6b53fdad6bd9695b6e26628c6fb6bbd84f0bcc0d9b2de682f42410" => :mountain_lion
+    sha256 "ed75ee100c8bf88ada00b963b338cc47f6e3eff04acecc1e50a122a6c12feaea" => :yosemite
+    sha256 "3192629f8ca7902da872e8be084216a802451e1d4e300255c4b308ea3414e55d" => :mavericks
+    sha256 "eeabbb9292890d5996de722c9af090d4caf9ec7fa168318cad671eedd68af2ec" => :mountain_lion
   end
 
   def install_args

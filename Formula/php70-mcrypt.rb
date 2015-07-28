@@ -4,16 +4,15 @@ class Php70Mcrypt < AbstractPhp70Extension
   init
   desc "An interface to the mcrypt library"
   homepage "http://php.net/manual/en/book.mcrypt.php"
+  bottle do
+    sha256 "2ab708118dbb1654b58eb87fccf921052a0593743ada65c730048e5ed5c6d1da" => :yosemite
+    sha256 "7fa3a64e042ca1e22fcc7f0148f7efd99199b4b8f42ce05ba728d70307f7b3f1" => :mavericks
+    sha256 "47e3480b1788c5b4dcd1a02ddad1dd02769b5f21cb7c889428989f8825cd44a0" => :mountain_lion
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    root_url "https://homebrew.bintray.com/bottles-php"
-    sha256 "410775f5c69b65c74a4c1ce2f034063aaaebe7f0e734d56e3eb82920efb9db4a" => :yosemite
-    sha256 "c3ccab8830b60d4794bd9485b30e1556d621e167756c15c8937c25f3f1d3f5d9" => :mavericks
-    sha256 "ac25dc36612e27e1c3490d799512114ae518b2b33d52873f780dd649578ed433" => :mountain_lion
-  end
 
   depends_on "mcrypt"
 
@@ -36,3 +35,4 @@ class Php70Mcrypt < AbstractPhp70Extension
     shell_output("php -m").include?("mcrypt")
   end
 end
+
