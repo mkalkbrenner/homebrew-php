@@ -98,7 +98,7 @@ The purpose of this repository is to allow PHP developers to quickly retrieve wo
 ## Requirements
 
 * [Homebrew](https://github.com/Homebrew/homebrew)
-* Snow Leopard, Lion, Mountain Lion, Mavericks. Untested everywhere else.
+* Snow Leopard, Lion, Mountain Lion, Mavericks, or Yosemite. Untested everywhere else.
 * The Homebrew `dupes` tap - `brew tap homebrew/dupes`
 * The Homebrew `versions` tap - `brew tap homebrew/versions`
 
@@ -130,7 +130,7 @@ $ brew tap homebrew/homebrew-php
 $ brew options php56
 ```
 
-Once the tap is installed, you can install `php53`, `php54`, `php55`, `php56`, or any formulae you might need via:
+Once the tap is installed, you can install `php53`, `php54`, `php55`, `php56`, `php70`, or any formulae you might need via:
 
 ```sh
 $ brew install php56
@@ -176,7 +176,9 @@ Please be aware that you must make this type of change EACH time you swap betwee
 
 ### PEAR Extensions
 
-If installing `php53`, `php54`, `php55` or `php56`, please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
+Pear is no longer compiled by default, instead you need to install php with the `--with-pear` option, such as: `brew install php56 --with-pear`.
+
+Please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
 
 ```sh
 $ pear install PHP_CodeSniffer
@@ -216,8 +218,8 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Example < AbstractPhp56Extension
   init
-  homepage 'http://pecl.php.net/package/example'
-  url 'http://pecl.php.net/get/example-1.0.tgz'
+  homepage 'https://pecl.php.net/package/example'
+  url 'https://pecl.php.net/get/example-1.0.tgz'
   sha1 'SOMEHASHHERE'
   version '1.0'
   head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
@@ -246,7 +248,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the URL does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.43`, `5.5.27` and `5.6.11`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. These versions are `5.3.29`, `5.4.45`, `5.5.29` and `5.6.13`.
 
 ## Todo
 

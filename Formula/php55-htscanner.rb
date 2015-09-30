@@ -2,11 +2,18 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Htscanner < AbstractPhp55Extension
   init
-  homepage 'https://github.com/piannelli/htscanner-enhanced'
-  url 'https://github.com/piannelli/htscanner-enhanced/archive/b62ad43105758fe9f513a0730c3bbef0dfd2ee37.tar.gz'
-  sha1 'bd1716f6d8d9571855fd73ad52778d57eec7be77'
-  version 'b62ad431'
-  head 'https://github.com/piannelli/htscanner-enhanced.git'
+  homepage "https://github.com/piannelli/htscanner-enhanced"
+  url "https://github.com/piannelli/htscanner-enhanced/archive/b62ad43105758fe9f513a0730c3bbef0dfd2ee37.tar.gz"
+  sha256 "b014dafb36313c67f88b961799b9841e816de1fd3dc66bbf2ce5964c40f4e221"
+  version "b62ad431"
+  head "https://github.com/piannelli/htscanner-enhanced.git"
+
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "fc0b40e48565df94321b7f08d9456450a45850265551dc58404a8e70075de3ef" => :el_capitan
+    sha256 "998d4a6c4b1201661ec629e64cf7beaf81e480e2432d120132ddb782e5129db6" => :yosemite
+    sha256 "3fe391e4a47107ac4eab19d06688eba6f30e189e922237c8a894256888584002" => :mavericks
+  end
 
   def install
     ENV.universal_binary if build.universal?

@@ -2,20 +2,21 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Imagick < AbstractPhp55Extension
   init
-  homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.1.2.tgz'
-  sha1 '7cee88bc8f6f178165c9d43e302d99cedfbb3dff'
-  head 'https://svn.php.net/repository/pecl/imagick/trunk/'
+  homepage "https://pecl.php.net/package/imagick"
+  url "https://pecl.php.net/get/imagick-3.1.2.tgz"
+  sha256 "528769ac304a0bbe9a248811325042188c9d16e06de16f111fee317c85a36c93"
+  head "https://svn.php.net/repository/pecl/imagick/trunk/"
   revision 1
 
   bottle do
-    sha256 "3f1302cf814287c759010d6663768699c813e1bdaf171c81c70fa5296f43751a" => :yosemite
-    sha256 "c1be89659283e60193a4091afd7b8ca32a4e76cf518015f52670c72f46561840" => :mavericks
-    sha256 "4e6337ebde5f72eed45f21f3d6f0a7a6af1d83f81ff23e6d4b8a7c694c616e1f" => :mountain_lion
+    revision 1
+    sha256 "7cfcf5a28d4d4905aea64d27fe905fefd90b37a927f5102b52b67fb4fbed60f9" => :el_capitan
+    sha256 "b1c1ad29291010a2bf650878dfa32c8f9d86c9c9568b568590372d16e6657808" => :yosemite
+    sha256 "250ba7c55e35d00516ff4c119164ef59d00e022920d6460018fddfced5f8ad55" => :mavericks
   end
 
-  depends_on 'pkg-config' => :build
-  depends_on 'imagemagick'
+  depends_on "pkg-config" => :build
+  depends_on "imagemagick"
 
   # Rationale: Fix for the header file MagickWand.h
   #     could not be located error during ./configure
@@ -33,7 +34,7 @@ class Php55Imagick < AbstractPhp55Extension
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,
-                          "--with-imagick=#{Formula['imagemagick'].opt_prefix}"
+                          "--with-imagick=#{Formula["imagemagick"].opt_prefix}"
     system "make"
     prefix.install "modules/imagick.so"
     write_config_file if build.with? "config-file"

@@ -4,16 +4,17 @@ class Php70Opcache < AbstractPhp70Extension
   init
   desc "OPcache improves PHP performance"
   homepage "http://php.net/manual/en/book.opcache.php"
-  bottle do
-    cellar :any
-    sha256 "8a5e29b739a59c0b0d13020e1b43a6d8de15cffb703aaf2576e29e6b3e554548" => :yosemite
-    sha256 "cd4fd8cdcdeff2514981972447b6b1520a9d1f8c2d8017dd60a9290e1a1d9f0a" => :mavericks
-    sha256 "57ade06c688ca3799a4761bbe4e4ffe19a62953f21d330eaf5baec54712c2844" => :mountain_lion
-  end
-
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+
+  bottle do
+    cellar :any_skip_relocation
+    revision 2
+    sha256 "d014962ff11dac87d75ca299160c2ef6b23deb211945902b7b01b21053a8fc00" => :el_capitan
+    sha256 "a37def83a3ecc691bdf508814df58936d66749ed2391ae765b90c0aebe440cdb" => :yosemite
+    sha256 "799be8d68b609702dbc5b3b47ad0cf000dc8b09d63e3d2c149210495d6a62a54" => :mavericks
+  end
 
   depends_on "pcre"
 
@@ -32,10 +33,6 @@ class Php70Opcache < AbstractPhp70Extension
     system "make"
     prefix.install "modules/opcache.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("Zend OPcache")
   end
 
   def config_file
@@ -215,9 +212,4 @@ class Php70Opcache < AbstractPhp70Extension
       apc.cache_by_default = false
     EOS
   end
-
-  test do
-    shell_output("php -m").include?("Zend OPcache")
-  end
 end
-

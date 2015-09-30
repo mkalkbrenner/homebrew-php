@@ -3,11 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 class Php56Opcache < AbstractPhp56Extension
   init
   homepage "http://php.net/manual/en/book.opcache.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
+    cellar :any
+    revision 1
+    sha256 "b8000afb724ef6fa4b21cb0ef92543bc0ab5484102c1f205aae4df033f8d68f8" => :yosemite
+    sha256 "16fd30fb67548428921c5fb9dff9b39f14ed1b1a81b1fd4d0803795fa7300839" => :mavericks
+    sha256 "376b6b7c922413fb9ec72e447b519773925be492103c712220b302e457fc82e6" => :mountain_lion
   end
 
   depends_on "pcre"
@@ -27,10 +32,6 @@ class Php56Opcache < AbstractPhp56Extension
     system "make"
     prefix.install "modules/opcache.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("Zend OPcache")
   end
 
   def config_file

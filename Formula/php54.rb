@@ -5,17 +5,17 @@ class Php54 < AbstractPhp
   include AbstractPhpVersion::Php54Defs
   include AbstractPhpVersion::PhpdbgDefs
 
-  url     PHP_SRC_TARBALL
-  sha256  PHP_CHECKSUM[:sha256]
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
+  revision 3
 
-  head    PHP_GITHUB_URL, :branch => PHP_BRANCH
+  head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    sha256 "6282ab5f9e745a8425adb8587a6e677904e185cd97c240bbf03a00decf9d0b97" => :yosemite
-    sha256 "e1df5cfe248c8a515b9bbfd26e8f24b7d8d3a9486155992ce897403f45083397" => :mavericks
-    sha256 "a63e5573694b8e4d65d25ed80b054dd0ce61d70f0feca71d59e5d47cc3de3d9f" => :mountain_lion
+    sha256 "f1d0ff8bb1cf268a2a59cfb3006d58b1e0a5a2e28b6d427d0e024b52c5b35ba7" => :el_capitan
+    sha256 "6cae868acde1d2d943934ffe4becc88ca686d9a98af1bfda18d04bcf99bab426" => :yosemite
+    sha256 "67490dae53bfc769d95f2bae4907471853019b3a90e70581784c23aa1861d42e" => :mavericks
   end
 
   if build.with? "phpdbg"
@@ -25,7 +25,7 @@ class Php54 < AbstractPhp
     depends_on "flex" => :build
 
     resource "phpdbg" do
-      url    PHPDBG_SRC_TARBAL
+      url PHPDBG_SRC_TARBAL
       sha256 PHPDBG_CHECKSUM[:sha256]
     end
   end

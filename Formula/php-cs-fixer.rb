@@ -1,65 +1,29 @@
 require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
-require File.expand_path("../../Requirements/phar-requirement", __FILE__)
-require File.expand_path("../../Requirements/phar-building-requirement", __FILE__)
 
 class PhpCsFixer < Formula
+  desc "Tries to fix coding standards issues"
   homepage "http://cs.sensiolabs.org"
-  url "https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v1.8.1.tar.gz"
-  sha256 "08670ef4fcef2c321fae5143d206009e96f6ab46aa90d7faa2b9dfcbb7b6ffed"
+  url "https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v1.10.tar.gz"
+  sha256 "344a50a46563350916ed2ec037f8f4d56eb8f4fbf8fc2299c9020875846ded01"
   head "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git"
 
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "ade14a00772c49a3dd9b14365f6153f9e0f7300cf8abc721449545c5bf7141ff" => :el_capitan
+    sha256 "dcd30ac28e6c6a9c09611b64659de733315c5cbbd9e72cde56933bddee4f1a09" => :yosemite
+    sha256 "3d1ab0d0ab7241bb50589c8dae68bc5c6ce049f4fbfa3abe27a481a37b17d5ba" => :mavericks
+  end
+
   depends_on PhpMetaRequirement
-  depends_on PharRequirement
-  depends_on PharBuildingRequirement
   depends_on "composer"
-  depends_on "php53" if Formula['php53'].linked_keg.exist?
-  depends_on "php54" if Formula['php54'].linked_keg.exist?
-  depends_on "php55" if Formula['php55'].linked_keg.exist?
-  depends_on "php56" if Formula['php56'].linked_keg.exist?
 
   def install
-    File.open("genphar.php", "w") {|f| f.write(phar_stub) }
-
-    [
-      "mkdir -p src",
-      "rsync -a --exclude 'src' . src/",
-      "cd src && /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off  #{Formula['composer'].libexec}/composer.phar install",
-      "cd src && sed -i '' '1d' php-cs-fixer",
-      "php -f genphar.php",
-    ].each { |c| `#{c}` }
-
-    libexec.install "php-cs-fixer.phar"
-    sh = libexec + "php-cs-fixer"
-    sh.write("#!/bin/sh\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/php-cs-fixer.phar $*")
-    chmod 0755, sh
-    bin.install_symlink sh
+    system "composer", "install"
+    prefix.install Dir["*"]
+    bin.install_symlink prefix/"php-cs-fixer"
   end
 
   test do
     system "php-cs-fixer", "--version"
-  end
-
-  def phar_stub
-    <<-EOS.undent
-      <?php
-      $stub =<<<STUB
-      <?php
-      /** This was auto-built from source (https://github.com/fabpot/PHP-CS-Fixer) via Homebrew **/
-      Phar::mapPhar('php-cs-fixer.phar'); require 'phar://php-cs-fixer.phar/php-cs-fixer'; __HALT_COMPILER(); ?>";
-      STUB;
-      $phar = new Phar('php-cs-fixer.phar');
-      $phar->setAlias('php-cs-fixer.phar');
-      $phar->buildFromDirectory('src');
-      $phar->setStub($stub);
-    EOS
-  end
-
-  def caveats; <<-EOS.undent
-    Verify your installation by running:
-      "php-cs-fixer --version".
-
-    You can read more about php-cs-fixer by running:
-      "brew home php-cs-fixer".
-    EOS
   end
 end

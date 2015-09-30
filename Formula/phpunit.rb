@@ -3,13 +3,14 @@ require File.expand_path("../../Requirements/phar-requirement", __FILE__)
 
 class Phpunit < Formula
   homepage "http://phpunit.de"
-  url "https://phar.phpunit.de/phpunit-4.7.6.phar"
-  sha256 "f97a77f09773dd963e8eb5d36ef541f62039b603cfcb452691d27c423499569d"
+  url "https://phar.phpunit.de/phpunit-4.8.5.phar"
+  sha256 "ce39f98b1b5c17a7e19bb89d61f33bd72baa53406e97342acb2a7b2c340dbdb0"
 
   bottle do
     cellar :any
-    sha256 "9c040894f1116e3edc29e279a6040c16d1c6fbd35527e0a88b22d6cfe3f8855a" => :yosemite
-    sha256 "a0115e84ac47de8f70cfe87be14461fd7bbba514800b9139757f98b4f487053f" => :mavericks
+    sha256 "9ba7d856c552c684681cee21410e8a08ee4798fc82ea9e99f00f54bbe6814fe8" => :yosemite
+    sha256 "04ce8609a32c8ebbc4b0702831d0d3cb47d2a5717cb312fd26cfba5bb696d7db" => :mavericks
+    sha256 "502343bca4c62dd2cced5b589e1d9ba51db64befd1e047ad335fc54e2ddc37d4" => :mountain_lion
   end
 
   def install
@@ -24,4 +25,3 @@ class Phpunit < Formula
     shell_output("phpunit --version").include?(version)
   end
 end
-

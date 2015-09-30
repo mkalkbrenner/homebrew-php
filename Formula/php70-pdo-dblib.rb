@@ -4,15 +4,16 @@ class Php70PdoDblib < AbstractPhp70Extension
   init
   desc "A unified Sybase-DB style driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_dblib"
-  bottle do
-    sha256 "f940196a01008100536f86eda5e0a5f7b7e67c624f2a859e8c41e1d98a958578" => :yosemite
-    sha256 "a51a5e9883376c265c26e0000980c5690678dbb854659a67d59cdea91cbc0f5d" => :mavericks
-    sha256 "620b0e363907043adf39b7638a979f45eeb5513cafa0d18f936d8d6a83e15bf4" => :mountain_lion
-  end
-
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+
+  bottle do
+    revision 2
+    sha256 "06fd7af77c7c4e1610da201d4aa5f1b5ae86db09d9315844a76cca1b7cf4e178" => :el_capitan
+    sha256 "a59447b4b1900ab08dc1a77b2d4b7ec906d977543b151f25ec3142706dbd7acd" => :yosemite
+    sha256 "9ccd6562c5f4dd66ad9437e1a8b4fd755c8029350417525b2ada42797c681114" => :mavericks
+  end
 
   depends_on "freetds"
 
@@ -21,8 +22,6 @@ class Php70PdoDblib < AbstractPhp70Extension
   end
 
   def install
-    touch "#{Formula["freetds"].opt_prefix}/include/tds.h"
-    touch "#{Formula["freetds"].opt_prefix}/lib/libtds.a"
     Dir.chdir "ext/pdo_dblib" unless build.head?
 
     ENV.universal_binary if build.universal?
@@ -33,9 +32,4 @@ class Php70PdoDblib < AbstractPhp70Extension
     prefix.install "modules/pdo_dblib.so"
     write_config_file if build.with? "config-file"
   end
-
-  test do
-    shell_output("php -m").include?("pdo_dblib")
-  end
 end
-

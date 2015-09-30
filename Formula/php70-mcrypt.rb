@@ -4,15 +4,16 @@ class Php70Mcrypt < AbstractPhp70Extension
   init
   desc "An interface to the mcrypt library"
   homepage "http://php.net/manual/en/book.mcrypt.php"
-  bottle do
-    sha256 "2ab708118dbb1654b58eb87fccf921052a0593743ada65c730048e5ed5c6d1da" => :yosemite
-    sha256 "7fa3a64e042ca1e22fcc7f0148f7efd99199b4b8f42ce05ba728d70307f7b3f1" => :mavericks
-    sha256 "47e3480b1788c5b4dcd1a02ddad1dd02769b5f21cb7c889428989f8825cd44a0" => :mountain_lion
-  end
-
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+
+  bottle do
+    revision 2
+    sha256 "20a2cb3dff4c26a4cd2867ee19fa014bf74a7e9d77204733179b1d8b7766ec3a" => :el_capitan
+    sha256 "8c1347782cc2955b8ef1a0473abab5ca1cffb6c611f8b9bf7ee645ebe716253e" => :yosemite
+    sha256 "25b132344a03323a316e6e7ab506c73a91bee3888d5d496540685de01eb13579" => :mavericks
+  end
 
   depends_on "mcrypt"
 
@@ -30,9 +31,4 @@ class Php70Mcrypt < AbstractPhp70Extension
     prefix.install "modules/mcrypt.so"
     write_config_file if build.with? "config-file"
   end
-
-  test do
-    shell_output("php -m").include?("mcrypt")
-  end
 end
-

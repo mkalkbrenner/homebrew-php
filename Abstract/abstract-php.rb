@@ -34,15 +34,13 @@ class AbstractPhp < Formula
     depends_on 'freetype'
     depends_on 'gettext'
     depends_on 'gmp' => :optional
-    depends_on 'tidy-html5' if build.include?('with-tidy')
     depends_on 'icu4c'
     depends_on 'imap-uw' if build.include?('with-imap')
     depends_on 'jpeg'
     depends_on 'libpng'
-    depends_on 'libxml2' if build.include?('with-homebrew-libxml2') || MacOS.version < :lion
+    depends_on 'libxml2' if build.include?('with-homebrew-libxml2') || MacOS.version < :lion || MacOS.version >= :el_capitan
     depends_on 'unixodbc'
     depends_on 'readline'
-    depends_on "net-snmp" if build.include?('with-snmp')
 
     # ssl
     if build.include?('with-homebrew-libressl')
@@ -71,18 +69,16 @@ class AbstractPhp < Formula
     option 'with-imap', 'Include IMAP extension'
     option 'with-libmysql', 'Include (old-style) libmysql support instead of mysqlnd'
     option 'with-mssql', 'Include MSSQL-DB support'
+    option 'with-pear', 'Build with PEAR'
     option 'with-pdo-oci', 'Include Oracle databases (requries ORACLE_HOME be set)'
     option 'with-phpdbg', 'Enable building of the phpdbg SAPI executable (PHP 5.4 and above)'
-    option 'with-snmp', 'Build with SNMP support'
     option 'with-thread-safety', 'Build with thread safety'
-    option 'with-tidy', 'Include Tidy support'
     option 'without-apache', 'Disable building of shared Apache 2.0 Handler module'
     option 'without-bz2', 'Build without bz2 support'
     option 'without-fpm', 'Disable building of the fpm SAPI executable'
     option 'without-ldap', 'Build without LDAP support'
     option 'without-mysql', 'Remove MySQL/MariaDB support'
     option 'without-pcntl', 'Build without Process Control support'
-    option 'without-pear', 'Build without PEAR'
   end
 
   # Fixes the pear .lock permissions issue that keeps it from operating correctly.
@@ -202,22 +198,24 @@ INFO
       "--with-freetype-dir=#{Formula['freetype'].opt_prefix}",
       "--with-gd",
       "--with-gettext=#{Formula['gettext'].opt_prefix}",
-      "--with-iconv-dir=/usr",
+      ("--with-iconv-dir=/usr" if OS.mac?),
       "--with-icu-dir=#{Formula['icu4c'].opt_prefix}",
       "--with-jpeg-dir=#{Formula['jpeg'].opt_prefix}",
-      "--with-kerberos=/usr",
+      ("--with-kerberos=/usr" if OS.mac?),
       "--with-libedit",
       "--with-mhash",
-      "--with-ndbm=/usr",
+      ("--with-ndbm=/usr" if OS.mac?),
       "--with-pdo-odbc=unixODBC,#{Formula['unixodbc'].opt_prefix}",
       "--with-png-dir=#{Formula['libpng'].opt_prefix}",
       "--with-unixODBC=#{Formula['unixodbc'].opt_prefix}",
       "--with-xmlrpc",
       "--with-zlib=/usr",
       "--with-readline=#{Formula['readline'].opt_prefix}",
+      "--without-gmp",
+      "--without-snmp",
     ]
 
-    if build.include?('with-homebrew-libxml2') || MacOS.version < :lion
+    if build.include?('with-homebrew-libxml2') || MacOS.version < :lion || MacOS.version >= :el_capitan
       args << "--with-libxml-dir=#{Formula['libxml2'].opt_prefix}"
     end
 
@@ -228,7 +226,7 @@ INFO
     end
 
     if build.with? 'bz2'
-      args << '--with-bz2=/usr'
+      args << '--with-bz2=/usr' if OS.mac?
     end
 
     if build.with? 'debug'
@@ -260,10 +258,6 @@ INFO
       args << "--enable-cgi"
     end
 
-    if build.with? 'gmp'
-      args << "--with-gmp=#{Formula['gmp'].opt_prefix}"
-    end
-
     if build.include?('with-homebrew-curl') || MacOS.version < :lion
       args << "--with-curl=#{Formula['curl'].opt_prefix}"
     else
@@ -273,7 +267,7 @@ INFO
     if build.with? 'homebrew-libxslt'
       args << "--with-xsl=" + Formula['libxslt'].opt_prefix.to_s
     else
-      args << "--with-xsl=/usr"
+      args << "--with-xsl=/usr" if OS.mac?
     end
 
     if build.with? 'imap'
@@ -338,14 +332,6 @@ INFO
       end
 
       args << "--enable-phpdbg"
-    end
-
-    if build.with? 'tidy'
-      args << "--with-tidy=#{Formula['tidy-html5'].opt_prefix}"
-    end
-
-    if build.with? 'snmp'
-      args << "--with-snmp=#{Formula["net-snmp"].opt_prefix}"
     end
 
     if build.with? 'thread-safety'
@@ -509,6 +495,23 @@ INFO
     EOS
     end
 
+    if build.include?('with-gmp')
+      s << <<-EOS.undent
+        GMP has moved to its own formula, please install it by running: brew install php#{php_version_path}-gmp
+      EOS
+    end
+
+    if build.include?('with-snmp')
+      s << <<-EOS.undent
+        SNMP has moved to its own formula, please install it by running: brew install php#{php_version_path}-snmp
+      EOS
+    end
+
+    if build.include?('with-tidy')
+      s << <<-EOS.undent
+        Tidy has moved to its own formula, please install it by running: brew install php#{php_version_path}-tidy
+      EOS
+    end
 
     if build_fpm?
       s << <<-EOS.undent
@@ -541,7 +544,7 @@ INFO
     s.join "\n"
   end
 
-  def test
+  test do
     system "#{bin}/php -i"
 
     if build_fpm?

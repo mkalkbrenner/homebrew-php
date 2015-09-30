@@ -2,15 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Jsmin < AbstractPhp56Extension
   init
-  homepage 'http://pecl.php.net/package/jsmin'
-  url 'http://pecl.php.net/get/jsmin-1.1.0.tgz'
-  sha1 'e081d7c66a9401b9cd8b0ad585f357a4d7e335ef'
-  head 'https://github.com/sqmk/pecl-jsmin.git'
+  homepage "https://pecl.php.net/package/jsmin"
+  url "https://pecl.php.net/get/jsmin-1.1.0.tgz"
+  sha256 "9cf4180a816bac08300c45083410ca536200bd4940db0174026b9a825161f159"
+  head "https://github.com/sqmk/pecl-jsmin.git"
 
   bottle do
-    sha1 "260710b687ea64b79261664e4270f3ad1f4fab00" => :yosemite
-    sha1 "57aad90eca916479b7aab08c2d156e3b3500839e" => :mavericks
-    sha1 "90216a5363bcedfe27e932ac5e797fc1863abb51" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "e07731cde8542328cd347ee75a0ce62b9930394b535e01b773180ea2fb469436" => :el_capitan
+    sha256 "034992d51155ed6f57d464f9ea062d5eea58dce69b9f8a72d215d86f4dd37d1b" => :yosemite
+    sha256 "dbcda6a996e7cd84fb28a439084c119917b86349f59f6684751f3444b3c532af" => :mavericks
   end
 
   def install

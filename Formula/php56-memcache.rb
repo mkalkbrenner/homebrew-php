@@ -2,14 +2,21 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Memcache < AbstractPhp56Extension
   init
-  homepage 'http://pecl.php.net/package/memcache'
-  url 'http://pecl.php.net/get/memcache-2.2.7.tgz'
-  sha1 '15235e0f85b54c429bdbf8f6b529243580e504a7'
-  head 'https://svn.php.net/repository/pecl/memcache/trunk/'
+  homepage "https://pecl.php.net/package/memcache"
+  url "https://pecl.php.net/get/memcache-2.2.7.tgz"
+  sha256 "73006c02194a5a7c196c6488d449e5f8c75573a73568fe1a94b15157c147305d"
+  head "https://svn.php.net/repository/pecl/memcache/trunk/"
+
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "a869f9bd49a8d975a7b2f836784f6d6a1a05135562fc2b42e5dff0315902b2ce" => :el_capitan
+    sha256 "e876c59029000634519f46375fbbc37fb6f339bcedc81dc0ee40070577b284c6" => :yosemite
+    sha256 "34445de0a6b7c486ef2cd0289b37ca3519a7530c488c43e82c4ec91fdbc09b7b" => :mavericks
+  end
 
   devel do
-    url 'http://pecl.php.net/get/memcache-3.0.8.tgz'
-    sha1 '681ece0258958d60902d6bbf0cf1f2171a0cc47c'
+    url "https://pecl.php.net/get/memcache-3.0.8.tgz"
+    sha256 "2cae5b423ffbfd33a259829849f6000d4db018debe3e29ecf3056f06642e8311"
   end
 
   def install
