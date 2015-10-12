@@ -8,10 +8,10 @@ class Php55Mcrypt < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "98a17cc625aa76af45d1c4255f3c745b544da2cd71913547af97657b4da32a3b" => :yosemite
-    sha256 "b2154349bd6c9b87537c11faf13cd37500b1515f3deda096b479f7c2fe8a4f54" => :mavericks
-    sha256 "ead2e2b4aa9e73405686c5e4e2959ea6aa33e06f3eb058f8a451ecf2a5d6b24a" => :mountain_lion
+    revision 2
+    sha256 "a6b727d5f156b240caae0beac4d9fb3a53902b93a668487885a4e6b425c7fedb" => :el_capitan
+    sha256 "94df148d460a381250a31723d079c43ba2796cd6043ab466f3a7694413d511a2" => :yosemite
+    sha256 "668d9cb21780384bd8953aae7ca159599b27aa0b84d0746a156019680e4bc2e3" => :mavericks
   end
 
   depends_on "mcrypt"

@@ -8,10 +8,10 @@ class Php55Pspell < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "4f5e837aa76036eb8c00e1c65854e7109abf650aef9d00c569b579efa28a6e20" => :yosemite
-    sha256 "a38144877def94a5ee396e5dc78fcffe29225c1b2d201ef4fce36dcf17945c30" => :mavericks
-    sha256 "4b2acf21f711a9edc5225a5836ce7dad2f875a83e15db881bb824a568273d0f7" => :mountain_lion
+    revision 2
+    sha256 "4834df6ee1b4671c5a8abc396a41b11fe2672ca1b430138807f77bd0c7d5fce7" => :el_capitan
+    sha256 "f7e0aaee66c8ae6d2322e9347e14cd68ebe5381459b3bc085e8c0649a3863760" => :yosemite
+    sha256 "17002d96bf85f1e10bb0c3b1bc1449854fd1df9b2d899ca46b0d45ebca5c3adf" => :mavericks
   end
 
   depends_on "aspell"

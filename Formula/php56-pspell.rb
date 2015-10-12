@@ -8,10 +8,10 @@ class Php56Pspell < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "c19a4092054ad2dd589bb29fbf92616f200690f1f0394b6a362a9e1fd515d07c" => :yosemite
-    sha256 "0c2aee56d35fc3ae2e8ce90e43009a722e89242d9e1add2ea59203a5471d3363" => :mavericks
-    sha256 "fe8d0662662924721e60bfe738279d43b6ef6d159d1679543627babfef34909c" => :mountain_lion
+    revision 2
+    sha256 "8184fcaaa58fef7646e98655aa59d67a6576e5a748f8839fed3f55b347077962" => :el_capitan
+    sha256 "2d06c4fc1d01b0148fbbbd69900a8535076b892af9fc8fce4510ddb9e44ab55e" => :yosemite
+    sha256 "4042ff744c201e998619101691421e51292b7b5e7921f425fc8bd9eeebcff789" => :mavericks
   end
 
   depends_on "aspell"

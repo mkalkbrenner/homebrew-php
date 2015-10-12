@@ -8,10 +8,10 @@ class Php55PdoPgsql < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "d05f8f28ea2d0cbb3ab49ed17a1a6e75f5ab07c7c5f6328dde5ff2781b5f31fc" => :yosemite
-    sha256 "93100f69b2b460f51de8de4da29fd2a1d422f156ed7895832d71f0ff0c76f2b5" => :mavericks
-    sha256 "7dccc96eb123e3718af864ccf4640d3b092a04782e08a9bb10a687986d95b194" => :mountain_lion
+    revision 2
+    sha256 "f94a6866456c1d75e233e2d8a8096cd081a460cc47409061c3ed7ae23a580c15" => :el_capitan
+    sha256 "3ff06193103d25cc93a8bcbd04bbf27ad945e914817531cbbdccec54ef0fc3c0" => :yosemite
+    sha256 "6a214826a608d55cdb3bb7132eed6fe3a5979f75ff6ebf507ac69a77c7f33d42" => :mavericks
   end
 
   depends_on "postgresql"

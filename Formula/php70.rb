@@ -3,21 +3,20 @@ require File.expand_path("../../Abstract/abstract-php", __FILE__)
 class Php70 < AbstractPhp
   init
   desc "PHP Version 7.0"
+  bottle do
+    revision 3
+    sha256 "969ed56c95622e680af65dae0fd063bc5746fe6ca21037422344d9da8bd506b5" => :el_capitan
+    sha256 "c54b38f958cf531bd6b831653988be630cc1bd99de5cbc766b678458ae190c6e" => :yosemite
+    sha256 "ac40ff10b971ac01b2bc8133a1cc29e2f09e49c918bca0fb6e0631e6414cd635" => :mavericks
+  end
+
   include AbstractPhpVersion::Php70Defs
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
 
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
-
-  bottle do
-    revision 2
-    sha256 "a3feff0b0b4f31b184160bad9348d149dd8d54b67bebcf281d6a77ba976b13bd" => :el_capitan
-    sha256 "176a242ee0f1ee80c8299f593c1204ee2b1987d15c70dc02f6fcdb11f19776d6" => :yosemite
-    sha256 "04f37dc8443332fe44f49a52c68a28737fe301e6d65aff782abc7d600ef67ede" => :mavericks
-  end
 
   def install_args
     args = super

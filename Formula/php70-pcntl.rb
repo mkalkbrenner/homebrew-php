@@ -4,17 +4,17 @@ class Php70Pcntl < AbstractPhp70Extension
   init
   desc "Process Control support"
   homepage "http://php.net/manual/en/book.pcntl.php"
+  bottle do
+    cellar :any_skip_relocation
+    revision 3
+    sha256 "ed4affbc8d42a6d9b25cfa5f299c0020562b8ed25053754f12593af7cebc65ec" => :el_capitan
+    sha256 "1f5a89eb54b4eb83a5b0c7dd64ec4f765e23dd20d5e3f4cdf9bafacb77444b31" => :yosemite
+    sha256 "2e3295252f11d6ccae547dfba2150026ceaa4af8e7b32cb73565baba5fc69163" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    cellar :any_skip_relocation
-    revision 2
-    sha256 "e1cc1c2516e16d2388f0b7ad718c3014c59e9ba76ee1ec9fb20a0af8540099fc" => :el_capitan
-    sha256 "d53e209e0ef49e776b3a2520dc44a90d62e1f3b30f7b3000e28263bd49085e0f" => :yosemite
-    sha256 "f2b67a36333526233bec451f2258550a47f02c40ab2e68aaf6cb2e41a69b57ab" => :mavericks
-  end
 
   def install
     Dir.chdir "ext/pcntl"
