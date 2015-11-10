@@ -9,10 +9,10 @@ class Php56Gmp < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 2
-    sha256 "5c87cff68d5240dc49b8fc8b3f61866618fccda248c4479adaf7806c1f530a9e" => :el_capitan
-    sha256 "dce7ca73db9bf13f10d74578a85c0321c212e6d1e512a758199c4044b8b7784c" => :yosemite
-    sha256 "057290ab44e6a8d2e17f919580dd23f5ca69fecc045a9b68774c058a0b3c74d3" => :mavericks
+    revision 3
+    sha256 "276db14dce0f99f044d73b25f6126cce8cc342cfa56671f200da78c44e952c95" => :el_capitan
+    sha256 "1e3505d233e4507e0c9311b975f9ea25def47a9997f24b2792315a0b41587dd9" => :yosemite
+    sha256 "3eac1886f148f3f9f489b240ea5d65772f8652341e8b94f07391e24da17e434d" => :mavericks
   end
 
   depends_on "gmp"

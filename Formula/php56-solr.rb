@@ -8,10 +8,11 @@ class Php56Solr < AbstractPhp56Extension
   head "https://svn.apache.org/repos/asf/lucene/dev/trunk/"
 
   bottle do
-    cellar :any
-    sha256 "fe93d5ecba64fb5d93e4fde0cae97830e5f63a9178a5ab09e42f5f6175632fd8" => :el_capitan
-    sha256 "6b9cc2307986ecb5c7c6cb6b5ae6a12989509aa115150adf5ef857bc45e25a7b" => :yosemite
-    sha256 "ad5fcc87eac5bc5ddcaab2e98d3bc0ab6be0d9748b174551b7663e289c40f55b" => :mavericks
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "cbbce0ab6708ea5707cf6577206efb454d61915c68b28d86b173ea26d221340e" => :el_capitan
+    sha256 "dc4229284d3ff4907e601c98d461dba1da8253ea5654d10a10f3d900bf7f9e13" => :yosemite
+    sha256 "7b3197bebb31b018964f18521e4ea065e9d404e02a1c4a63b3fe18ed15359511" => :mavericks
   end
 
   def install
