@@ -9,10 +9,11 @@ class Php70Lzf < AbstractPhp70Extension
   head "http://svn.php.net/repository/pecl/lzf/trunk/"
 
   bottle do
-    cellar :any
-    sha256 "e9913ea66d85cb6f90306e268d2220c5dcfa87e6522fe780de585103fe26472d" => :yosemite
-    sha256 "c8621911a5361c77d6aeee001d956eccd5803944d2ada674d828506ca8b004c3" => :mavericks
-    sha256 "a79956a38739720cdd012545e76a2302eddf85fae37186f310506234f1312b8c" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "eb12f21d42a5970f53dfabc17db92c49ddaaaf07162a8492e0db3d8755668a2d" => :el_capitan
+    sha256 "a9abbbc70eafa900b74c93321edf0ced6731761778e2c24ea0eb9c3380775cb9" => :yosemite
+    sha256 "c6a9da44609739952b64345289de96f4661444518b35361ff4000368179c33f9" => :mavericks
   end
 
   def install

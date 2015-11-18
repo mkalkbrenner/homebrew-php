@@ -5,10 +5,10 @@ class Php70Gmp < AbstractPhp70Extension
   desc "GMP core php extension"
   homepage "http://php.net/manual/en/book.gmp.php"
   bottle do
-    revision 5
-    sha256 "13b8ae5822637624734edabb707ccc7a45513a51c05fd94d5f0a87baf02262e6" => :el_capitan
-    sha256 "465373bdb578901375054e16967ba3747003e76d73df33079803bf0d0c7c6f51" => :yosemite
-    sha256 "49230cfabae4cf04e80515ccf949b9cfa565707944bc974feee8245b043dc597" => :mavericks
+    revision 6
+    sha256 "8a1fa24cc6768b3d6edcf6d645c9c20c4f3136fe451501d681ed144b81044791" => :el_capitan
+    sha256 "a38dfc917892c1a5e039553591a1f713cb2022fc77dfc585ce3f63d2723d7598" => :yosemite
+    sha256 "6021f27df5fd159695505595fbf86ff9689a5a625ece78536c66873eeaa5e08e" => :mavericks
   end
 
   url PHP_SRC_TARBALL

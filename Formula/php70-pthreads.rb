@@ -10,9 +10,10 @@ class Php70Pthreads < AbstractPhp70Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "a62b454d50ec6ad2c4855f8ccfd66bbfafe9ed47a77ee8a2af043ae16f8beda2" => :el_capitan
-    sha256 "eee89b76ffe6d676f1b2eb92ca2a9664012f95edd9a0733ce85266de4c7fe59b" => :yosemite
-    sha256 "c97fdc01d0ec8f1782bd8787e99d14feafbc8c2bd9b3c885eb002fda33af20ba" => :mavericks
+    revision 1
+    sha256 "59b07a83670440260d702fda61a5f851f2cfcec80e276b8390dd38541de5a799" => :el_capitan
+    sha256 "0902ea17a34d563c7e981f5f5a685cd34f93e57b601adb5d1b23cdeb642d69e4" => :yosemite
+    sha256 "d22e147facf2987d5f8d3d63bb906247480e9d8299167bf2fcf14c1014818bcb" => :mavericks
   end
 
   def install
