@@ -10,10 +10,10 @@ class Php70Lzf < AbstractPhp70Extension
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "eb12f21d42a5970f53dfabc17db92c49ddaaaf07162a8492e0db3d8755668a2d" => :el_capitan
-    sha256 "a9abbbc70eafa900b74c93321edf0ced6731761778e2c24ea0eb9c3380775cb9" => :yosemite
-    sha256 "c6a9da44609739952b64345289de96f4661444518b35361ff4000368179c33f9" => :mavericks
+    revision 2
+    sha256 "f8fec0b909bc04c45efa7400c62bce8442e6cd492b209c5bdaaf4a1f1c145c07" => :el_capitan
+    sha256 "2d5add525c3125045e2208efae566273a324d3e37fc29069f152f926192a5e6e" => :yosemite
+    sha256 "0ea8a7ef4d33c537c4a57aef41bf0ad78c41a2526128c995359ddf3c885e068e" => :mavericks
   end
 
   def install

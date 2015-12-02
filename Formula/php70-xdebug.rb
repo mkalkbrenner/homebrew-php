@@ -4,17 +4,17 @@ class Php70Xdebug < AbstractPhp70Extension
   init
   desc "Provides debugging and profiling capabilities."
   homepage "http://xdebug.org"
-  url "http://xdebug.org/files/xdebug-2.4.0beta1.tgz"
-  version "2.4.0beta1"
-  sha256 "169ac5dc5fe8a06d75467c83a495940472b8d139b2d2204d8859127e6494f0d9"
+  url "http://xdebug.org/files/xdebug-2.4.0rc1.tgz"
+  version "2.4.0RC1"
+  sha256 "4ac1ff5521c683d6a437f2d3d9a7a2d26b7eac8c473b52560a48404cf75a9805"
   head "https://github.com/xdebug/xdebug.git"
 
   bottle do
     cellar :any_skip_relocation
     revision 2
-    sha256 "236ec1fa7d8f3190b4f2fd9073d7aeaefc8566d04b8fca3e76481474b34913e5" => :el_capitan
-    sha256 "7c08c220b749fd72a4de4031df6838182b468908ee54fde465170c93bf58c32a" => :yosemite
-    sha256 "eda016f24b97ce0e0bded3693537e3253ac4849eea7ad4048a66026d7a13bdc2" => :mavericks
+    sha256 "97b69e64db3c5d69c81595d065f28607702c48e96b6f1a2adb0bf95e43c36b91" => :el_capitan
+    sha256 "a16314f38214929de483a2993c9ed38d2170461d8c7cec81e7b932de7b397437" => :yosemite
+    sha256 "75f8d39c27f8f77de0bb9823d25e59df8c6012ec365e7c87847d026a022745b0" => :mavericks
   end
 
   def extension_type

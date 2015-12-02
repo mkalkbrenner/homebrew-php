@@ -40,24 +40,24 @@ class AbstractPhpVersion < Formula
   end
 
   module Php56Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.15.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.16.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '5.6.15'
+    PHP_VERSION     = '5.6.16'
     PHP_BRANCH      = 'PHP-5.6'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '11a0645c4d4b749e256da1e0d6df89dd886b5b06b83c914d942653661dbd1c38',
+                        :sha256 => '4fe6f40964c1bfaba05fc144ba20a2cdad33e11685f4f101ea5a48b98bbcd2ae',
                       }
   end
 
   module Php70Defs
-    PHP_SRC_TARBALL = 'https://downloads.php.net/~ab/php-7.0.0RC7.tar.bz2'
+    PHP_SRC_TARBALL = 'https://downloads.php.net/~ab/php-7.0.0RC8.tar.bz2'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.0.0-rc.7'
+    PHP_VERSION     = '7.0.0-rc.8'
     PHP_BRANCH      = 'PHP-7.0.0'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '0b1773df54b2ed2aaa8ed04188d02fa28189045f8893c3b59afd8aacf9a7db9c',
+                        :sha256 => '8c46621e80b610749d2d31439e9b6db7b881c0249d1df1f4c3e05fdd46a2d108',
                       }
   end
 end
