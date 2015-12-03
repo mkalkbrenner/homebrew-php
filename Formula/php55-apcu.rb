@@ -15,6 +15,7 @@ class Php55Apcu < AbstractPhp55Extension
   end
 
   option "with-apc-bc", "Whether APCu should provide APC full compatibility support"
+  option "without-apcu-mmap", "Whether APCu should be build without mmap support"
   depends_on "pcre"
 
   def install
@@ -25,6 +26,7 @@ class Php55Apcu < AbstractPhp55Extension
     args = []
     args << "--enable-apcu"
     args << "--enable-apc-bc" if build.with? "apc-bc"
+    args << "--disable-apcu-mmap" if build.without? "apcu-mmap"
 
     safe_phpize
 
