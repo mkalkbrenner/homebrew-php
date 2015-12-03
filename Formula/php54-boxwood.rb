@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Boxwood < AbstractPhp54Extension
   init
+  desc "PHP extension for fast replacement of multiple words in a piece of text"
   homepage "https://github.com/ning/boxwood"
   url "https://github.com/ning/boxwood/archive/888ba12635d7c50cb1bbf1cbef513b0ef9238af3.tar.gz"
   sha256 "7e5142706023c4acc1db433998d2350458b00c7bc79eba0cc886683bba6b5343"
@@ -9,9 +10,10 @@ class Php54Boxwood < AbstractPhp54Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "93af27a84375b67a29c69ed0d96f218386dce2c586fb3d98aafaa9af04d33995" => :el_capitan
-    sha256 "f7fa2e5a4013f0d2b1b8261e8c49df724b976dcb5985b839be8c8ecd5797bb1c" => :yosemite
-    sha256 "5703526ac54198cd00372fbbf62b822b1d5d2b88eaf009c8bdfa1f7dc720b392" => :mavericks
+    revision 1
+    sha256 "3db0c2999944babf6b4f1364b0682cf5896ba6650e3b3df0f2f042caade82e35" => :el_capitan
+    sha256 "0a3025f8e468b86272d042fb7b6e42fc1861d89b669a966c7fb36535d1d70cdb" => :yosemite
+    sha256 "33f9250ac06cb11bb2eecd81386dcbaaa0a3cc0a59fca81fdebc198263ddc34e" => :mavericks
   end
 
   def install

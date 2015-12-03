@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Jsmin < AbstractPhp54Extension
   init
+  desc "PHP extension for minifying JavaScript."
   homepage "https://pecl.php.net/package/jsmin"
   url "https://pecl.php.net/get/jsmin-1.1.0.tgz"
   sha256 "9cf4180a816bac08300c45083410ca536200bd4940db0174026b9a825161f159"
@@ -9,10 +10,10 @@ class Php54Jsmin < AbstractPhp54Extension
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "a3c253697d16fab10fc702afccaa9a579e7ac69dbd1cc738fff32dedb1086075" => :el_capitan
-    sha256 "0c69edac3d6ba58eacb991e1c7cf70c1835aef26c265ddc9392f8188560d35af" => :yosemite
-    sha256 "06c78e6fdf50557182c0417fa5e13eae61d089bb760c85c4560fe3cab2f45c19" => :mavericks
+    revision 2
+    sha256 "c936358a2d26ee3b6be79109d89b7929a94997ada27992bb5d707e5ae0c03b1c" => :el_capitan
+    sha256 "7187d78a3be670b9ed4296e30e257f9646fa38790a818a9bcea699faba19ceff" => :yosemite
+    sha256 "85a86e2652342cf7b43cf942cd4806154dd61780ffe4a764c03ce239a76e9e50" => :mavericks
   end
 
   def install

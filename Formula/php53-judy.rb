@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php53Judy < AbstractPhp53Extension
   init
+  desc "PHP Extension for libJudy."
   homepage "https://github.com/orieg/php-judy"
   url "https://pecl.php.net/get/Judy-1.0.2.tgz"
   sha256 "6b913af2c44ac84a2224fecf8a81ddcb0c753252cafd153cb0e9d7c33a333118"
@@ -9,9 +10,10 @@ class Php53Judy < AbstractPhp53Extension
 
   bottle do
     cellar :any
-    sha256 "2a8c6d20b113c80c54b01ec614e3883729e93e375c9b4f34454833ad8a10aef0" => :el_capitan
-    sha256 "4a526968a9648110969d46bd9ef196a8fd982ac1f15bee4330e007d28d975182" => :yosemite
-    sha256 "19493775e2e1bb9b85dc26c46abb1f120a437102dd7fcd22c34ea80557c034a4" => :mavericks
+    revision 1
+    sha256 "dd9966fc9100dbc6a7c0e9ec3796d67123cc729452a872d984f40769222617ea" => :el_capitan
+    sha256 "66c97b388d21162ec7433cfc59cd34b0605ffa774c83ebb0c217dd7cd1cb56ab" => :yosemite
+    sha256 "7062a3a45347135ceba8c448523e4cd0beb581fea3d826f3551961ac3238bd77" => :mavericks
   end
 
   depends_on "judy"

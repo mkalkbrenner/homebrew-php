@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php53Pimple < AbstractPhp53Extension
   init
+  desc "Pimple is a simple PHP Dependency Injection Container."
   homepage "http://pimple.sensiolabs.org/"
   url "https://github.com/silexphp/Pimple/archive/v3.0.0.tar.gz"
   sha256 "591e706f5cdce06bdd17d306db3fe9df521bee0ef4fcb0ee56524ff258ef66ba"
@@ -9,9 +10,10 @@ class Php53Pimple < AbstractPhp53Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "59594789bd376d0d447d0f0ff682115fec2a816bfa937991f05dbc5b4f872ba3" => :el_capitan
-    sha256 "61c9b6d7994d8257955d63562d4ce51e4ef133428f329a07837629c0e911202f" => :yosemite
-    sha256 "61298fb221f2f240693481ea18aaba92b5a36294d56c475a0d4d81aa2aa34e07" => :mavericks
+    revision 1
+    sha256 "d9bb53ce7909f892de6e54d90b2bc64f445031908b945bd1b9397148943d9714" => :el_capitan
+    sha256 "ab580b1537fde846bd2a8abbb0eb1d7cf8f285296144a36858edd7cab9cb2c85" => :yosemite
+    sha256 "ac7ce01167896cb2dbe4d48606e5938e055420ba40430c64f9993a4b2d404ff3" => :mavericks
   end
 
   def install

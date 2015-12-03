@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php53Htscanner < AbstractPhp53Extension
   init
+  desc "Fork of the htscanner project with additional settings to facilitate shared webhosting providers."
   homepage "https://github.com/piannelli/htscanner-enhanced"
   url "https://github.com/piannelli/htscanner-enhanced/archive/b62ad43105758fe9f513a0730c3bbef0dfd2ee37.tar.gz"
   sha256 "b014dafb36313c67f88b961799b9841e816de1fd3dc66bbf2ce5964c40f4e221"
@@ -10,9 +11,10 @@ class Php53Htscanner < AbstractPhp53Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "708dff46c007370dd910d77333bcfb50daf5f649537431536c7cd0b3938b2d6a" => :el_capitan
-    sha256 "9b525a83086b8acb38d1126ea7aa8e2de2a725d579bd8f46d477c113a75f0c1c" => :yosemite
-    sha256 "4ea3008376779fb5e84b0c2c4341e5242b9654883d667f5959053b3345de7b9c" => :mavericks
+    revision 1
+    sha256 "0ab018007196a89c895f6fe66d5b0288aab88544178316d2cf22d968f9302d31" => :el_capitan
+    sha256 "283dbf804dcb1b47ecc274d8493b09928269d5f2bd78ee199d9ce48dd66c6c75" => :yosemite
+    sha256 "68799c66ee2e6904a6d5d9731057306fff88fc2ecb49a304a82f66925038aa6b" => :mavericks
   end
 
   def install

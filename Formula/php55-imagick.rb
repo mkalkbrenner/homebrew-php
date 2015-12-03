@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Imagick < AbstractPhp55Extension
   init
+  desc "Provides a wrapper to the ImageMagick library."
   homepage "https://pecl.php.net/package/imagick"
   url "https://pecl.php.net/get/imagick-3.1.2.tgz"
   sha256 "528769ac304a0bbe9a248811325042188c9d16e06de16f111fee317c85a36c93"
@@ -9,10 +10,10 @@ class Php55Imagick < AbstractPhp55Extension
   revision 1
 
   bottle do
-    revision 1
-    sha256 "7cfcf5a28d4d4905aea64d27fe905fefd90b37a927f5102b52b67fb4fbed60f9" => :el_capitan
-    sha256 "b1c1ad29291010a2bf650878dfa32c8f9d86c9c9568b568590372d16e6657808" => :yosemite
-    sha256 "250ba7c55e35d00516ff4c119164ef59d00e022920d6460018fddfced5f8ad55" => :mavericks
+    revision 2
+    sha256 "3029771661e0c1b98a7a5f6449059dea196a24994d7420443139c905046d934d" => :el_capitan
+    sha256 "26315f052b5f1033e6eea1a36a59b8e3ed7d0f29174f56b2236e8905149aea6e" => :yosemite
+    sha256 "00c93054422b3a9522c50e7b6e9fd76edbea0c11476790c4e0957af65753578a" => :mavericks
   end
 
   depends_on "pkg-config" => :build

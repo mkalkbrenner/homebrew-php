@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Mosquitto < AbstractPhp54Extension
   init
+  desc "A wrapper for the Mosquitto MQTT client library for PHP."
   homepage "https://github.com/mgdm/Mosquitto-PHP/"
   url "https://pecl.php.net/get/Mosquitto-0.2.2.tgz"
   sha256 "e9baa3af1d9a62f8fa1b76ffffbd13fffe7b65e0122130fb389915269543915e"
@@ -9,9 +10,10 @@ class Php54Mosquitto < AbstractPhp54Extension
 
   bottle do
     cellar :any
-    sha256 "34812952fb528a4dc9f839b0f1db491089d365a21f95efceb5a2c487984acb08" => :el_capitan
-    sha256 "61ba44381a33d099155332e10607dd4bf5bcc530dd4a881155480564541ad969" => :yosemite
-    sha256 "cec7ed24b23b82aced65038afc0d312ea24141b682ce14526799897098ca6054" => :mavericks
+    revision 1
+    sha256 "136f0279e39666e90111aaad7c12f54d0211cfa48af5b878b61f1febfd1c2352" => :el_capitan
+    sha256 "5f839c42fd7be9ec60b1e01ccf718e5c6f1ef975fb15aec4d0610150be7c53ce" => :yosemite
+    sha256 "ffcd74c3991b2bdc816e716ffdc9ba896c21e4cfbba1c7a212c55d847fd1b47a" => :mavericks
   end
 
   depends_on "mosquitto"
