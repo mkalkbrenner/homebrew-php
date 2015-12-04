@@ -5,10 +5,10 @@ class Php70Intl < AbstractPhp70Extension
   desc "A wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
   bottle do
-    revision 7
-    sha256 "bd494982eeaf56be831b7c6cce357aa507bc5726de9fc0efa81c410c0f394ff8" => :el_capitan
-    sha256 "3d82bdf3b9d0ac8467bac1b6f8625e5a4b3976fdb2563e65bb497ae4a8a69d85" => :yosemite
-    sha256 "4ecd3d46cfaf31d9d3491b23268822e5ec7e13dff479b279d067c7d44b14f55d" => :mavericks
+    revision 8
+    sha256 "b833124100f8eecdb1d96b2cd5d1f0902eede83d87b9beb00902e82a4837b81d" => :el_capitan
+    sha256 "05db9a4f6319cd62c92115a48324ca129d28c71482ec1c470dddef1f35bd7159" => :yosemite
+    sha256 "2116afcc230ec85fa6ee451f07cc7e60daff4208f02ace60557f789fd13a43cc" => :mavericks
   end
 
   url PHP_SRC_TARBALL

@@ -1,18 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php53Apcu < AbstractPhp53Extension
+class Php70Apcu < AbstractPhp70Extension
   init
   desc "APC User Cache"
   homepage "https://pecl.php.net/package/apcu"
-  url "https://pecl.php.net/get/apcu-4.0.8.tgz"
-  sha256 "bef4f5ae309526a332e0f6b98f0579a45d6000b928991babe684d4c22432d57d"
+  url "https://pecl.php.net/get/apcu-5.1.0.tgz"
+  sha256 "51c285a29c544e50cce6ceec83ba9482e46650ac9e87df7e24704c5c6484449a"
   head "https://github.com/krakjoe/apcu.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "4f34be05720c4a25566986ebfbec826f72e82acd027d1500b84142b88f2286d4" => :el_capitan
-    sha256 "e01e826acda9ff77008a9a0375cefd7427f9162098fdfc96f0c8e8204f681f77" => :yosemite
-    sha256 "0572c7786c21ac9e5de1e4a25bc802a565fab2eda2194ce31c17b43c35609819" => :mavericks
+    sha256 "277d87ddaeba1f1ba96ab41f7c16995631afa1bb76b0b6b542d0039928c76db8" => :el_capitan
+    sha256 "196680f7c1f1971d77edf9a3e38c5c6d8296662cf20a1b2e644c4cd13f9bdfa7" => :yosemite
+    sha256 "7fd753b69b228d3b11b868cfdcf15931725e1f96ef42ed5bd9c5f1ad68132abb" => :mavericks
   end
 
   option "with-apc-bc", "Whether APCu should provide APC full compatibility support"
