@@ -1,17 +1,17 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Imagick < AbstractPhp56Extension
+class Php70Imagick < AbstractPhp70Extension
   init
   desc "Provides a wrapper to the ImageMagick library."
   homepage "https://pecl.php.net/package/imagick"
-  url "https://pecl.php.net/get/imagick-3.3.0.tgz"
-  sha256 "bd69ebadcedda1d87592325b893fa78a5710a0ca7307f8e18c5e593949b1db2d"
+  url "https://pecl.php.net/get/imagick-3.4.0RC2.tgz"
+  sha256 "5c9391d673f97b11c42bc8b05c4a096d659f1d7d38890d43fe7447fcf5f629d2"
   head "https://github.com/mkoppanen/imagick.git"
 
   bottle do
-    sha256 "a7ccbddea809ab766aeec2a710fd436906949a9a45f476e2578a0545cd157f11" => :el_capitan
-    sha256 "e19eac8988bf58e1b084ad4ce1678cd5c7affd16b8acb3c37d9e46b0f23c2c92" => :yosemite
-    sha256 "ce6e3586a899c5ff8d4804648f584c13a6292b199dcd51b1d3c290203e2f04d6" => :mavericks
+    sha256 "7943bfe40d4e09416873e22771e85ac1f7b3a5f3630aa03f8be4aec657a5e59c" => :el_capitan
+    sha256 "87d32c1c0c08100e2a71e59aab55d3891fb0bcda9655f065a1cd3b205928a945" => :yosemite
+    sha256 "f866bf5e05357783a7981ea9f0c73a096ad5d9080b10b6ce0f745d769baa07f0" => :mavericks
   end
 
   depends_on "pkg-config" => :build
