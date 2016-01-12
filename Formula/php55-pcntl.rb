@@ -10,10 +10,10 @@ class Php55Pcntl < AbstractPhp55Extension
 
   bottle do
     cellar :any_skip_relocation
-    revision 3
-    sha256 "a981fb91a75efcbf7db9e1c70c78125831e785715c613ab45c473f043b209aee" => :el_capitan
-    sha256 "ed5465e21a7b8dca50c90d37253ab3760a0b6730edab0f07c0ae5ff367b3e787" => :yosemite
-    sha256 "a9fb984012991476cf647858fab678975990bc456e6650161cd525d008160c79" => :mavericks
+    revision 4
+    sha256 "8e288d405929874576c4ab5fc3fbbbe046f2ceafc2bf7fef5dd4d899b34721c7" => :el_capitan
+    sha256 "7bc14c50d8fc340a5f139ffdebe8fc5b5373d3e290eba3ec0e05fa86ac4e7f8a" => :yosemite
+    sha256 "728b6db4ac6fedc2df3b58eb2b92d368fd8ae4e4c934831b0e48289c682c5339" => :mavericks
   end
 
   def install
@@ -30,3 +30,4 @@ class Php55Pcntl < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+

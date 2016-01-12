@@ -9,10 +9,10 @@ class Php55Intl < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 3
-    sha256 "4eb7c31d1d38658f69504742fd8a25e9bdb28bf980ee7d1888e1c407aaccda36" => :el_capitan
-    sha256 "8cf28fa25c1325bd2381ef2c58941600a73cdb8ea47ee724600f58d8745551b7" => :yosemite
-    sha256 "1c9f3e681a6ef2e6209eff881ec2ee0916ff16620ccd362675f99ab84c2d5cc3" => :mavericks
+    revision 4
+    sha256 "e6b0e650f07712935b7de21b785f6357a951be37a5376ec91e53299d5c46b9b8" => :el_capitan
+    sha256 "4ad6dfa6195feb0211af52fb381958b9b448ed91640db99c9e5e95ecf30bf8fd" => :yosemite
+    sha256 "e32fb72c45df5ce04676413e55e328ab69a47353c4b10564441a4d71ba1469f7" => :mavericks
   end
 
   depends_on "icu4c"
@@ -44,3 +44,4 @@ class Php55Intl < AbstractPhp55Extension
     EOS
   end
 end
+

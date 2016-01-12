@@ -1,15 +1,15 @@
 class Adminer < Formula
   desc "Adminer is a full-featured database management tool written in PHP."
   homepage "http://www.adminer.org/"
-  version "4.2.2"
-  url "https://downloads.sourceforge.net/project/adminer/Adminer/Adminer%20" + version + "/adminer-" + version + ".php"
-  sha256 "4dced0c64dbeb0f6e9a27c4ec5838bbf5f33b82c368a8965b47ae3da6c9bcb2c"
+  version "4.2.3"
+  url "https://www.adminer.org/static/download/" + version + "/adminer-" + version + ".php"
+  sha256 "40e72c917aa4f5f19d39b7322322989fd3b752131821b9f13459ca765796957c"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "127d8ecb0d2fa755dd44dd63d1c494db734ab48408befb2143fa79e603e3bc04" => :yosemite
-    sha256 "f39cedb75643dfd9638b43b10888190b359d3d472eb973b0c39d2bac208556a9" => :mavericks
-    sha256 "6b3525282d16ad79acf8aa32c9281f43b28ab728af76aad460743becb851df0e" => :mountain_lion
+    sha256 "bcfb05854a5e5451bd6cd83e33082fd4edf55616128f1431a7f30425611e4a51" => :el_capitan
+    sha256 "8e156b95803303b9918d7994e45c8e5e0073de081f1fd17dc2e48d1325597492" => :yosemite
+    sha256 "a1e94376205985a78dd840edb7b0e2a18920cf355acaa88d6772f02e9f5e6af7" => :mavericks
   end
 
   def install

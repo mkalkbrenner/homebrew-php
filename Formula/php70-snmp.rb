@@ -5,10 +5,10 @@ class Php70Snmp < AbstractPhp70Extension
   desc "SNMP core php extension"
   homepage "http://php.net/manual/en/book.snmp.php"
   bottle do
-    revision 8
-    sha256 "bcc31200ab5b8c536778cd966a96af03960da9f74cf0f6e346a79701daa44663" => :el_capitan
-    sha256 "6145430b4b1826f6fa0c9abda6f15ff956d81709f3d144a570130b032fbfdcf4" => :yosemite
-    sha256 "6d30507bc775951eab22e74c3cbbe4ebe76b0dc4038cec7f5cbee7a9aeabe26b" => :mavericks
+    revision 10
+    sha256 "e66db9c109916d3c571c6ae7a5b4a8361a01b03dd1edbc68e2a750251ad9b61a" => :el_capitan
+    sha256 "45e1248817d2039e2559a9d6903de8bb5000e4e373e5c762f82524796896dcbc" => :yosemite
+    sha256 "7cb1b640c485c651a070ad7a9bf9353510ff784a59e6e56fe7397749a596ff25" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -32,3 +32,5 @@ class Php70Snmp < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
+

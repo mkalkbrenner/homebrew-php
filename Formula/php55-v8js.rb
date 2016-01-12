@@ -4,13 +4,13 @@ class Php55V8js < AbstractPhp55Extension
   init
   desc "PHP extension for Google's V8 Javascript engine"
   homepage "http://pecl.php.net/package/v8js"
-  url "http://pecl.php.net/get/v8js-0.3.0.tgz"
-  sha256 "34578cdfe00d41623771c68f61cdc8dd06a66d044b5c22f9ed0a1999a35da39c"
+  url "http://pecl.php.net/get/v8js-0.4.0.tgz"
+  sha256 "0d52b999c12f9f74a0642f6c3f349002a39355295187e0b50344ea0ec64ae0bd"
   bottle do
     cellar :any
-    sha256 "9aec1b0e86ef6103d52b3d0b0861eb40e82d7e5552653cff4d214b9a72503cec" => :el_capitan
-    sha256 "e7f23eb8540a67ef23c1769f132742152f98b13330e676ea37ec90db64c5e8ad" => :yosemite
-    sha256 "2cf1f0b4d2a9cec2d971e41b70bde57bf6b561dcc20773361f211bd91173f1eb" => :mavericks
+    sha256 "98bc8ae700eee2aa2680216aae2abcf5cd687764129b1513c94df88b1783a8d3" => :el_capitan
+    sha256 "5348efcbe21afcefeade1480dce8e3de6314b5137c75ba71f644bd40acedd417" => :yosemite
+    sha256 "7530065142a7f9ec98b25b60ae90313e10903615557b90ec536bb971527ead76" => :mavericks
   end
 
   depends_on "v8"

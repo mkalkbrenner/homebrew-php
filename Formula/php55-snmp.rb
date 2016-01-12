@@ -9,10 +9,10 @@ class Php55Snmp < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 2
-    sha256 "83ca8c501ea1f4d0671dc97a181732d5226ae78876721f36eee9a0bfdd2da3c8" => :el_capitan
-    sha256 "0f5e8dc16731d328b52813dbe334fcb07bcdea185f4b9cfbe67d8343b126dc60" => :yosemite
-    sha256 "10dd7b64726b18fb31791c4bf8c3d1539d9c51ac9eca5efe4342bea442d8a87f" => :mavericks
+    revision 3
+    sha256 "8171ea6eb8b4b0f9137f582fcd91b6373688ae2c0acd3a2b82e337f769d39a6d" => :el_capitan
+    sha256 "7622ab7ecd8a5a31872b2157462d9009b455413940fbc7443f94a7bb406cee76" => :yosemite
+    sha256 "b84131cc2b04a73a75034fe2b56fe14f24eebc879916281e1b7316ddfeaca1cd" => :mavericks
   end
 
   depends_on "net-snmp"
@@ -32,3 +32,4 @@ class Php55Snmp < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+

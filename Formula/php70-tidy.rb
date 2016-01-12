@@ -5,10 +5,10 @@ class Php70Tidy < AbstractPhp70Extension
   desc "Tidy HTML clean and repair utility"
   homepage "http://php.net/manual/en/book.tidy.php"
   bottle do
-    revision 8
-    sha256 "29ef003505253f5ca4df81c040ff10fb4fa136b32e6979bb26ef32b3d04d310c" => :el_capitan
-    sha256 "51829a8f8abd7059efa2e14ec1fb055de366217fa1acbe95993347c811dec858" => :yosemite
-    sha256 "487fe427a9a4e89299a463b3a2755a5857fdfd4b38ef9f3aad9416a8c7285079" => :mavericks
+    revision 10
+    sha256 "f12cfe2028e6e11d4ad7711a074e04f0bc39e875e85d74daa32e75592df753de" => :el_capitan
+    sha256 "8a92215fc8fe44e6346c3996a57a3a6d36df282959bed2ec7a0d5c839222cb84" => :yosemite
+    sha256 "77e839b48ec30fb721e580c84f6ca7a19d8ea92ba0526b13228bd31826150416" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -35,3 +35,5 @@ class Php70Tidy < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
+

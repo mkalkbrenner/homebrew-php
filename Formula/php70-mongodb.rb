@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56Mongodb < AbstractPhp56Extension
+class Php70Mongodb < AbstractPhp70Extension
   init
   desc "MongoDB driver for PHP."
   homepage "https://pecl.php.net/package/mongodb"
@@ -9,9 +9,9 @@ class Php56Mongodb < AbstractPhp56Extension
   head "https://github.com/mongodb/mongo-php-driver.git"
 
   bottle do
-    sha256 "361447f8d9871281df7d59166cd825b8e3334880b2b477b59d947919f0bbc887" => :el_capitan
-    sha256 "264e746b1d942c71eacc67da13e742c358a98b523635049bb61ae922f4c1e689" => :yosemite
-    sha256 "a134d2816714ed8bc9876f66901f26a3788f87de865a3591612f427149e45373" => :mavericks
+    sha256 "556564537de06536e85a9125cb7b9d712613e663caba267d4c1c3818701819e8" => :el_capitan
+    sha256 "53e7d5bb200821e7a3177363f4650d388215b28266adcdf67c016876556ac91e" => :yosemite
+    sha256 "d6e00b9aff9d9b5f835c9ad81dddfd28517aaeffe751b89792752b2ade25c84d" => :mavericks
   end
 
   depends_on "openssl"

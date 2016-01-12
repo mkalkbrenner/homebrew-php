@@ -7,11 +7,12 @@ class Php55Imagick < AbstractPhp55Extension
   url "https://pecl.php.net/get/imagick-3.3.0.tgz"
   sha256 "bd69ebadcedda1d87592325b893fa78a5710a0ca7307f8e18c5e593949b1db2d"
   head "https://github.com/mkoppanen/imagick.git"
+  revision 1
 
   bottle do
-    sha256 "0b0229a46c3fd2291a7c68575e72f63732144b074d579b7f901a7a932db559d9" => :el_capitan
-    sha256 "fd2fa56b64bac4a8473a083d6fa2d5adac77838c266e317147bc18f0f3002e6c" => :yosemite
-    sha256 "2421fe45e08683baf3c8a55fd04abd7e4c0d01fb7487690cf0668ffb5458a43e" => :mavericks
+    sha256 "a1218f5635758b0266a05d8b908e47642a0391b0b7be4e7b0b910b489b46b2e1" => :el_capitan
+    sha256 "288d0265f440ec8efbf2bc3ed24ec6200d51425d820e93c6b6128e964b914c3b" => :yosemite
+    sha256 "d12b6d522444f8dbbfa737b10ff6e0a0ddad33360338ab8fe53095aacf6357c4" => :mavericks
   end
 
   depends_on "pkg-config" => :build
@@ -31,3 +32,4 @@ class Php55Imagick < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+
