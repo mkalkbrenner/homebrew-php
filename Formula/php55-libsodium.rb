@@ -4,16 +4,15 @@ class Php55Libsodium < AbstractPhp55Extension
   init
   desc "Modern and easy-to-use crypto library"
   homepage "https://github.com/jedisct1/libsodium-php"
-  url "https://github.com/jedisct1/libsodium-php/archive/0.1.3.tar.gz"
-  sha256 "cf7314420f270eeef207add6f44c3bdd88b6c6395402d14b9d37ce2171bca734"
+  url "https://github.com/jedisct1/libsodium-php/archive/1.0.2.tar.gz"
+  sha256 "294b82d26eb39123e200eba65fbe207f7a8053049c4ace1e411c264253fafb4f"
   head "https://github.com/jedisct1/libsodium-php.git"
 
   bottle do
     cellar :any
-    revision 2
-    sha256 "e67e176388d5c4b0a1a45967cdbf5d870ca739d18bd881e5ae8df2b49082f9a0" => :el_capitan
-    sha256 "f0c92ee7a2be32958913b1ce2c330f378401095e56cf4bba2c3011721c10b064" => :yosemite
-    sha256 "238835a87685ade190cacbdac0e6d6b870dc066963598ff6e5c0d38ee09f9df3" => :mavericks
+    sha256 "aad7d4115656197b0bc7616c1ba9f1b2ce9b59dbb4174bbc4b404761ae4cd346" => :el_capitan
+    sha256 "84119439991188a0b07d06235c1525bc77b0cb6283f604d5031fc723ad1c8f2c" => :yosemite
+    sha256 "0f8767d5c07a0fb67723a470dc78e17ffda407a39a16a70e619395cdfc57bd39" => :mavericks
   end
 
   depends_on "libsodium"
