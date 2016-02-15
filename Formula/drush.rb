@@ -3,14 +3,13 @@ require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 class Drush < Formula
   desc "A command-line shell and scripting interface for Drupal"
   homepage "https://github.com/drush-ops/drush"
-  url "https://github.com/drush-ops/drush/archive/8.0.2.tar.gz"
-  sha256 "ad796ad33189d897213c1d0a11b539f6a752f63a9c4f17e343af5fcc895f6bbd"
+  url "https://github.com/drush-ops/drush/archive/8.0.3.tar.gz"
+  sha256 "d089a5ea4d3aa56b2a8f62a201c1641143460236c1f1a57090236432bebcb64d"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "c3174d1b288e8f45e5e6c8be07191a3be36702d942a2876eef6b72bb260d29c3" => :el_capitan
-    sha256 "34f4cf2aa08363e3785bcacc33fb69b860da8f7d229b7e103263d3a07c7b22c0" => :yosemite
-    sha256 "5b96d66d0e8d03fe534b2d3616ccda12562271c35bcf9c6e8d9f5fb80aebb8e3" => :mavericks
+    sha256 "fa5aa7a2962a13ed1be70d3d343668129901abe83bc495c77a88ffc96062b985" => :el_capitan
+    sha256 "729b139674ae7ba2614ac4f78003a8eecbf8af79271304254935bf1c7f6e5691" => :yosemite
   end
 
   head do

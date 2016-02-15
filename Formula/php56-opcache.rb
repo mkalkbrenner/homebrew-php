@@ -10,10 +10,10 @@ class Php56Opcache < AbstractPhp56Extension
 
   bottle do
     cellar :any_skip_relocation
-    revision 6
-    sha256 "c42889e94bc85b2b40f969f679cd07c13ed940a57ed841f288d4b2b9e9b43261" => :el_capitan
-    sha256 "5895b3420a87b2c10356628ce938ae612d1504fa0536001e3ede1691aa6d613c" => :yosemite
-    sha256 "68886b966b399c1714dd79dd10a31baad451862a6d939e38fec26f6a76b7304d" => :mavericks
+    revision 7
+    sha256 "6aebe02de593675777cff37421a0c407cfe57d766449de44effe383407bc0862" => :el_capitan
+    sha256 "591df6688dba03d802754c282f17fdbb35681112c9a85e6c44c4384c4e01a17f" => :yosemite
+    sha256 "b73ce6ba16abfd93d627b673d29ba26cf853d3fcd96d430dba98f56d1d30cb52" => :mavericks
   end
 
   depends_on "pcre"
@@ -213,4 +213,5 @@ class Php56Opcache < AbstractPhp56Extension
     EOS
   end
 end
+
 

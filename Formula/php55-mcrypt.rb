@@ -9,10 +9,10 @@ class Php55Mcrypt < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 4
-    sha256 "d5a693d149fcf2b870f362e2d20af1d8e2aaef51d6c11b0a38dc986f874f6817" => :el_capitan
-    sha256 "30c35726ff701ec3e3f32ea073c0dc656ae244079a951697d06e3da212378bbb" => :yosemite
-    sha256 "6024952564f19fd82ea5bc2d2c10e240897536f4599aac060f924d50e8fb3b74" => :mavericks
+    revision 5
+    sha256 "bd8edb6686653cf75dc5e20812a2a62c718ae09bf8a6b6c4f5d6ff54bff540d6" => :el_capitan
+    sha256 "7ce5ca9a6be4d4fecf611fbc1fc4ca57dc32ed4f9083a9b90a00f53e2e3d255d" => :yosemite
+    sha256 "9447f0a145add8bb0fb794430b95e1ce56bce1e1d1e4125818a673a1bcba8091" => :mavericks
   end
 
   depends_on "mcrypt"
@@ -32,4 +32,5 @@ class Php55Mcrypt < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 

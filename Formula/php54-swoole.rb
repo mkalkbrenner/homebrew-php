@@ -4,14 +4,15 @@ class Php54Swoole < AbstractPhp54Extension
   init
   desc "Asynchronous and concurrent and distributed networking	framework for PHP."
   homepage "https://pecl.php.net/package/swoole"
-  url "https://pecl.php.net/get/swoole-1.7.17.tgz"
-  sha256 "e4d3c2466aa1e1c99750ec5497445bde8ef775fd0b304d11016e6df363cc7ec0"
+  url "https://pecl.php.net/get/swoole-1.8.1.tgz"
+  sha256 "d63c5b9339a86df43b0e3d82efd194ac6f7b25f601580a7abf9305e3a6afeb20"
   head "https://github.com/swoole/swoole-src.git"
 
   bottle do
-    sha256 "5b324d211a10e08f09d6a4ad13c9e044e8058b73ce6dfee75ec12367b31afa3f" => :yosemite
-    sha256 "45ba76b0177896087d87b43bdeb92666e1c7cb1a9892533aaa7edaf85a259750" => :mavericks
-    sha256 "732f01cb4417633270f3b809e721d449ec0fb0ba5b78efc058901496974e21a8" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "5dcacd829f83de2b8cfcb31bf40f5ba338f89412f6ece05fe4744162f95b4ac5" => :el_capitan
+    sha256 "97ef45c4c422d316ea5e8ab03e29ea2fe042b966ed802bc8d01a85b9d14ea694" => :yosemite
+    sha256 "b9e47c1e58ab56da75b9f5f0848881955b75c0ca4b19856f98113c9e589b37f5" => :mavericks
   end
 
   def install

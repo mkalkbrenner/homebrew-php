@@ -1,18 +1,19 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Mustache < AbstractPhp55Extension
+  init
   desc "Mustache PHP Extension"
+  homepage "https://github.com/jbboehr/php-mustache#mustache"
+  url "https://github.com/jbboehr/php-mustache/archive/v0.7.0.tar.gz"
+  sha256 "d01f9969e890f1aa0033c62d06495fa3273c33b02d24794a3f51831200284674"
+  head "https://github.com/jbboehr/php-mustache.git"
+
   bottle do
     cellar :any
-    sha256 "227ba872eec7df813bab7ad85cd4ae8995f778ae6813ee7025f334c02aa1e910" => :el_capitan
-    sha256 "f5b94031e95588ad20c54959adb028bccec0960d11b32dc56dfc84229819f494" => :yosemite
-    sha256 "6a0449574a8fef81faebb152b9a5f5abc2a5d093e0d1291a5a37a16c23dd9c1b" => :mavericks
+    sha256 "e7af8f8d4f3a3cc0805fbbea6ca3e1f75473f745f956e45bf49b6864ced40bdf" => :el_capitan
+    sha256 "5ef69f3e535b14d2b71041cb00d77c9c888fbe94af962190bddf24656001491f" => :yosemite
+    sha256 "2b3a0b1effe976159daa2d43c114b873f49299639ffbfba10adf0d5ba00370ed" => :mavericks
   end
-
-  init
-  homepage "https://github.com/jbboehr/php-mustache#mustache"
-  url "https://github.com/jbboehr/php-mustache/archive/v0.6.0.tar.gz"
-  sha256 "56d0057929fb2f0381efc84c748cc7454f07f4cc55064ffb3e723cc1408d6686"
 
   depends_on "libmustache"
 

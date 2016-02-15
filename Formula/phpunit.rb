@@ -1,25 +1,21 @@
-require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
-require File.expand_path("../../Requirements/phar-requirement", __FILE__)
+require File.expand_path("../../Abstract/abstract-php-phar", __FILE__)
 
-class Phpunit < Formula
-  desc "PHPUnit is a programmer-oriented testing framework for PHP."
+class Phpunit < AbstractPhpPhar
+  init
+  desc "Programmer-oriented testing framework for PHP"
   homepage "http://phpunit.de"
-  url "https://phar.phpunit.de/phpunit-5.1.0.phar"
-  sha256 "83bf6154f7435f78495d6cbdce62db333dc86aa8032b3ed8370ed51fb351314d"
+  url "https://phar.phpunit.de/phpunit-5.2.1.phar"
+  sha256 "b2fe8665f47624cd4805d0d4e739e1105cc9ff1127656a4ccdb50d2c105b66c2"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "a3eb9b6c32b1973627840993a16f217b8e3eb0efe807e2f45eefa29bf5de2464" => :el_capitan
-    sha256 "5a911444dcee51d7e45fdc8483814cf785e9da05e19f4ca4e179f69f9f765a05" => :yosemite
-    sha256 "5a911444dcee51d7e45fdc8483814cf785e9da05e19f4ca4e179f69f9f765a05" => :mavericks
+    sha256 "e1defcf43addb5fbd4cf0590c1f4304d56e236227ec9bf11dba1814ec63d6282" => :el_capitan
+    sha256 "86216cfc69a00ee25639c2401d99cc8f8ede257907671ad4c94cf13be017d110" => :yosemite
+    sha256 "4cb9249caa60db71e36ce275723df6f4396ba43ccf50dc26687582fce63238c7" => :mavericks
   end
 
-  def install
-    libexec.install "phpunit-#{version}.phar"
-    sh = libexec + "phpunit"
-    sh.write("#!/usr/bin/env bash\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/phpunit-#{version}.phar $*")
-    chmod 0755, sh
-    bin.install_symlink sh
+  def phar_file
+    "phpunit-#{version}.phar"
   end
 
   test do

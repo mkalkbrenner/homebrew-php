@@ -4,16 +4,14 @@ class Php56Hprose < AbstractPhp56Extension
   init
   desc "Hprose for PHP."
   homepage "https://pecl.php.net/package/hprose"
-  url "https://pecl.php.net/get/hprose-1.5.4.tgz"
-  sha256 "28733983073d5272b7096129dc23717c42485f905556082352bb0954b64bb996"
+  url "https://pecl.php.net/get/hprose-1.6.4.tgz"
+  sha256 "e3d96cc51cf442629e7298af153c55e4bd85d832de43f22eb5f0fabe49abacca"
   head "https://github.com/hprose/hprose-pecl.git"
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "3a1ea6dc5ab3e19a17c784ff1159d1720429ea781f11d2fdd1f85596dd43cbe3" => :el_capitan
-    sha256 "5d8504c7c0d038ed0b27cdec6ed1d969d6ad3dfad66a9193e270d46cc1f2c0db" => :yosemite
-    sha256 "0d237e105f0a3407622b616a2171695077bb95e6713e3554e4c19f5538189dc5" => :mavericks
+    sha256 "4687e62e7b04266ff22740de8ba78406101b483f085b176ac2e865b6434da829" => :el_capitan
+    sha256 "6d49c9b0225bf611dfe2e0ed958d02d156c551e36beb9545559f96d122fdde18" => :yosemite
   end
 
   def install

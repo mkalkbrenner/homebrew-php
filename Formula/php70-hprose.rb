@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php53Hprose < AbstractPhp53Extension
+class Php70Hprose < AbstractPhp70Extension
   init
   desc "Hprose for PHP."
   homepage "https://pecl.php.net/package/hprose"
@@ -10,9 +10,9 @@ class Php53Hprose < AbstractPhp53Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "dae631c1dede2495783bf7826bb484c8c1efec777455f66e51444e42e4cb08f8" => :el_capitan
-    sha256 "cea41fc6af5a53b171ab7a74dc40ab2d1b7e2ab52ae376f6909d32fbccfbbdc2" => :yosemite
-    sha256 "258a9c95225abae29e7cc2694f0baf113d85591936d9901aa8d92a914a37938a" => :mavericks
+    sha256 "4dc36f5ca3d6210f41f97029b960b12a4d998ccc6da97563955cf40e94848c07" => :el_capitan
+    sha256 "f271ee58bd5a90fa614d8da93762e664e28a7ef998d5961f07a5a2edd08294d7" => :yosemite
+    sha256 "334c63be492ab06201fa4160420de4de2694ed7c4bb5940810dd3505eb25f8bd" => :mavericks
   end
 
   def install

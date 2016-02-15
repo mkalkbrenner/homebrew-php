@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55Swoole < AbstractPhp55Extension
+class Php70Swoole < AbstractPhp70Extension
   init
   desc "Asynchronous and concurrent and distributed networking	framework for PHP."
   homepage "https://pecl.php.net/package/swoole"
@@ -10,8 +10,9 @@ class Php55Swoole < AbstractPhp55Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "0e98dae7d996fa9e7fbb9094d4ba7178ab4bdc8d24ea7d7a4ff79920a067220b" => :el_capitan
-    sha256 "9bf73b0bf1f5d0e9761142e2149968df1db8cfbc6aad157a29cd9b396201a3e9" => :yosemite
+    sha256 "1abd9e8969c1e7d6f7d041b64a6309a2fc48c46c4890b8d88a6e62967c3d9a16" => :el_capitan
+    sha256 "de09c35007ee1ab1794e1f406999ba7f5daee7fe30de6525367f913d5e3419ec" => :yosemite
+    sha256 "448655a86aa48dfd5c2154e5ae3554ecec30bc6cfc664389981cd11c875658de" => :mavericks
   end
 
   def install

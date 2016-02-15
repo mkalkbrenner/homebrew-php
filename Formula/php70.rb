@@ -4,10 +4,10 @@ class Php70 < AbstractPhp
   init
   desc "PHP Version 7.0"
   bottle do
-    revision 10
-    sha256 "3cd0659e067f2f71cb672d9542d4d6fc554396692a5a8168df1149cf770adeb8" => :el_capitan
-    sha256 "77e8c0e3d9cdf29606339e523ce0f63c9cb7b2d010a554e720602340eabc3103" => :yosemite
-    sha256 "0d9aefa07fb7e5efce11fcc8ea71006a038d6015c876c4ba65090425e11ace8d" => :mavericks
+    revision 11
+    sha256 "74ec2d97b8740b8a2906fb8d757649d74a8730163152f4d2efd2cc9eaf154aa0" => :el_capitan
+    sha256 "cd6dba08ac42a8eb520772a52a8b92872d9d06ed70d1a203e175fba2f66a0614" => :yosemite
+    sha256 "75225ada6d5090339f5a4f9222fa318fc10f15b2d893ec185ac23c7c6e2637db" => :mavericks
   end
 
   include AbstractPhpVersion::Php70Defs
@@ -44,4 +44,5 @@ class Php70 < AbstractPhp
     "70"
   end
 end
+
 

@@ -4,13 +4,13 @@ class Php56Yaz < AbstractPhp56Extension
   init
   desc "This extension implements a Z39.50/SRU client for PHP using the YAZ toolkit and the ZOOM framework."
   homepage "http://www.indexdata.com/phpyaz"
-  url "https://pecl.php.net/get/yaz-1.1.6.tgz"
-  sha256 "dd9b919ba3b2a09a9c77c847407f106512fe75979cc0689ebccef08c80719eee"
+  url "https://pecl.php.net/get/yaz-1.1.9.tgz"
+  sha256 "9dd4da2fd6042b37a1811972134f852c94a6f6b85ca4ec5ed5d766eb27a6c401"
 
   bottle do
-    sha256 "7b6cb327d11486cffe95f390decfec202909be4908406c569e1efc92cfdd5762" => :el_capitan
-    sha256 "d1083d2eb020dbba56ece25340bcb572633c0170314fad8796d0eb21b11ff13e" => :yosemite
-    sha256 "379cca773ee52205e5ecd31e312b2e9ad793a0d25ca7b5cebd042db5a20569a7" => :mavericks
+    sha256 "5281761c3f003f948897282b81c123c69847a940c5f7c371b915ac6cc93ef527" => :el_capitan
+    sha256 "2b4c5b1bb1587df84d73463e5aa5d7441d4a1c235d52144ffa8590248db1fc1e" => :yosemite
+    sha256 "f06ba395cfc80f899f63052ea39fdd99006d8673873f797d252368a0b7efc4ae" => :mavericks
   end
 
   depends_on "yaz"

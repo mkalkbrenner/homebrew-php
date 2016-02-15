@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php53Xxtea < AbstractPhp53Extension
+class Php70Xxtea < AbstractPhp70Extension
   init
   desc "XXTEA encryption algorithm extension for PHP."
   homepage "https://pecl.php.net/package/xxtea"
@@ -10,9 +10,9 @@ class Php53Xxtea < AbstractPhp53Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "aa9dd0b41fd9f220fef9630a4c058ea310d85640d2c1924729f9f216fa9f1473" => :el_capitan
-    sha256 "8a66db92ae0a2b196879c5fd2d26989a1d0c3d52313a09681ac5e0288931dde6" => :yosemite
-    sha256 "9418aace9305258bc897f0f3e2ad9be412b7af0d1e462887a23298f3b65dd1c2" => :mavericks
+    sha256 "d55447262e0f3c91b04790dc7b8426de648130186b4027c8dfedc91b3b0fdaca" => :el_capitan
+    sha256 "e02ab0cf3b4472b7bf000eda48b497db087f2a157b4d715ce829f5a3bd805cd1" => :yosemite
+    sha256 "2c7e1d1a801a275c5ed3592cd4e203adce8bcfd19d29902d30659bcf1e795221" => :mavericks
   end
 
   def install
