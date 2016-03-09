@@ -3,16 +3,16 @@ require File.expand_path("../../Abstract/abstract-php-phar", __FILE__)
 class Phpmetrics < AbstractPhpPhar
   init
   desc "Static analysis tool for PHP"
-  homepage "http://www.phpmetrics.org/"
-  url "https://github.com/Halleck45/PhpMetrics/raw/34cf0888e7225d743fc01b467fbbd8a1d54226a6/build/phpmetrics.phar"
-  version "1.4.1"
-  sha256 "77fd4f29f76bf3f8c623e415ee834692077e9b49bd340a0c896f58a9697fe9a3"
+  homepage "http://www.phpmetrics.org"
+  url "https://github.com/Halleck45/PhpMetrics/raw/v1.8.3/build/phpmetrics.phar"
+  version "1.8.3"
+  sha256 "454a4d1806bb44cdb2e8535d1a1db051389fd7c140daebce5a8ab2cd78a5fa7f"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "8121faad89efa42de10fbe38d35ff53345a1e592cd7325a5c21e64399e445491" => :el_capitan
-    sha256 "fb789c633a3b5289e288e9aca26be7224118048e2952cd12a8f699b45898ca2c" => :yosemite
-    sha256 "20d95564479219ef95c752c1da506258ab9246c1bf1dbf137422485e1fff25ca" => :mavericks
+    sha256 "7ade1c58664fb235c4e423e3bd25833ac3261246a69edb8dfaa04f60c2b2dc94" => :el_capitan
+    sha256 "aafe13315ef20ce708d62e53229fb948290279c5980cd2720f8bd8956fc23e33" => :yosemite
+    sha256 "23f3ac0d69614338f358c0ea8c9f3acd96ca2243b7a9322cb7a5b49fca6e032a" => :mavericks
   end
 
   test do

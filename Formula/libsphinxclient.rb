@@ -1,17 +1,17 @@
 class Libsphinxclient < Formula
   desc "Client for sphinx"
   homepage "http://www.sphinxsearch.com"
-  url "http://sphinxsearch.com/files/sphinx-2.2.9-release.tar.gz"
-  sha256 "79bcb9fca069ba630fd71fb40fba05bb16e19b475906fb6ae026334d50a6bf3a"
+  url "https://github.com/sphinxsearch/sphinx/archive/2.2.10-release.tar.gz"
+  version "2.2.10"
+  sha256 "982dc31ce7bd3a97174d8159d5ee4db9605500a9544b457b53d973ab2e300c1f"
 
-  head "http://sphinxsearch.googlecode.com/svn/trunk/"
+  head "https://github.com/sphinxsearch/sphinx.git"
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "a3f3c02f42e61e59267a347f428ca16da4fbcff71ee6103d4c6d14ae4212d945" => :el_capitan
-    sha256 "d8b289ba7618135d6ecf837134cbf42ca5d733fb9c3b1b4ad0e222327d1526c7" => :yosemite
-    sha256 "6a8d4c603d302b80ce36065c82b89d0600e5eb1751fbf2016ebf1c4828631683" => :mavericks
+    sha256 "00039e35f77fa4ea271fb838f5aede3a7d2f65424762cf082d5cebf0e78ea6e0" => :el_capitan
+    sha256 "027ca884e72d2ad080ba9dd869d26aabe7cb712b2a170dc0283b99ec97d5884f" => :yosemite
+    sha256 "abee7ac618acd832be5127e09ca4f21baac3f0102c959d2ce88c8935849cffbb" => :mavericks
   end
 
   devel do
