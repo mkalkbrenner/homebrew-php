@@ -4,14 +4,14 @@ class Php54Mongodb < AbstractPhp54Extension
   init
   desc "MongoDB driver for PHP."
   homepage "https://pecl.php.net/package/mongodb"
-  url "https://pecl.php.net/get/mongodb-1.1.3.tgz"
-  sha256 "c9c4ecdfbfcba58e8b02d2f6f3fcbce661e3715fb15addbf6155615c152af8d8"
+  url "https://pecl.php.net/get/mongodb-1.1.5.tgz"
+  sha256 "b3b9acec35663b0665d01f786e4d9b90a32c0e361d8b296527f1d7b2e4028bee"
   head "https://github.com/mongodb/mongo-php-driver.git"
 
   bottle do
-    sha256 "7a4424c70b72f12ba0ea920cccdfb948bae2ff0515667c0aa55ce51ca1fe23f0" => :el_capitan
-    sha256 "dd89e3abeeedb54a43f755023337b7af108c645c519803351cae1e74248e8dc6" => :yosemite
-    sha256 "d1f8a589e2a150f04278e73f36cb5b120b9a66995b7d1af2ccfec74838fece3b" => :mavericks
+    sha256 "6461abc67d64a8a9b438b89c5c92128f767d762afa874576a845fb6d9eed9a97" => :el_capitan
+    sha256 "b06441fd44988628f233ffbcdf7bfb8129b716337608e3652e264f8f12fe9883" => :yosemite
+    sha256 "7a39154b64ecc0840b28629c7dfecfb381807dd9b72a46536adc29447d5ff84d" => :mavericks
   end
 
   depends_on "openssl"

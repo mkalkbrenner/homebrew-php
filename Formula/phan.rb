@@ -5,16 +5,15 @@ class Phan < Formula
 
   desc "Static analyzer for PHP"
   homepage "https://github.com/etsy/phan"
-  url "https://github.com/etsy/phan/archive/0.2.tar.gz"
-  sha256 "fe3871aa96fae79323a635e6ca34f129bf2176ebf2664e81f1be7056841c3b01"
+  url "https://github.com/etsy/phan/archive/0.4.tar.gz"
+  sha256 "87aea4f39eafaadde6117717ecadd5109011c670455daacca7fcf0d658bb1105"
   head "https://github.com/etsy/phan.git"
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "e6403de5743128cc637fab1c97ed5b00943d4c2653e50c9c0bc4696a16af52a5" => :el_capitan
-    sha256 "5f6e4184cbb3881095d7e1cccf37927c7ee189eaf34ee2e61654a6c1d76ca332" => :yosemite
-    sha256 "2ba217c4d0f20ae3c3e9496623d4c80a33735723f0fcff27e3920422567ee59a" => :mavericks
+    sha256 "f789cb6611997d06341199f45564f14614ef21a2aa38eb1f7f50e7303d98a9ea" => :el_capitan
+    sha256 "2ab0b3cddf7b8bb2b042501c66f829afb200d7956a427b5797bc7773693e9f1c" => :yosemite
+    sha256 "335c9d7d864cdbdc0821546e62e3f2066322b4448e8c0c7adf689c48b0f13d48" => :mavericks
   end
 
   depends_on "php70-ast"
@@ -27,7 +26,6 @@ class Phan < Formula
   end
 
   test do
-    system "phan", "--version"
+    system "phan", "-h"
   end
 end
-

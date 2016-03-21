@@ -4,16 +4,15 @@ class Php53Mongo < AbstractPhp53Extension
   init
   desc "Legacy MongoDB database driver."
   homepage "https://pecl.php.net/package/mongo"
-  url "https://pecl.php.net/get/mongo-1.6.12.tgz"
-  sha256 "3fec10526ed02ce0e54c4623839e35bfab17d16cb9e8a48c7fee126be351c990"
+  url "https://pecl.php.net/get/mongo-1.6.13.tgz"
+  sha256 "ed081b87e40b16b2878579ede456f34cda6575c31baded5e4af29ea14993d783"
   head "https://github.com/mongodb/mongo-php-driver-legacy.git"
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "8ff90a2ec548ae785d977bffbffedcae8b439e0603bd1f2b62f0d3d647396070" => :el_capitan
-    sha256 "539e4c9610616313a82989e9bd21024c81a0f87ec36681b19a81a3898b8cf1f3" => :yosemite
-    sha256 "bd44f10d9455cf80fadbe512b3ced85f8ff885d7c1c21c91cc558142328b82ea" => :mavericks
+    sha256 "bf68047769497f581853e1946586518ea2a6819a83876925fc286802d444519d" => :el_capitan
+    sha256 "13bbe6c632ece1eac63d5a0697e7b9281489929c53573a2075de15a57fb10951" => :yosemite
+    sha256 "0011fcf943e83dd83452877452f98b125bf72d61d971eaa2bca91d5677602113" => :mavericks
   end
 
   def install
