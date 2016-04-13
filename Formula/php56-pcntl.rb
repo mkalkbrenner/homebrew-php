@@ -10,10 +10,9 @@ class Php56Pcntl < AbstractPhp56Extension
 
   bottle do
     cellar :any_skip_relocation
-    revision 8
-    sha256 "1b2132b0fcd4dde0cb4c5fd8149a8aec09e437d3051a1287aabdf253ec84dc2c" => :el_capitan
-    sha256 "2dcd2a18b70d985c2c5dde9fd92a3604210cf4d109bbde010cbb512c1b7d3939" => :yosemite
-    sha256 "363a039d1a20560bfecf9f241e7678993676afacbcd374e74c9cb7b78fbcdefa" => :mavericks
+    sha256 "a20d51bc98df12efdd421dabf98a1aee60e4af2e35aaef242ee9bd6fb2785b97" => :el_capitan
+    sha256 "9b483f06253e7af803a45d2ce62086abf201e6ab88f39330593f0df3cf4ba8db" => :yosemite
+    sha256 "291605c8dcb0d99c57130e36586d1c63988eb87efe38de59d77af59e9babdf98" => :mavericks
   end
 
   def install
@@ -30,6 +29,7 @@ class Php56Pcntl < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

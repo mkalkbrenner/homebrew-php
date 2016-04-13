@@ -7,12 +7,12 @@ class Php56Intl < AbstractPhp56Extension
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 1
 
   bottle do
-    revision 8
-    sha256 "e0fb8fa8ba0c72a7d7343a2fbb2c0cee1a39d15d0785d3f3457f72d5688e4d13" => :el_capitan
-    sha256 "9e2a76dd908d8381cb69a3995efdfb7772d9ef0c824237886c7fe750cc3cfedf" => :yosemite
-    sha256 "fb6f664e26cde4edba2befc631526a92eafb1cd8d5f1a48508fe952dc33f63dc" => :mavericks
+    sha256 "58ddcb7559f039f030567aaa561a1007ccd2108d66f1a60900949801358195b9" => :el_capitan
+    sha256 "63136eae6c2687073f22553de3b7433fa97fecac287bda93ecf73b5e59595187" => :yosemite
+    sha256 "3c5f7462fe4ef2d5a93775aceebc92a3b17a1e64a77115fcce71d90328bb866c" => :mavericks
   end
 
   depends_on "icu4c"
@@ -44,6 +44,7 @@ class Php56Intl < AbstractPhp56Extension
     EOS
   end
 end
+
 
 
 

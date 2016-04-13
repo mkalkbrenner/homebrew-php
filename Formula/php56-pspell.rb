@@ -9,10 +9,9 @@ class Php56Pspell < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 8
-    sha256 "2f8bd38aae63db646af4304fc2cad242bdbcb2378d55dcdfc778ee64c5ecaedd" => :el_capitan
-    sha256 "bb8c2d0a33bc0158ae738a0973e543d2861457dd7cc96897d88a63ed0893b452" => :yosemite
-    sha256 "7d61c4d2d11c176c9fe0a3ba20f5c1c25b7efed884775cd82748cf39bb72d7ce" => :mavericks
+    sha256 "2214232541da2a7009780a231fee715e28fa719d5f2ef9f7005662f5a5c6f7ed" => :el_capitan
+    sha256 "c3ae4c0fc79a880feebe126ef804b25509bdb06399192b4e01011e90870f5c5e" => :yosemite
+    sha256 "a38e2da60d7f158f5da6fd53f4f00dcc34393c7c6495c561081e94ce948e6a36" => :mavericks
   end
 
   depends_on "aspell"
@@ -32,6 +31,7 @@ class Php56Pspell < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

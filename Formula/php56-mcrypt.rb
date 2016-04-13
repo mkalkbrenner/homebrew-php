@@ -9,10 +9,9 @@ class Php56Mcrypt < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 8
-    sha256 "f277d7ff6fc945d7be8858a2949d79ff1b8e0cbe1af212f6f0455a90d34ed485" => :el_capitan
-    sha256 "051e4264ca42291f8b2e6c454f5b85d1202adb110a40dd755c0911f24d3fc327" => :yosemite
-    sha256 "adc30a943980932f327afc6f99d0257bbf019939c07257a9667f2286ad98aebc" => :mavericks
+    sha256 "73d22420dc830a18911d6b10592fc8928a316c55b1e81c76102d6c89509e2d04" => :el_capitan
+    sha256 "daa4b41742fbf31939e9a711819d5b5f6383c2c2873662e57a4470187ed659eb" => :yosemite
+    sha256 "48555a79d33cea719c1020f455277a678953c0678d81de019905a38364f14afb" => :mavericks
   end
 
   depends_on "mcrypt"
@@ -32,6 +31,7 @@ class Php56Mcrypt < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

@@ -4,14 +4,14 @@ class Php56Mongodb < AbstractPhp56Extension
   init
   desc "MongoDB driver for PHP."
   homepage "https://pecl.php.net/package/mongodb"
-  url "https://pecl.php.net/get/mongodb-1.1.5.tgz"
-  sha256 "b3b9acec35663b0665d01f786e4d9b90a32c0e361d8b296527f1d7b2e4028bee"
+  url "https://pecl.php.net/get/mongodb-1.1.6.tgz"
+  sha256 "cd4bb7402911431098ef6c12562dca53a89808ed1ba9798131002be1c61c6b59"
   head "https://github.com/mongodb/mongo-php-driver.git"
 
   bottle do
-    sha256 "ccebe32eee9610052fe60c68508ea813fcf52e2c3ee8c84edf2a726617011636" => :el_capitan
-    sha256 "53a4aa1597bb0e002e87ad552dbb5422139ed68561885decbabef6cd0c452108" => :yosemite
-    sha256 "d1574945e3e091c0217cfd5b0f1f28929bdb360c9d5b045f3a8c1f3dc9b848ee" => :mavericks
+    sha256 "e8281960d20459457175f3f140eb849e381679091c9ce50fea63d7aaafa12420" => :el_capitan
+    sha256 "08663c98ecfbd5946f2711c0fe6030ca86b74d8f015a118648e75332a5c82c29" => :yosemite
+    sha256 "5a1fed5fd0f8addf50e2eb184bc8d118f7d4bb5a9e9f9f9b8771cabbab99ac37" => :mavericks
   end
 
   depends_on "openssl"

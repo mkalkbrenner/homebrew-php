@@ -6,10 +6,9 @@ class Php70Opcache < AbstractPhp70Extension
   homepage "http://php.net/manual/en/book.opcache.php"
   bottle do
     cellar :any_skip_relocation
-    revision 12
-    sha256 "8384ab7ffff0a7b9ab4ca711a2d0effc90b777f56b6b2e9fc2f7a88f64df9ca0" => :el_capitan
-    sha256 "c6c4de5f60909b2bf0181dd8107c11a57ec0ed49ef86aa9588db76bc494f2b3a" => :yosemite
-    sha256 "4258bab1a756de6d63d02e855a812d64d11e077bf989a67dc1980ee6bec63726" => :mavericks
+    sha256 "0a0550d931b10cc92ca09deedd3241a9fbb018465256f0310cd437574b7e11fc" => :el_capitan
+    sha256 "a5fd002941f632d7bb82edc6d125b76a132054997e6e72e17f65e68c5e9045ec" => :yosemite
+    sha256 "afc0639ccb6d7c8b4d39f4c170123402b263e4ccba0c7e884d4aed4b0e2c4788" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -213,6 +212,7 @@ class Php70Opcache < AbstractPhp70Extension
     EOS
   end
 end
+
 
 
 

@@ -6,10 +6,9 @@ class Php70PdoPgsql < AbstractPhp70Extension
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
   bottle do
     cellar :any
-    revision 12
-    sha256 "b4c38de9947792050a91681f18982127fbd47cbe531ae7af7c687641f50a9bae" => :el_capitan
-    sha256 "1e9c58a36d96c8a6c3ea15129e9bcb1724154b2d510d3e8317a6fe94d743ad56" => :yosemite
-    sha256 "0ad00b13b7de2ba50505b379682ad17c53e6bafa55b43c037bb4faa46fbf71ca" => :mavericks
+    sha256 "de7432094ded3c474f5d385adbd36f037973de29fe075f1f2b479c9093359d87" => :el_capitan
+    sha256 "e0651f8238e8872bb4a1533021e8cc3370e10c6f9c29748f3b9da4d4d87672a7" => :yosemite
+    sha256 "c748aa9255ee3310b3a22ade735cdadcf9b3e6310ba60c9f2c77d4c29468b3f7" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -34,6 +33,7 @@ class Php70PdoPgsql < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

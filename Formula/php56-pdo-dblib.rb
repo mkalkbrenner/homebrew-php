@@ -9,10 +9,9 @@ class Php56PdoDblib < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 7
-    sha256 "6754baf9e0964f934ae5322cbd05356a7769bc4ad6e305ab9091683bff99c42d" => :el_capitan
-    sha256 "55a6b34ab0250ddd4de44b71df2b1a88a968ce160b21ab1ab7ee40544eb389e2" => :yosemite
-    sha256 "f4dcf2d6d0067519ef6e8e130d73bbbf0c39f799a0dfd9bc5c5c5ffc30ce4599" => :mavericks
+    sha256 "52104cd04c37bb1df44fdfd1142ab6c0980eb08cd1e13749576d7c14d7ac0959" => :el_capitan
+    sha256 "5c173598b8f618378f11b62b135c472ae9791e9afb746842656cf69fc744522c" => :yosemite
+    sha256 "db1f9af3234e6a7e8c7a9a911d787272cd3090945ad7c67eaba05c893aca8363" => :mavericks
   end
 
   depends_on "freetds"
@@ -33,6 +32,7 @@ class Php56PdoDblib < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

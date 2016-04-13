@@ -6,11 +6,12 @@ class Php53Yaz < AbstractPhp53Extension
   homepage "http://www.indexdata.com/phpyaz"
   url "https://pecl.php.net/get/yaz-1.1.9.tgz"
   sha256 "9dd4da2fd6042b37a1811972134f852c94a6f6b85ca4ec5ed5d766eb27a6c401"
+  revision 1
 
   bottle do
-    sha256 "5d0e3691ff90cae813057cf7330bd68d9f8cd948b5df5c0e1a4ece15e42cdac8" => :el_capitan
-    sha256 "d660db18851a117b3db1c92698b29fe634eeb0e1bd6bcc4c9d62cc7d5f76b922" => :yosemite
-    sha256 "6a9f08dd45e007a015223cd7f47214e883917fe8d72ffd18a943608e86788968" => :mavericks
+    sha256 "1ad63d041204013fdcd8721517ddb40f3b8bcb645df1b10ec97d386d26be9705" => :el_capitan
+    sha256 "a8a850fbc7eafd8d34792e29e128a920c0011f139c31f4680d7f712bc5a46772" => :yosemite
+    sha256 "76e5968708f5c9aef63b2175c6d4081bbeefe5e3b608069ee5e6ddf378f86143" => :mavericks
   end
 
   depends_on "yaz"

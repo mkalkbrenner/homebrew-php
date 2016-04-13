@@ -6,15 +6,15 @@ class Terminus < Formula
 
   desc "Command-line interface for the Pantheon Platform"
   homepage "https://github.com/pantheon-systems/terminus"
-  url "https://github.com/pantheon-systems/terminus/archive/0.10.6.tar.gz"
-  sha256 "ae01e55d93bdafd05364e4138d6020dc492b3bfb7f8d06970ae0e4437fa36d4b"
+  url "https://github.com/pantheon-systems/terminus/archive/0.11.1.tar.gz"
+  sha256 "bb74ef83ee03c0baade0ba2bd5847158c9448a48064cb9c131c6cf1f4d2456d7"
   head "https://github.com/pantheon-systems/terminus.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "2357d35e41d758e20231cc6866a91b4c920ec69c08c8e1a99b87fc0be685efa5" => :el_capitan
-    sha256 "36113383e64d2533886595686d87a57dcd0f4cb91d27aedf6cb09d7f98753a9b" => :yosemite
-    sha256 "68bfa4324c95071aa7dc214fe3b7747e9862f5dad339979948166fd1c548107b" => :mavericks
+    sha256 "9baa1cc8bc5f443947048114656d8c6408d0db09c41a44a929706193e895e341" => :el_capitan
+    sha256 "203c78c641ce6d943847bdb29edccce6eb7432c261b4fccc0cd8eaf3a8f80445" => :yosemite
+    sha256 "4f2d5f3aa54617f4e9632cdc26c91c28c3cff8a4c7c1a0fb132f686d27c5dc3c" => :mavericks
   end
 
   depends_on PhpMetaRequirement

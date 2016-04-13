@@ -2,18 +2,18 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php70Intl < AbstractPhp70Extension
   init
-  desc "A wrapper for the ICU library"
+  desc "Wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
   bottle do
-    revision 12
-    sha256 "b2c9f1a601f2c2c6ec796d66495322d7deda07c85ffad734b67040fb57ec6a0c" => :el_capitan
-    sha256 "bf0764d988e28306f4e98d6536a0fc7e37b2fb1757f69337a1fd5ebbcccb115d" => :yosemite
-    sha256 "a5baad560fa892a1359849afc09662ab3d1e290e17612fc921310679d488a6ad" => :mavericks
+    sha256 "d6e89a6fa9ef0e731b980978e6ca576e9faecee9b80bbc72a86440bda1f90aa0" => :el_capitan
+    sha256 "6d15d0dd254d5e613d282acf0a72d270ef07f1d3d4951fcfed340fb6d86377a5" => :yosemite
+    sha256 "95c588ef25d0cfc1292a4e49a8fd3ad7f78b6648e36f99a91b5b53ea392d2a48" => :mavericks
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 1
 
   depends_on "icu4c"
 
@@ -44,6 +44,7 @@ class Php70Intl < AbstractPhp70Extension
     EOS
   end
 end
+
 
 
 

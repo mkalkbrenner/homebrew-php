@@ -9,10 +9,9 @@ class Php55Gmp < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 5
-    sha256 "047aba24149036da04a20df7ebcebbfc120058aff3cb380cf73a7bbae982bb1f" => :el_capitan
-    sha256 "e3049c53c69adc1cc442f4442be96a48abdf38261f043dc36bcc613c093ab606" => :yosemite
-    sha256 "56e46d0d2d76bb7cad01a1c11de8da8ef816e2ff461856bb75f56a8ff513222a" => :mavericks
+    sha256 "f75ee2230a90478ab9e8ad095b637826b7905d2fef2b074c2c5b5ce9033d86ba" => :el_capitan
+    sha256 "b766527eec08a03fab7a4140dd6fa218383d61ae02b113b15eeeff71354200f5" => :yosemite
+    sha256 "7bf5cd6852af4576640b1aefd72a9f7812eeb356312907a5cd490aae8be6dc3e" => :mavericks
   end
 
   depends_on "gmp"
@@ -32,6 +31,7 @@ class Php55Gmp < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

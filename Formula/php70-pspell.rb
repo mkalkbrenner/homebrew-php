@@ -5,10 +5,9 @@ class Php70Pspell < AbstractPhp70Extension
   desc "Extension to check the spelling"
   homepage "http://php.net/manual/en/book.pspell.php"
   bottle do
-    revision 12
-    sha256 "05b55eb5041fa2e103a501dcfe1353742a31d39c27a26feddb93e4e2486fc5fb" => :el_capitan
-    sha256 "0ae63385b0a8530d6fc1f88128d87e529aade8b372cc4c56bb5167b452eb281b" => :yosemite
-    sha256 "8e2215b96300c0b2ef6f6b33e4b0334dede44d618f2f7d7917d09ecbc9cd959b" => :mavericks
+    sha256 "263ddec163b085a1acd3bdabe04a5903f4a557c1db5e1fe6e77eddd691bb9142" => :el_capitan
+    sha256 "3c6fb43554fb845839281957b9a39b837afaf20f95e9e9a6e259236732aa14f7" => :yosemite
+    sha256 "4829fc7208673b1991a0809944576f65c7c71480a92b8eef9e0b81670ae9296c" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -32,6 +31,7 @@ class Php70Pspell < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 
