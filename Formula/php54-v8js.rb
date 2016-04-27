@@ -6,11 +6,13 @@ class Php54V8js < AbstractPhp54Extension
   homepage "http://pecl.php.net/package/v8js"
   url "http://pecl.php.net/get/v8js-0.4.0.tgz"
   sha256 "0d52b999c12f9f74a0642f6c3f349002a39355295187e0b50344ea0ec64ae0bd"
+  revision 2
+
   bottle do
     cellar :any
-    sha256 "f989a82cc7ad7a190ac76595697a488fee9c6293a8067fcad7eb31c58f8b1772" => :el_capitan
-    sha256 "c515d5bbb03c39b41f15421d404340b821a8d6f0bcf311a2628c6dd7c5ce8166" => :yosemite
-    sha256 "f5f2335628ffa89adc0d6f54e5038b283207fc3ab2fe34db34edd488e828f965" => :mavericks
+    sha256 "a704d12ce910f61d42b7ba893ce63b4bb796e928f116a8f3a3302e4ed86fd59d" => :el_capitan
+    sha256 "bdc283c1e6988766470847e9cc54d361b1119ba177047769bd81aa1dc049775a" => :yosemite
+    sha256 "200fd3a4b7ad96c71049e7b9d1ca1462df9b2bfa40efd22ffb35e1faf2f828ef" => :mavericks
   end
 
   depends_on "v8"

@@ -4,14 +4,14 @@ class Phpunit < AbstractPhpPhar
   init
   desc "Programmer-oriented testing framework for PHP"
   homepage "http://phpunit.de"
-  url "https://phar.phpunit.de/phpunit-5.3.1.phar"
-  sha256 "5602ea831312d8cf4d7e79decee9dfdf15f667bec50d5a378762d5283f7cf99d"
+  url "https://phar.phpunit.de/phpunit-5.3.2.phar"
+  sha256 "3af5c42ef7aae5ff8f26ae72390b3e758ac2076feedba7fd5a4c2f1efd4f004e"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "5b4a470e4bb86fea3eb3bcd7d44d720e9acfb2607d88c1c6c5c779db58eb7720" => :el_capitan
-    sha256 "28da4a827215ff1343c53de6edef15a3347f65b687ecc27b098cfa6c0d7de116" => :yosemite
-    sha256 "5298a8e6dd81ba952ed11d9dfd73ad07be302217a9d0d9f06f931f8a650e884a" => :mavericks
+    sha256 "57758765674e54c8e26f4e9cefed0be27354c92d398b795e0bef0ff8ce0af07f" => :el_capitan
+    sha256 "9edeece817c648f2e36b6380923223c9f93867aef73bc0026a25ef06c7c2ff7a" => :yosemite
+    sha256 "054fcc4e88c9093b10eaafd817a96d1c618d5516f8ba5b6c4ffdf7ecf13b8e89" => :mavericks
   end
 
   def phar_file
