@@ -4,14 +4,15 @@ class Php56Amqp < AbstractPhp56Extension
   init
   desc "Communicates with any AMQP 0-9-1 compatible server."
   homepage "https://pecl.php.net/package/amqp"
-  url "https://pecl.php.net/get/amqp-1.6.1.tgz"
-  sha256 "cc24ddf7d4140fa68c127af98a59b72f8b51f73a663816e3e82d676566701d62"
+  url "https://pecl.php.net/get/amqp-1.7.0.tgz"
+  sha256 "b9a642c0ae60cc5e049c169a017cc355bfc0f2478db588b20925eaa63d358e83"
   head "https://github.com/pdezwart/php-amqp.git"
 
   bottle do
     cellar :any
-    sha256 "7860b169f23515d4e2e0d21b1f4351f5f662b0eca65dba905535ef26dcaa38b9" => :el_capitan
-    sha256 "7c8d402e0100d56e8b61cb0491ded57890302312ba56b52a5b6a2625bb74f09c" => :yosemite
+    sha256 "8142dfbf4e079beaf7732145fdd4bc582095344c105d442f477b88763f0e9c07" => :el_capitan
+    sha256 "ac2fb45a9a66f9fe960082dcf755600d445d1fb4a08c29e9f6eafbb232263810" => :yosemite
+    sha256 "59f92d16b025c52b665810fdb3af9d9539cf69e70fd0d78af550b3a932531200" => :mavericks
   end
 
   depends_on "rabbitmq-c"

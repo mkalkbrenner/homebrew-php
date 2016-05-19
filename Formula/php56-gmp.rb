@@ -9,9 +9,10 @@ class Php56Gmp < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    sha256 "c29c8629a18bfa364803d653ad62a85e403d1d909b07036f35db09a87fdf0891" => :el_capitan
-    sha256 "f5a622336a81bfc69e1a86bba3a623b0dc6b0dedf7fb88aa97fe441328e5ae33" => :yosemite
-    sha256 "b819e4670e11852528b753ecc802533e1b197f23070ae2bb759e52bd01bb7994" => :mavericks
+    revision 8
+    sha256 "559aacd1f7c2baaec2abef3eecae512a9abf269e9e5f3d54b858bae979aee66a" => :el_capitan
+    sha256 "7d00a12d6ab47a7eb31a5604535fb5eeb79437212a32cb85091d8f46e4e3cbce" => :yosemite
+    sha256 "311ce3c96d9ec2b5f711ac20dacd305b0381938820df7af73495186f5ff8cb3c" => :mavericks
   end
 
   depends_on "gmp"
@@ -31,6 +32,7 @@ class Php56Gmp < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

@@ -9,9 +9,10 @@ class Php56Tidy < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    sha256 "64d5696888755c34e27ba6935187775abd03762470f11ff4fb8994e5e3a7de0a" => :el_capitan
-    sha256 "69f70a2575b82318ea04a113eb4fa369b754a912e1e6f7f14abd7280ef35e160" => :yosemite
-    sha256 "50e788aba8016203edc0fc28a456e709ea0b73dbe62f3544dd364ddd16dcbf04" => :mavericks
+    revision 7
+    sha256 "cc4d5f39ec3615c65800e9c5fc6426af02f9dfecf63e29b281e15f7622134d22" => :el_capitan
+    sha256 "471b8cbb65ba111966fc46d8e7413e019cee98cc810305cf25c7f3312c7b90c7" => :yosemite
+    sha256 "6c797836236b7d26f3f3d56eca0eb7fdb4c98c02be7456c6e96d341709026051" => :mavericks
   end
 
   depends_on "tidy-html5"
@@ -34,6 +35,7 @@ class Php56Tidy < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

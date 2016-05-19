@@ -4,15 +4,15 @@ class Composer < AbstractPhpPhar
   init
   desc "Dependency Manager for PHP"
   homepage "http://getcomposer.org"
-  url "https://getcomposer.org/download/1.0.2/composer.phar"
-  sha256 "264673ccee900b22192605b8c74ecb77c45a5197347edacd142699866c478f4c"
+  url "https://getcomposer.org/download/1.1.1/composer.phar"
+  sha256 "7f26efee06de5a1a061b6b1e330f5acc9ee69976d1551118c45b21f358cbc332"
   head "https://getcomposer.org/composer.phar"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "72fbd69e1f1d020b74ea2158dab7836e31c7ac574cc09899fd42a5444cc62fe7" => :el_capitan
-    sha256 "85679b95e0cfacd87a1ba09cdeaac6956841e1d4f564bd6fed1405b477417463" => :yosemite
-    sha256 "c0dc28779be4d6c0ea0b68eb0fdcc95bd048d2a6b7ffb1e440f1e14d2853bf2d" => :mavericks
+    sha256 "dd4a75805b9d1ca2dfa6c19983886f4468da39c18f21f315e588719c53f2216e" => :el_capitan
+    sha256 "882c97af3224a26e19f5b85c7c9d454d3ed7eefa6c19e434707b58a11b18fb65" => :yosemite
+    sha256 "fdd3f88c4748268f5a20d4a614c3d96b8a247b745a90426c6a991ab7ac21a2ba" => :mavericks
   end
 
   test do

@@ -12,9 +12,10 @@ class Php56 < AbstractPhp
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    sha256 "45c09f65f96bd2e459fe5037e102a7bedb4bec617b664f89d1afb6010953338d" => :el_capitan
-    sha256 "6075e1f9d1c9da3ffa52da2a6316134c90982b75f3e44303353544bde25aa399" => :yosemite
-    sha256 "7ff18b4253b7c4e9467033bcec416902d74cfe3a9d741bd767b8d9a21a3bbc9c" => :mavericks
+    revision 9
+    sha256 "f7da59f6129a53186375abf8ab6bc5777fb174f4f62bb33f26c91ecd47260ad3" => :el_capitan
+    sha256 "1c12c64717597fc7d7830dd14bb35e87136c29223cd7393a7ba0f6983955344c" => :yosemite
+    sha256 "4a5d1b0e7144a1b927a5a7b69bb4f1be15054de9ea53545e42ed035fde5b6455" => :mavericks
   end
 
   def install_args
@@ -43,7 +44,4 @@ class Php56 < AbstractPhp
     "56"
   end
 end
-
-
-
 

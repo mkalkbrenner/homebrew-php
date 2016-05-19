@@ -9,9 +9,10 @@ class Php55Pspell < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    sha256 "48314a0c7f723036dcdf0b2f7d047985394fe6c760fa5f402b1597cd7e5aa3c3" => :el_capitan
-    sha256 "c207e1450a1f108d89418cfbfd2dc7e51fa067055d58005ea11d6c5cdea77c3a" => :yosemite
-    sha256 "d38eaa616b746f2bd27ef63997d86b5b08d197a39c9c2d9e2f75322e68a7a559" => :mavericks
+    revision 7
+    sha256 "d05ae27613f9b313c3fa611dbb6ca90d9eeaa292258586d78f5d081db95f6db7" => :el_capitan
+    sha256 "e369a8f6e5be9f0a7a0f0f95ac11b7d1b1408f2172ba3c06c61b32b8ddb62af9" => :yosemite
+    sha256 "40f3eb38c0434e2d49fb77ef78ef5b72203e2ee2b26c40c37f51ed967381429b" => :mavericks
   end
 
   depends_on "aspell"
@@ -31,6 +32,7 @@ class Php55Pspell < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 
