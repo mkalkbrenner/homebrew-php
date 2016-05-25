@@ -4,15 +4,16 @@ class Php56Pinba < AbstractPhp56Extension
   init
   desc "PHP extension for Pinba monitoring server"
   homepage "http://pinba.org/"
-  url "https://github.com/tony2001/pinba_extension/archive/6869f30e8c264e7a5742ab55f4f6bd5ee29e6080.tar.gz"
-  sha256 "46e3640a47cd9b1951e6edbe637ba44ec5c858688883003c74ebe27a61e14fc5"
+  url "https://github.com/tony2001/pinba_extension/archive/7e7cd25ebcd74234f058bfe350128238383c6b96.tar.gz"
+  sha256 "bed4ffc980f407a433e0fcf8f2309537f7914d6d33349a1ea1ce14ab37127462"
   head "https://github.com/tony2001/pinba_extension.git"
+  version "1.1.0-dev.7e7cd25"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "a88ee4739502ac333792b86b2183f900b4950c03975fe28e8eaea34029be9599" => :yosemite
-    sha256 "a06ea73967e5a3b35f403169799fe8786f874a0abbb330dea9d97406db881a54" => :mavericks
-    sha256 "2e4625c550e41b4a48f456b516cc3fb856256cfd0097947f0aa5c3980d48d678" => :mountain_lion
+    sha256 "3c739476d545646927dc1fcd4d7741c06179d7d124eb7d52d55d7d273602722d" => :el_capitan
+    sha256 "91b9a0b366349a3ffdae70a9bcd9f46b2ff74e33b8f670635e08729a30ecf167" => :yosemite
+    sha256 "e0947f5a19998024c426873ced9629ee89fed0c020ab88a0361ca88fc2fdf68e" => :mavericks
   end
 
   def install
