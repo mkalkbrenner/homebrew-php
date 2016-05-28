@@ -10,10 +10,10 @@ class Php56Intl < AbstractPhp56Extension
   revision 1
 
   bottle do
-    revision 1
-    sha256 "04979b3c1c757399b120f3a4a5a1f69ec678712f194c9e80a1225cfb7c2bdb05" => :el_capitan
-    sha256 "0931135316aaf851a0239251776e7b26cccace1469985f34d513a763e3a0cec9" => :yosemite
-    sha256 "8f46a02f894d8bebeafc4c5aa5753bbc9eec6c4b0b88b7f9994b3152f5e795fc" => :mavericks
+    revision 2
+    sha256 "89dc2b9fc1ead37ac7a155e9a4a12a0eeb538e19f85c265b8a4816bf0b730545" => :el_capitan
+    sha256 "3d7ac262406f6bef97cefb9215f0f82f50769f4fb080ce79f35d376eff88ded5" => :yosemite
+    sha256 "6e57ce61247547d0610ea92ef3ff53a7a393232f42d8be5a9fca970f0d20ac29" => :mavericks
   end
 
   depends_on "icu4c"
@@ -45,6 +45,7 @@ class Php56Intl < AbstractPhp56Extension
     EOS
   end
 end
+
 
 
 

@@ -2,17 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Phalcon < AbstractPhp56Extension
   init
-  desc "A full-stack PHP framework"
+  desc "Full-stack PHP framework"
   homepage "http://phalconphp.com/"
-  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.10.tar.gz"
-  sha256 "59fbe5bdee7a955ecb1f0cd8bb4c942e33105080302f239363aa3941e9e52172"
+  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.13.tar.gz"
+  sha256 "0a1bd6afe902c6f2f68cf5e2f2785503f5ad95d1d2cf1b66c77154c483a08a35"
   head "https://github.com/phalcon/cphalcon.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "0d101d1cf7647cecd6fc7220e89a2fb0b62c1e75e8ecbdb17c8dbb0524e87ec9" => :el_capitan
-    sha256 "54c403e0bf32783121ccef133734c0b335f2c3e9ce1556e15dd019baa91a5638" => :yosemite
-    sha256 "ce8f422812e18d149722b2e9747ad3a37881d5cea1c8ddc562628a0e3650b1b8" => :mavericks
+    sha256 "9c4cc2df1ce2a29828a640e95c96faba55278072021b9994944072e284826e31" => :el_capitan
+    sha256 "3bf7020fee0d21a52bd789bb3c1faada91678d24cdafea1695325ff318469790" => :yosemite
+    sha256 "061e25fd5801cc9a7431d99e461ddbc390a95c9a2b15976cdfcb59cde186a2d6" => :mavericks
   end
 
   depends_on "pcre"

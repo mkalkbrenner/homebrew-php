@@ -8,9 +8,10 @@ class Php55Qr < AbstractPhp55Extension
   sha256 "0d628741d77f34207a00cc0b84967ecf4ccb38f03e65105573ecfead8c76f114"
 
   bottle do
-    sha256 "494152a5bc20ab4b7ede0c752e72921a62330f71eb809ad7ab2e1fde1d83e79c" => :el_capitan
-    sha256 "9dc5ecc6d4e133ea8e5762667b0cfdbd6b7d2a07a498dd504d28635152b2e0e4" => :yosemite
-    sha256 "2dbd8384568d0068a8597b98c0b7db754874a4988daa1ea3bb5dd4bc0705071a" => :mavericks
+    revision 1
+    sha256 "704683e8e8bc23220362fe80f541b28c5be3819bbaa8856c2f97cabc000a2465" => :el_capitan
+    sha256 "409eb95f7d6f2281ab16fcb9775931609d813947dec5ad315b83cf37d3617b8d" => :yosemite
+    sha256 "acb6384faa128aed1c1d3c41b4ca0d17be2386cf5eff0f6b314cc66d649a184b" => :mavericks
   end
 
   depends_on "zlib"
@@ -66,3 +67,4 @@ __END__
 
  	return SUCCESS;
  }
+
