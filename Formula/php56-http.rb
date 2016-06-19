@@ -2,23 +2,23 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Http < AbstractPhp56Extension
   init
-  desc "This HTTP extension aims to provide a convenient and powerful set of functionality for one of PHPs major applications."
+  desc "HTTP extension that provides a convenient set of functionality"
   homepage "https://pecl.php.net/package/pecl_http"
-  url "https://pecl.php.net/get/pecl_http-2.4.3.tgz"
-  sha256 "2d9f3713331cf35b4a0162bd8b294683a67fecb5223e50978661acccd30c6c39"
-
-  head "https://git.php.net/repository/pecl/http/pecl_http.git"
+  url "https://github.com/m6w6/ext-http/archive/RELEASE_2_5_6.tar.gz"
+  sha256 "83c15492ae7673404db462b642450f5bec81db72765d21fbb915ac39a42f0be4"
+  revision 3
+  head "https://github.com/m6w6/ext-http.git"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "ae7e1b7eb889ba530bd3c49b6449d0d6c7da69a6bf2b8e4d194b4f2821de2ed3" => :el_capitan
-    sha256 "43f77aca2e5d37519f747500f0d6b119777442b0a506294ff0724b3b2dd04b14" => :yosemite
-    sha256 "dabed79204a2c8a41c61a32f1587b094f58ec4fad481b6c08d6f97dfa7091773" => :mavericks
+    sha256 "2d5af129bc7cb37df171376254f0cd267e5f11a9ed3b44689b170e46b814f920" => :el_capitan
+    sha256 "61a38ce10464a58d857bb9d449a19e22933dfae66ca12687a3c2d0e5321af5d0" => :yosemite
+    sha256 "b0a4c2947c7f91514c0b5fac71f315320a0c880cbff084a44030ddaaf63dbe1a" => :mavericks
   end
 
   depends_on "curl"
-  depends_on "libevent" => :build
+  depends_on "libevent"
+  depends_on "php56-intl"
   depends_on "php56-raphf"
   depends_on "php56-propro"
 
@@ -28,8 +28,6 @@ class Php56Http < AbstractPhp56Extension
   end
 
   def install
-    Dir.chdir "pecl_http-#{version}" unless build.head?
-
     ENV.universal_binary if build.universal?
 
     safe_phpize

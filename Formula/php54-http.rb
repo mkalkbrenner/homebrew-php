@@ -2,23 +2,22 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Http < AbstractPhp54Extension
   init
-  desc "This HTTP extension aims to provide a convenient and powerful set of functionality for one of PHPs major applications."
+  desc "HTTP extension that provides a convenient set of functionality"
   homepage "https://pecl.php.net/package/pecl_http"
-  url "https://pecl.php.net/get/pecl_http-2.4.3.tgz"
-  sha256 "2d9f3713331cf35b4a0162bd8b294683a67fecb5223e50978661acccd30c6c39"
+  url "https://github.com/m6w6/ext-http/archive/RELEASE_2_5_6.tar.gz"
+  sha256 "83c15492ae7673404db462b642450f5bec81db72765d21fbb915ac39a42f0be4"
 
-  head "https://git.php.net/repository/pecl/http/pecl_http.git"
+  head "https://github.com/m6w6/ext-http.git"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "506abfe384579863eacf8b702cc7955d513c3cd03002a711033d701d25829a6f" => :el_capitan
-    sha256 "7563d44f51f3a83deb39360e3e9a659545e6dacc25d3fb5cbcc88acb0c904694" => :yosemite
-    sha256 "b259248e6d3f02b92f88e9e6f92e841a6a33c0529a77e049ac56bd458b0aadc0" => :mavericks
+    sha256 "3776087de63940ebc6e861a3026473db9f20dc525e615cd54745acef2e8fa10e" => :el_capitan
+    sha256 "17866e894fc3367484091a9bfce7d8f6596933982b70ecd00b33f531fc810441" => :yosemite
+    sha256 "eeffab638cf76ac05b2dd27a32936e1a31e6c90c649ddf4ed540051eca042eea" => :mavericks
   end
 
   depends_on "curl"
-  depends_on "libevent" => :build
+  depends_on "libevent"
   depends_on "php54-raphf"
   depends_on "php54-propro"
 
@@ -28,8 +27,6 @@ class Php54Http < AbstractPhp54Extension
   end
 
   def install
-    Dir.chdir "pecl_http-#{version}" unless build.head?
-
     ENV.universal_binary if build.universal?
 
     safe_phpize

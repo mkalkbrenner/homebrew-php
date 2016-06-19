@@ -4,22 +4,20 @@ class Php70Apcu < AbstractPhp70Extension
   init
   desc "APC User Cache"
   homepage "https://pecl.php.net/package/apcu"
-  url "https://pecl.php.net/get/apcu-5.1.3.tgz"
-  sha256 "1582c323d31529c91edc11dcb956ee53660b37e49387d0d609d79d57224a7c30"
+  url "https://github.com/krakjoe/apcu/archive/v5.1.5.tar.gz"
+  sha256 "52a3d5d9111f1417ebc8c386df6834aec62ee5ba0f7f460866cb9459e3d25579"
   head "https://github.com/krakjoe/apcu.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "b45e0d5cf4a8e0ae7ef8c76e8a358f31bb3add64af0f2ab341d54e363372abba" => :el_capitan
-    sha256 "c8b37a2bb26baa8c650976cb5c221b45b2634d679487cf439c39206dd6303804" => :yosemite
-    sha256 "914f6e70c45545890d2904bad22b160287ceaf64ee85840c0aa04471524e84ab" => :mavericks
+    sha256 "ef4c81578ba91d26b749c22c3cbe8821daaf16fac54140f987664c71f5038fc0" => :el_capitan
+    sha256 "ab84678944c805a33273091218ea12a813b561d9c7a58a9f7a136ac5dcda933d" => :yosemite
+    sha256 "7c7168ccdbc1af276290f5106f335b8093a4040186370efddec8fd2855d2583e" => :mavericks
   end
 
   depends_on "pcre"
 
   def install
-    Dir.chdir "apcu-#{version}" unless build.head?
-
     ENV.universal_binary if build.universal?
 
     args = []
@@ -32,7 +30,8 @@ class Php70Apcu < AbstractPhp70Extension
                           *args
     system "make"
     # Keep all the headers that are needed to build php-apc-bc
-    include.install ["php_apc.h",
+    include.install [
+      "php_apc.h",
       "apc.h",
       "apc_globals.h",
       "apc_cache.h",
@@ -45,7 +44,8 @@ class Php70Apcu < AbstractPhp70Extension
       "apc_pool_api.h",
       "apc_sma_api.h",
       "apc_arginfo.h",
-      "apc_iterator.h"]
+      "apc_iterator.h",
+    ]
     prefix.install "modules/apcu.so"
     write_config_file if build.with? "config-file"
   end
@@ -60,4 +60,3 @@ class Php70Apcu < AbstractPhp70Extension
     EOS
   end
 end
-

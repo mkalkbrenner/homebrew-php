@@ -2,27 +2,27 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Raphf < AbstractPhp56Extension
   init
-  desc "A reusable split-off of pecl_http's persistent handle and resource factory API."
+  desc "Split-off of pecl_http's persistent handle and resource factory API"
   homepage "https://pecl.php.net/package/raphf"
-  url "https://pecl.php.net/get/raphf-1.0.4.tgz"
-  sha256 "461be283e89d94186a3ed4651b92c7c1a067bad7b6476d0ca7ac8863dc1ed8bf"
+  url "https://github.com/m6w6/ext-raphf/archive/release-1.1.2.tar.gz"
+  sha256 "b5386eff888e2c06951b4fa65a3d0b536775e35a8afc2db323a3129685f7c2bf"
+  revision 2
 
   bottle do
-    sha256 "99977faae951ff350b5548de02898e68aa42f4e565cccfffff445491fce8953b" => :yosemite
-    sha256 "68ecac431c3ab1a297432256cc296f8b5dfddcd4f96af408f6706428da9d9c1b" => :mavericks
-    sha256 "f40e19b76251d553af0919dfe24a8c7e0fd992f7ead642ed05fb466c7dd03971" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "5e223a6b112e96d77d2ddeb4ceaedaa13f23aad9ad462ed0be388d8c51699c8e" => :el_capitan
+    sha256 "3711d064b263215eaaf10d4e10ee31d4797faaeab4484a11882029243fa2a3cc" => :yosemite
+    sha256 "9e06905a1ad9871e2073ffdc9f3e9b1c6d0057a78cdeddfcb7688e79e551c6de" => :mavericks
   end
 
   def install
-    Dir.chdir "raphf-#{version}"
-
     ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           phpconfig
     system "make"
-    include.install "php_raphf.h"
+    include.install %w[php_raphf.h src/php_raphf_api.h]
     prefix.install "modules/raphf.so"
     write_config_file if build.with? "config-file"
   end
