@@ -10,10 +10,10 @@ class Php55PdoPgsql < AbstractPhp55Extension
 
   bottle do
     cellar :any
-    revision 8
-    sha256 "fbbf2a3c71dc65a176a99144079344226de406a3723159da21415cd4bdfdc88f" => :el_capitan
-    sha256 "b066b1ae2b44bf2c83aabe02158c861f2c811cbd53c02cb5119d74b7ed87672b" => :yosemite
-    sha256 "11b89aeaf7a26854d86d6feca14a573c8bd214cee0885fb5ee1abf6a4a1a8be0" => :mavericks
+    revision 9
+    sha256 "27fdae82e21f8ebb8909467bbe175c8e3578c36db32c4912fa7a7f091e0b5484" => :el_capitan
+    sha256 "ffc62a43ea7a637fcc49e39b6620ab13382809030d0b7e22fff9c59ee25a45da" => :yosemite
+    sha256 "212bbb4ebf20957eacb8e57fbff1c07cbaeace37dfbc44fbd2c23d9d4bc83aec" => :mavericks
   end
 
   depends_on "postgresql"
@@ -34,6 +34,7 @@ class Php55PdoPgsql < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

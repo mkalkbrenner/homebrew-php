@@ -1,16 +1,15 @@
 require File.expand_path("../../Abstract/abstract-php", __FILE__)
 
-class Php70 < AbstractPhp
+class Php71 < AbstractPhp
   init
-  desc "PHP Version 7.0"
+  desc "PHP Version 7.1"
   bottle do
-    revision 16
-    sha256 "81d28f6e60ec555d6a1a6d5fab724df6f1d7acef0db669a35f8cdd26af2bc236" => :el_capitan
-    sha256 "c6393f4f8fb0993c1a843302a7c429cef0c685f2ddbf945e660a54c48f731d5f" => :yosemite
-    sha256 "865c0033fb4da76b5ac20622e315a07a53949e7c28036f1a167b6d208ebdac4a" => :mavericks
+    sha256 "d001b1c444d5edd8b0c8a9838dfad6c16f3c21d2e622f26a41678ef8d720c59e" => :el_capitan
+    sha256 "a323eb93c4503940b67f4d6c9b7fc3adbd9f429d67d6834441468f80a00ff526" => :yosemite
+    sha256 "b269071358750fee4389b12323625c96197ced18020c76fa5e0b9e30237064fb" => :mavericks
   end
 
-  include AbstractPhpVersion::Php70Defs
+  include AbstractPhpVersion::Php71Defs
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
@@ -37,18 +36,10 @@ class Php70 < AbstractPhp
   end
 
   def php_version
-    "7.0"
+    "7.1"
   end
 
   def php_version_path
-    "70"
+    "71"
   end
 end
-
-
-
-
-
-
-
-

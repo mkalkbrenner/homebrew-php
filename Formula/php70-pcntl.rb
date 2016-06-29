@@ -6,10 +6,10 @@ class Php70Pcntl < AbstractPhp70Extension
   homepage "http://php.net/manual/en/book.pcntl.php"
   bottle do
     cellar :any_skip_relocation
-    revision 14
-    sha256 "01166e880a41067075a9a3321a8e2588779d83adf2c4fd1da3bd7cb1c401d86a" => :el_capitan
-    sha256 "b6977d1346351e7d7d6ad3fa6be14860e3d760e0e67640023c35285be609920b" => :yosemite
-    sha256 "361e43377a25306f7d2a05592bc3b3d3bbec0e36cf184b35983658e174654d28" => :mavericks
+    revision 15
+    sha256 "31a68ab01085481fe763bb71d9d88317bb9fc09ab834e5cb0d76b829c2274daa" => :el_capitan
+    sha256 "747de11fac5fc27f459aea9e64b3f36ada147dde21035090c604b1bb78376470" => :yosemite
+    sha256 "1bd7245b1b274d29600ea8609594318ca49aca4216cbb47f414f9de87f3ff135" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -30,6 +30,7 @@ class Php70Pcntl < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 

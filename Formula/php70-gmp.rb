@@ -5,10 +5,10 @@ class Php70Gmp < AbstractPhp70Extension
   desc "GMP core php extension"
   homepage "http://php.net/manual/en/book.gmp.php"
   bottle do
-    revision 14
-    sha256 "4e34a05e0b9e5f3c2ac18bbaf0b6d772fb08a2c5233ade757b8a12a6442cb108" => :el_capitan
-    sha256 "3b1f89f41f71cc66ce917f9c563c20e0af7c35779a7e63c9b228cfed07dccb47" => :yosemite
-    sha256 "f61f4a84eaf5510eb8bab154077b970f153a3453ee0e837f09c50fba69ac216e" => :mavericks
+    revision 15
+    sha256 "a1fa07d4d93702f56d675ef0f165ae03c978758f5b05085bba01a0f7eb967835" => :el_capitan
+    sha256 "71ed5f42b49e3a7f0719526c48a91d01c80aec999a66722075dbf9f1d33d4dad" => :yosemite
+    sha256 "42bf5966316faf1f7002abf8aff401e69298953335b8af3cbf9bffc083d4e5b4" => :mavericks
   end
 
   url PHP_SRC_TARBALL
@@ -32,6 +32,7 @@ class Php70Gmp < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
+
 
 
 
