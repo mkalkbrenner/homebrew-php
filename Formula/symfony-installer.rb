@@ -7,15 +7,15 @@ class SymfonyInstaller < Formula
   desc "Create Symfony framework projects."
   homepage "https://github.com/symfony/symfony-installer"
   url "https://github.com/symfony/symfony-installer.git",
-    :tag => "v1.5.4",
-    :revision => "1e8ebb99917309d8eef7cd44e8340102c3e4c42d"
+    :tag => "v1.5.8",
+    :revision => "70b921a47372a5734d09adbbeacc5d74d77cda3d"
   head "https://github.com/symfony/symfony-installer.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "37cd3803918b16cf26ec3412dd48f0c6acc5df4d4a991dacd344fc35f1983f14" => :el_capitan
-    sha256 "31ca104f298ec464d795177608febb5c3c794d8117800d5cc6c9045a5e6c0a3d" => :yosemite
-    sha256 "513db890222e2e7c49f6addc3c087282c7ded3dd33fc7c81c373dfbb93b8345d" => :mavericks
+    sha256 "46bf5e53b3a7bddb8020ca02ac676c20d5e2b5cc8d62be6ed75eaefacaaeab71" => :el_capitan
+    sha256 "67cfa4abe8f53e98e19ef55c1f80c68c68a1a055f29c4147b4a8ed2801f92a24" => :yosemite
+    sha256 "2336e56c7c278ffaa917643a74d9cafa4859c9146bad800dd10a669019cfdecf" => :mavericks
   end
 
   depends_on PhpMetaRequirement

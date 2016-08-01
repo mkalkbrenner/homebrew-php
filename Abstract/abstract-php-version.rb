@@ -29,46 +29,46 @@ class AbstractPhpVersion < Formula
   end
 
   module Php55Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-5.5.37.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-5.5.38.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '5.5.37'
+    PHP_VERSION     = '5.5.38'
     PHP_BRANCH      = 'PHP-5.5'
 
     PHP_CHECKSUM    = {
-                        :sha256 => 'd2380ebe46caf17f2c4cd055867d00a82e6702dc5f62dc29ce864a5742905d88',
+                        :sha256 => '473c81ebb2e48ca468caee031762266651843d7227c18a824add9b07b9393e38',
                       }
   end
 
   module Php56Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.23.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.24.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '5.6.23'
+    PHP_VERSION     = '5.6.24'
     PHP_BRANCH      = 'PHP-5.6'
 
     PHP_CHECKSUM    = {
-                        :sha256 => 'facd280896d277e6f7084b60839e693d4db68318bfc92085d3dc0251fd3558c7',
+                        :sha256 => 'bf23617ec3ed0a125ec8bde2b7bca9d3804b2ff4df8de192890c84dc9fac38c6',
                       }
   end
 
   module Php70Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-7.0.8.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-7.0.9.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.0.8'
+    PHP_VERSION     = '7.0.9'
     PHP_BRANCH      = 'PHP-7.0'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '66dc7ba388490e07b1313fe3a06b1fa822e1310585fe29f4909995f131e27c8d',
+                        :sha256 => '2ee6968b5875f2f38700c58a189aad859a6a0b85fc337aa102ec2dc3652c3b7b',
                       }
   end
 
   module Php71Defs
-    PHP_SRC_TARBALL = 'https://downloads.php.net/~krakjoe/php-7.1.0alpha2.tar.bz2'
+    PHP_SRC_TARBALL = 'https://downloads.php.net/~ab/php-7.1.0beta1.tar.bz2'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.1.0-alpha.2'
+    PHP_VERSION     = '7.1.0-beta.1'
     PHP_BRANCH      = 'PHP-7.1.0'
 
     PHP_CHECKSUM    = {
-                        :sha256 => 'e545c6bc229cf27d0540c8277da5b369c5de0e9c5c723d6b26902b3791d8795d',
+                        :sha256 => '14b29e5a2cb13c071a7d70784ad3f43230cba09e4bda6d90c3c1dfaa070ac882',
                       }
   end
 end

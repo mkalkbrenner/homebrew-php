@@ -5,15 +5,15 @@ class WpCli < Formula
 
   desc "Command-line tools for managing WordPress installations."
   homepage "http://wp-cli.org/"
-  url "https://github.com/wp-cli/wp-cli/archive/v0.23.1.tar.gz"
-  sha256 "a70d80b443ca95df7458329fc78e93d7c9c97cb6ac57eaebbce1e20048470a2a"
+  url "https://github.com/wp-cli/wp-cli/archive/v0.24.0.tar.gz"
+  sha256 "43b1cefdfc7eb18433f369a1022123ff4d2d53eedf6670e9a29188735bbf7660"
   head "https://github.com/wp-cli/wp-cli.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "803f1c2db06541531ab05546932621f5f6136a6c3a8671d608d6930acd8c9fa7" => :el_capitan
-    sha256 "f040e0b672cbccaa7807450ce0d6c3e1cef2c4b583e92e0b36aa56f3b42d4cf6" => :yosemite
-    sha256 "a3f00aeb3dfa9d660965ec3b48d018a9168fa7310b981780cb12787800e28773" => :mavericks
+    sha256 "0c781d66b2247bdd3abc92211e63bacf57f31787c04b8f3719d3a9b4093a5e92" => :el_capitan
+    sha256 "96c0f7ac8164e9668a96914b97934a5bb501670d5b7d44fd5444c0dc6896ada0" => :yosemite
+    sha256 "9b684a473120d822e10a58fd0a65af01369b5a4ef0a23453b55488511fc672e7" => :mavericks
   end
 
   option "without-bash-completion", "Don't install bash completion"

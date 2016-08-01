@@ -1,20 +1,19 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php56PdoPgsql < AbstractPhp56Extension
+class Php71PdoPgsql < AbstractPhp71Extension
   init
-  desc "A unified PostgreSQL driver for PDO"
+  desc "Unified PostgreSQL driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
+  bottle do
+    cellar :any
+    sha256 "c462bdcf62f6789d618d10802da574f5d1cc46c06a6f79b92ea40eeda49ccd60" => :el_capitan
+    sha256 "b898e40345438d7c87a098368ea956a01280dad94b914d05872465560d227518" => :yosemite
+    sha256 "a945dc3ed0ce5d1225f61f594f66ff0ec6bd77d993c30a08131527bef51e2962" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    cellar :any
-    revision 11
-    sha256 "07a51cb9ffb0dda8a2c2b1d44dadda31ba1bb34584925c0b0e7f483b6f09a060" => :el_capitan
-    sha256 "3a0ee4533f8a2cad225ea9787a58e60c81e3487a5e4d26e6379df8a8aaa9832f" => :yosemite
-    sha256 "92624b67352c837f1b28ea512d489636578583a85206e043bd5ea12820eb607d" => :mavericks
-  end
 
   depends_on "postgresql"
 
@@ -34,11 +33,3 @@ class Php56PdoPgsql < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
-
-
-
-
-
-
-
-

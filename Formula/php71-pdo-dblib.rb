@@ -1,19 +1,18 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55PdoDblib < AbstractPhp55Extension
+class Php71PdoDblib < AbstractPhp71Extension
   init
-  desc "A unified Sybase-DB style driver for PDO"
+  desc "Unified Sybase-DB style driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_dblib"
+  bottle do
+    sha256 "9ac76602799b7e242a53d97378484b2547f1138893b63fc3299b41093bb7d6fb" => :el_capitan
+    sha256 "4c616c651cdb59077bb023e51ebaf4bb0282dd091a1d6ca6054eba07bcf8fcfa" => :yosemite
+    sha256 "de0cfbe3cd28857724f0847c174c38c291bd77c8c82dc701b80ec72d90a71b2c" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    revision 9
-    sha256 "fac60cf7a0a52e747c421bcda3ab66b44a8bef0c58e846e2e413f81995a4d853" => :el_capitan
-    sha256 "8d450b4033fb1168bd242fc275418c741db19c91f431eb5c98aa6c20ef705109" => :yosemite
-    sha256 "0fbb2ff6cc644ccfe7cdba700f3d7cceb826fc6e9def0fa40ebb5ac3be64348c" => :mavericks
-  end
 
   depends_on "freetds"
 
@@ -33,11 +32,3 @@ class Php55PdoDblib < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
-
-
-
-
-
-
-
-

@@ -13,10 +13,10 @@ class Php55 < AbstractPhp
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    revision 8
-    sha256 "816181372341d16edd19a9f011ce559192345c827633aa9110355dc28133a824" => :el_capitan
-    sha256 "5d4f1b07d98da0ccd37a03adf52172dba5a55f4019928a4a79a12a6e8449aa4b" => :yosemite
-    sha256 "7f02a1fd67f63eab1ce3f1a4ca8eab0a78f2aca2a1594feb44a5244979b9c51f" => :mavericks
+    revision 9
+    sha256 "82df4eb5fc3606f7a7f2eb93eda7929b423c5c0a0da7bd988bbb4db5c1bd0adb" => :el_capitan
+    sha256 "7d4e9bdef638b8edd897c5de85e2f9881d80eec2118a154049a699d241a2cd95" => :yosemite
+    sha256 "a5c7dc9c47ecdd85c5c205a4968665cf58ea153f18669ab3cfcbff9792e3233e" => :mavericks
   end
 
   if build.with? "phpdbg"
@@ -60,6 +60,7 @@ class Php55 < AbstractPhp
     "55"
   end
 end
+
 
 
 

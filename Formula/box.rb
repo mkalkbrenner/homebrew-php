@@ -4,14 +4,14 @@ class Box < AbstractPhpPhar
   init
   desc "application for building and managing Phars"
   homepage "https://box-project.github.io/box2/"
-  url "https://github.com/box-project/box2/releases/download/2.7.2/box-2.7.2.phar"
-  sha256 "a8228cfd115691a3a1608450989ccbadc9cd94f931917a8b9ff17d25a10a76e9"
+  url "https://github.com/box-project/box2/releases/download/2.7.4/box-2.7.4.phar"
+  sha256 "bb4896d231f64e7e0383660e5548092e5447619aaface50103ac0af41b6f29ac"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "13cea0eb0d77d43de1351d2f6a790145763c7ff779d795406a286b77a9bb9d94" => :el_capitan
-    sha256 "5569b7d89ec9f0f0fc24e0fe40e8d13ca985c132f48bde97c6f21677eba6bcbc" => :yosemite
-    sha256 "e3960104cbe1825f1e8365a933e022be309cec186e5cbe1856ed44ff9c25781e" => :mavericks
+    sha256 "b1abc977036143d70f58a9fd1fc1bf603388b0ab74343dfdffe5053a980f8618" => :el_capitan
+    sha256 "a2f2997cee7d4c9f84574bf1c9daa826d0b27f0f502530cf6c727b38824752da" => :yosemite
+    sha256 "a56db539e2dc87a1c074d74a1fef44bf438838fdaf9e6016c13c004fd371ef7d" => :mavericks
   end
 
   def phar_file
