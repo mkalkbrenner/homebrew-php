@@ -2,17 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Solr < AbstractPhp54Extension
   init
-  desc "The Apache Solr PHP extension is an extremely fast, light-weight, feature-rich library that allows PHP applications to communicate easily and efficiently with Apache Solr server instances using an object-oriented API."
+  desc "Fast and lightweight library to communicate with Apache Solr servers"
   homepage "https://pecl.php.net/package/solr"
-  url "https://pecl.php.net/get/solr-2.3.0.tgz"
-  sha256 "d90db2ea0a32b8190d65d931e144c01f6238e95e1b91f9d38ddcb2bf68aad7a0"
-  head "https://svn.apache.org/repos/asf/lucene/dev/trunk/"
+  url "https://pecl.php.net/get/solr-2.4.0.tgz"
+  sha256 "22865dafb76fc5839e84a5bd423bb37d5062883e5dfc4d064b43129ac9f2752c"
+  head "https://git.php.net/repository/pecl/search_engine/solr.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "c47e61bd9932fabc26ff765e541f291f332e9486daeb81f1aad974a766b3fe51" => :el_capitan
-    sha256 "7de0c5da36f0fbc140cb7ee698b8736aea2a7a46d55a55e9e3b02331d51a03ce" => :yosemite
-    sha256 "0646597120de5ffdd4e90b10f1b3bfe2887db13dd7235645352793824eec0a4b" => :mavericks
+    sha256 "f08bc7989f09a88003e9728eb7af25c42da101d403edd7844dd27c28e1b8cf89" => :el_capitan
+    sha256 "e3c44d009c5637ee1e3f8ecfa792079359d714cbfe7d51b43e6c8ecfcb7f70f8" => :yosemite
+    sha256 "0a7a50619db6553a7ecb8925dd916cececcae9cb7323dd85d48661164dbfb10e" => :mavericks
   end
 
   def install

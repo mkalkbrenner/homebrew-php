@@ -4,15 +4,15 @@ class Php54Couchbase < AbstractPhp54Extension
   init
   desc "Provides fast access to documents stored in a Couchbase Server."
   homepage "https://pecl.php.net/package/couchbase"
-  url "https://pecl.php.net/get/couchbase-2.2.0.tgz"
-  sha256 "6ce11f344bd01df7e8b96894ea3db44e72a273633d67f80dbc130147cc161acc"
+  url "https://pecl.php.net/get/couchbase-2.2.1.tgz"
+  sha256 "d67c0fd19fdcaa72720d4910e29db12ccd72c30c4f441e5f1d9ef204fd7bc3d8"
   head "https://github.com/couchbaselabs/php-couchbase.git"
 
   bottle do
     cellar :any
-    sha256 "206539c939487b50ccd009332408ab0e1fec341d735d3d204c20feda6bb2baef" => :el_capitan
-    sha256 "b446e4f8ba8df517ec9e371ac29cee3e7650acbdaf067e5b132406e9bdab8656" => :yosemite
-    sha256 "f1c7a413529d9372bfc73d01ee9d218836727480f99fc2f15b407b0cdaa3c4c2" => :mavericks
+    sha256 "97a89c7c110e266e819bbf3c8f6b0e4b56db5617657aafed1bb71d2c6105b819" => :el_capitan
+    sha256 "dd98ce6c01866395890fadc69160e7c7063cb3a79593e37a5bb98f9f7c75f67e" => :yosemite
+    sha256 "d92488d8ce4b76930b63fbc39e6d40dd7a37e1f44d9419214c67941aa5766c68" => :mavericks
   end
 
   option "with-igbinary", "Build with igbinary support"

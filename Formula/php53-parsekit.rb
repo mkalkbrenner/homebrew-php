@@ -7,12 +7,13 @@ class Php53Parsekit < AbstractPhp53Extension
   url "https://pecl.php.net/get/parsekit-1.3.0.tgz"
   sha256 "447d5ec6412d6c8c6489b03e7333d3872944444610b74eafd608eddcb3bbaf08"
   head "https://github.com/php/pecl-php-parsekit.git"
+  revision 2
 
   bottle do
-    cellar :any
-    sha256 "56a16622ca9276f9b7ad38f4fb827840a5294de36c521079906293ce0f5418a0" => :yosemite
-    sha256 "b0bccbbddc882af1585e4566026013e618265322eb2603d0640737aa4307ac18" => :mavericks
-    sha256 "27d3ec7b1b90e692396e34c5bbca37b09d610c79aca3c92d15d751b5db18bbf1" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "976cf01ccf3dfd310098bbbdf4478b092bf628cca06199dd8652f3609b9d0c0f" => :el_capitan
+    sha256 "2a0994a0a2f38ba7f7f5926c097797c01181ee512563d334b02598608c1e35ab" => :yosemite
+    sha256 "30daa0fca50d2193614cbb8ef7ce824fd94009ab99e64449d2421ef4012deda1" => :mavericks
   end
 
   def install

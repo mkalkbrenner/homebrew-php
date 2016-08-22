@@ -4,21 +4,18 @@ class Php55Ev < AbstractPhp55Extension
   init
   desc "interface to libev library"
   homepage "https://pecl.php.net/package/ev"
-  url "https://pecl.php.net/get/ev-0.2.15.tgz"
-  sha256 "801b2c39e081263f91d5a1d74e668e6c8ad199a34867c8e13e8fad3e83786fd5"
+  url "https://pecl.php.net/get/ev-1.0.3.tgz"
+  sha256 "3c03fde9e72745e6ce6c32d680218389e0f4310908187f1529b7f227b295aeee"
   head "https://bitbucket.org/osmanov/pecl-ev.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "3ca928c2fb301466a8d556883b0d3e7b180a437cd4da83263bc175514ea93c2e" => :el_capitan
-    sha256 "ca94e65f28b7aeb4778226ec6873b5566fe95784611c744b71d6e7352ac92fdb" => :yosemite
-    sha256 "7ff0b1e3e649e16173f25770bc77e31873261339a0043037b9f4efc545e8c41a" => :mavericks
+    sha256 "ce6cbc4a765d8944442b11155f44c18e89c1821cb007f8ad203aa8feb587814c" => :el_capitan
+    sha256 "c8e73d257afa307d9ed2c4fec825073a7e505afcdb48d9c21291ea75d372229a" => :yosemite
+    sha256 "55779684f2b82ebed9373e818edf57971b35c358e333a124222581fb6ad2d726" => :mavericks
   end
 
   depends_on "libev"
-
-  # https://bitbucket.org/osmanov/pecl-ev/pull-requests/4
-  patch :DATA
 
   def install
     Dir.chdir "ev-#{version}" unless build.head?
@@ -26,7 +23,6 @@ class Php55Ev < AbstractPhp55Extension
     ENV.universal_binary if build.universal?
 
     safe_phpize
-    ENV["CFLAGS"] = "-Wno-return-type"
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,
                           "--with-libev=#{Formula["libev"].opt_prefix}"
@@ -35,18 +31,3 @@ class Php55Ev < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
-
-__END__
-diff --git a/ev-0.2.15/libev/ev.c b/ev-0.2.15/libev/ev.c
-index 03b697a..7a53901 100644
---- a/ev-0.2.15/libev/ev.c
-+++ b/ev-0.2.15/libev/ev.c
-@@ -1010,7 +1010,7 @@ ecb_inline uint64_t ecb_rotr64 (uint64_t x, unsigned int count) { return (x << (
-   #define ecb_unreachable() __builtin_unreachable ()
- #else
-   /* this seems to work fine, but gcc always emits a warning for it :/ */
--  ecb_inline void ecb_unreachable (void) ecb_noreturn;
-+  ecb_noreturn ecb_inline void ecb_unreachable (void);
-   ecb_inline void ecb_unreachable (void) { }
- #endif
- 

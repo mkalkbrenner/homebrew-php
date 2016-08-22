@@ -2,24 +2,23 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php70Yaf < AbstractPhp70Extension
   init
-  desc "Yaf is a fast php framework written in c, built in php-ext"
+  desc "PHP framework similar to zend framework built as PHP extension"
   homepage "https://pecl.php.net/package/yaf"
-  url "https://pecl.php.net/get/yaf-3.0.3.tgz"
-  sha256 "431a7ad4d4cdd51877cc57b1382c4e27395628699fd065bd5140d2e6f70615e3"
+  url "https://github.com/laruence/yaf/archive/yaf-3.0.3.tar.gz"
+  sha256 "6761e636d055ec6756759185e91cf9fd42ca3f59e36172d7773b8052a1fb4887"
   head "https://github.com/laruence/yaf.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "f362f2731fe4736da0394132ace5f750bb0573f78e113d4efb1ad6380d3a87f1" => :el_capitan
-    sha256 "aa2c61a908313b2dce9ad43d088a89b4bef4f66cf03252e6a52b77f4f8e0746f" => :yosemite
-    sha256 "0bcfd62d0d898dc3b128d72c38291f0c354e62ef45ae2787683ab0e27aa4f166" => :mavericks
+    revision 1
+    sha256 "dbff056ebe7ed0c310c47f846f8e0b2c8143328438543a4735a4d25874f1cc2e" => :el_capitan
+    sha256 "fe35c10c356116478bec864ea54f2f92015747598bcf9066f9b2e7b4f8ef5275" => :yosemite
+    sha256 "2c3d4bf25fcc52a8775434886bae778822a5291e900a39c1ceae877e18fe1dc2" => :mavericks
   end
 
   depends_on "pcre"
 
   def install
-    Dir.chdir "yaf-#{version}" unless build.head?
-
     ENV.universal_binary if build.universal?
 
     safe_phpize

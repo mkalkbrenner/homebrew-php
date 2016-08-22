@@ -5,15 +5,15 @@ class Php70Mcrypt < AbstractPhp70Extension
   desc "Interface to the mcrypt library"
   homepage "http://php.net/manual/en/book.mcrypt.php"
   bottle do
-    revision 16
-    sha256 "11f2b66fd65e8b6476eaa64f2486e5aea91297316404f4786552feb466daae90" => :el_capitan
-    sha256 "b909b601bb2ead8359363ccb24269fbad58fc83175e895a15174dab6ece51f69" => :yosemite
-    sha256 "3671a972c5c901c8016ff3fb2d955c0bbc4b0e34dab981f23705e0bdca0081b1" => :mavericks
+    sha256 "055dd7cab063a89d5b68549b1d29fb1c31dbbbb4f2fb324c558dae62666099c6" => :el_capitan
+    sha256 "c3f64d0811f3f70094c103689f393d86055dd8c03bd38b758b191a682ac5bfac" => :yosemite
+    sha256 "15244438e77d4465c26b7c3363281dc97faa8d5c437ac2a8dbc8b0e707ee046a" => :mavericks
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 1
 
   depends_on "mcrypt"
 
@@ -32,12 +32,3 @@ class Php70Mcrypt < AbstractPhp70Extension
     write_config_file if build.with? "config-file"
   end
 end
-
-
-
-
-
-
-
-
-

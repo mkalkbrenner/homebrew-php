@@ -51,24 +51,24 @@ class AbstractPhpVersion < Formula
   end
 
   module Php70Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-7.0.9.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-7.0.10.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.0.9'
+    PHP_VERSION     = '7.0.10'
     PHP_BRANCH      = 'PHP-7.0'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '2ee6968b5875f2f38700c58a189aad859a6a0b85fc337aa102ec2dc3652c3b7b',
+                        :sha256 => '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de',
                       }
   end
 
   module Php71Defs
-    PHP_SRC_TARBALL = 'https://downloads.php.net/~ab/php-7.1.0beta1.tar.bz2'
+    PHP_SRC_TARBALL = 'https://downloads.php.net/~davey/php-7.1.0beta3.tar.bz2'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.1.0-beta.1'
+    PHP_VERSION     = '7.1.0-beta.3'
     PHP_BRANCH      = 'PHP-7.1.0'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '14b29e5a2cb13c071a7d70784ad3f43230cba09e4bda6d90c3c1dfaa070ac882',
+                        :sha256 => '913ff2dc0e28535b96f58dfcdc631ce5a14db415f314e9436e1751a53a4afb09',
                       }
   end
 end
