@@ -4,14 +4,14 @@ class Php53Maxminddb < AbstractPhp53Extension
   init
   desc "Extension for MaxMind DB file format"
   homepage "https://github.com/maxmind/libmaxminddb"
-  url "https://github.com/maxmind/MaxMind-DB-Reader-php/archive/v1.0.3.tar.gz"
-  sha256 "c027479441b17ed5928640d27c42bccbb35ca07ac6401423c5bbb7220f720638"
+  url "https://github.com/maxmind/MaxMind-DB-Reader-php/archive/v1.1.0.tar.gz"
+  sha256 "0c80f55bc56dd8f26b04358b5533f78adcb060f721b4347f510cbf43f32848b4"
 
   bottle do
     cellar :any
-    sha256 "f0c7651189fb6495e0c6d6ade0fee390132ca2fb0575d7be8298cb439892353c" => :yosemite
-    sha256 "155ae1f36de687ad703a50a9655c292441ab712f9efb8b731f284af76ac426e4" => :mavericks
-    sha256 "231479a8b60fd751c26c6e23925f818741196890eab695225f3ae905bf178b22" => :mountain_lion
+    sha256 "94eda058a4f61587dccaf5f8c84a19ce18ab00e3aa409b051cc70c44f478cb64" => :el_capitan
+    sha256 "ffab3d31c50796c9adfd8b372db1ae6160933d5349340a8ebf1a1eb1c7c0df4d" => :yosemite
+    sha256 "152f22a85f52dfd907319a0d3a39813674035d8949986ffa735b6e881cd1ee1f" => :mavericks
   end
 
   depends_on "libmaxminddb"

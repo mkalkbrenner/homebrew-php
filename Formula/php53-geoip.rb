@@ -4,15 +4,14 @@ class Php53Geoip < AbstractPhp53Extension
   init
   desc "Map IP address to geographic places"
   homepage "https://pecl.php.net/package/geoip"
-  url "https://pecl.php.net/get/geoip-1.1.0.tgz"
-  sha256 "82c6deb7264d2ff7c4d6c45a7d27cff7ab097be965795e317e04a9c5b7be98b9"
+  url "https://pecl.php.net/get/geoip-1.1.1.tgz"
+  sha256 "b2d05c03019d46135c249b5a7fa0dbd43ca5ee98aea8ed807bc7aa90ac8c0f06"
   head "https://svn.php.net/repository/pecl/geoip/trunk/"
 
   bottle do
-    revision 1
-    sha256 "25ec91e52bc5c54c6ae75cf085dd89b3f0fc7c26c25cbad630e6cc17ed5dee81" => :el_capitan
-    sha256 "bfadb3ad9c6ef9e73b92c8ce0795248471a559c45748c61a7bf4392ab5d40be0" => :yosemite
-    sha256 "7e8d0701ed324751175f04cb9795f02985620715bd668524399e7c586e902155" => :mavericks
+    sha256 "2f245acc20f823e7fe1fb8a582547d801275b2804759d8a2cde4331ee3bc0a67" => :el_capitan
+    sha256 "57b2585f83fdf22d015f6472faf470d4620a960949a52fadbcd4c9d10c2fc330" => :yosemite
+    sha256 "f6b5c29524b5ce65c9827728610d7941b33b08176716b398e6f9952b6dca5971" => :mavericks
   end
 
   depends_on "geoip"

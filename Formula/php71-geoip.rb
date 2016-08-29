@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55Geoip < AbstractPhp55Extension
+class Php71Geoip < AbstractPhp71Extension
   init
   desc "Map IP address to geographic places"
   homepage "https://pecl.php.net/package/geoip"
@@ -9,9 +9,9 @@ class Php55Geoip < AbstractPhp55Extension
   head "https://svn.php.net/repository/pecl/geoip/trunk/"
 
   bottle do
-    sha256 "fbaecf97faa348e72def2dbc44600d15f37d538be100f61c4f35d08cdc7553ac" => :el_capitan
-    sha256 "b2ff64c24da4188a3b89f669a561850498dfabbbaf0758f87b0b6bb6443176aa" => :yosemite
-    sha256 "2350bd4334b96c584e20b6d71346bd0a229645adb4bce268c49b8a1ec4b0d11e" => :mavericks
+    sha256 "cf4750fed2c134c794646d7b54d64f7622aa11254c9bf31a2cc5a336fc847eaa" => :el_capitan
+    sha256 "f59f96780bd10b9d68e30f284ca258a16c730c223cc3fb3c1928e820329e6742" => :yosemite
+    sha256 "78cd82bfe85b353b7f6fcd67bc485bc60e2e990d735a95dadbbacb6b349691b8" => :mavericks
   end
 
   depends_on "geoip"
