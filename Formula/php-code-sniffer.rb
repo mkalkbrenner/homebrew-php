@@ -3,14 +3,14 @@ require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 class PhpCodeSniffer < Formula
   desc "Check coding standards in PHP, JavaScript and CSS"
   homepage "http://pear.php.net/package/PHP_CodeSniffer"
-  url "http://download.pear.php.net/package/PHP_CodeSniffer-2.6.2.tgz"
-  sha256 "f5c71941e254742130e22cd5ef48d3b06b486efbd1b3dbc7f2fa77acdeac650d"
+  url "http://download.pear.php.net/package/PHP_CodeSniffer-2.7.0.tgz"
+  sha256 "2979b9448edee4dceaed96e80870326e4e9456dad521331632c33f91a08b6b31"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "1cb26a903186488325cbddbdd578951655a32c2d4b7392c00e3d58185c392e68" => :el_capitan
-    sha256 "ee03a1ee4e75e4e79f18c6ac9d49d3198e91145284e523a709c005d9dfcd7b4b" => :yosemite
-    sha256 "87a6c2cd15eb2946321012e0dc23b3ea10e1f1408c8968bfc03f28b2b0f8b434" => :mavericks
+    sha256 "1ebef417e1d85275cc2e819c1c8ad527e35a9091c61037542d80f4bea14e5339" => :el_capitan
+    sha256 "eab0791c4cd377060d9cc3c474a8ecab03043f128b745778db5fd6b31c0c399b" => :yosemite
+    sha256 "eab0791c4cd377060d9cc3c474a8ecab03043f128b745778db5fd6b31c0c399b" => :mavericks
   end
 
   depends_on PhpMetaRequirement

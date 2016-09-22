@@ -3,15 +3,15 @@ require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 class XdebugOsx < Formula
   desc "Simple bash script to toggle xdebug on/off in OSX"
   homepage "https://github.com/w00fz/xdebug-osx"
-  url "https://github.com/w00fz/xdebug-osx/archive/1.0.tar.gz"
-  sha256 "42b4f06422838083efa9bfe1d545f369802ba62c224c4cb54694e40dc1966725"
+  url "https://github.com/w00fz/xdebug-osx/archive/1.2.tar.gz"
+  sha256 "b73f1fdc9cde042a2eac29425d6e917e100efc533a504aa71d0d8367a4b5c06f"
   head "https://github.com/w00fz/xdebug-osx.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "7f786f7d997e38d5a4bf17873838ff458f7d5a1cd6cd8a5b3a7388e727f0f5a2" => :el_capitan
-    sha256 "2a74adb2ebab0732e00c0835c9f853350ed0c765c9f202b4fa157b32d8f649c2" => :yosemite
-    sha256 "96425aa2f1762aedf10e9d8c0871fee89f9f66c604ab67c5dbdda7352bc0df60" => :mavericks
+    sha256 "5ecf7c5d4377f17a3a5dbbc32b972db0ae21fa583dd0a9ed6ea49d77f4bab75f" => :el_capitan
+    sha256 "cb3ec2aba49e5aaf3a5296b17d150d00682d674b9e7c65ad6cd8f25685e1bea2" => :yosemite
+    sha256 "cb3ec2aba49e5aaf3a5296b17d150d00682d674b9e7c65ad6cd8f25685e1bea2" => :mavericks
   end
 
   depends_on PhpMetaRequirement
@@ -23,18 +23,25 @@ class XdebugOsx < Formula
   depends_on "php71-xdebug" if Formula["php71"].linked_keg.exist?
 
   def install
-    bin.install "xdebug"
+    bin.install "xdebug-toggle"
   end
 
   def caveats; <<-EOS.undent
+    Signature:
+      xdebug-toggle <on | off> [--no-server-restart]
+
     Usage:
-      xdebug       # outputs the current status
-      xdebug on    # enables xdebug
-      xdebug off   # disables xdebug
+      xdebug-toggle         # outputs the current status
+      xdebug-toggle on      # enables xdebug
+      xdebug-toggle off     # disables xdebug
+
+    Options:
+      --no-server-restart   # toggles xdebug without restarting apache or php-fpm
+
     EOS
   end
 
   test do
-    system "#{bin}/xdebug"
+    system "#{bin}/xdebug-toggle"
   end
 end

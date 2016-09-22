@@ -4,9 +4,9 @@ class Php71 < AbstractPhp
   init
   desc "PHP Version 7.1"
   bottle do
-    sha256 "f9df937bfdadb18582929874076590ca6e65013a497b44eac392b7982871e918" => :el_capitan
-    sha256 "5015541f849d8a717d815baae84afbb1832cf502d8a12f9bf5819540f20727cc" => :yosemite
-    sha256 "2f6faa73b8513130e770e173326a4b8f990dba4813f5d07e8ef370ccb11b2191" => :mavericks
+    sha256 "a92ba720107607a533953b9e8e50b4678d7a3814c134823829ab6423ebc49342" => :el_capitan
+    sha256 "05b684059b078d793316c53d66490cd6e42ea4e3dc747fed74a1f99541f0a810" => :yosemite
+    sha256 "b0bb37bb71f02abc6e0890143dbb556c0c2f9995703be3578db218c4d6fb454c" => :mavericks
   end
 
   include AbstractPhpVersion::Php71Defs
@@ -14,7 +14,7 @@ class Php71 < AbstractPhp
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 3
+  revision 5
 
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
 

@@ -4,15 +4,15 @@ class Php71Ds < AbstractPhp71Extension
   init
   desc "Data Structures for PHP"
   homepage "https://github.com/php-ds/extension"
-  url "https://github.com/php-ds/extension/archive/v1.0.4.tar.gz"
-  sha256 "4cdad2bba1cae18f1196346913ac9a54a23f2e5874fd8678200f88730b2788c6"
+  url "https://github.com/php-ds/extension/archive/v1.1.5.tar.gz"
+  sha256 "0da5444d07cd283b369c98e177656a96508291b921c3e844b9be6c8269e08372"
   head "https://github.com/php-ds/extension.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "04dac6de3ee3608d8259f91b644521b3d138dd0de7015cdcc43f7e4cefef4e2d" => :el_capitan
-    sha256 "f0faa432ab03882252689c1fe66ae40b4e35dce2d26a0ffdff0017c070594941" => :yosemite
-    sha256 "823c0cc5bac9b0d0935435d391e2f6718a85e3fa4b4df84313abf6621afb846c" => :mavericks
+    sha256 "32578ef7fc8a2341776a6bd215797572bdeb931f6cbe2e978abf2a7aed2c10b8" => :el_capitan
+    sha256 "9834ad6c0ca41b91c5751b0281a72b536df0ee284ee3736a674cdfad679b8f35" => :yosemite
+    sha256 "15e7129a20b9a8fe75a33b3aaa04c744c7cec59d4d1abaa6d2676cc22157eb28" => :mavericks
   end
 
   def install
