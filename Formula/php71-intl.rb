@@ -6,15 +6,15 @@ class Php71Intl < AbstractPhp71Extension
   homepage "http://php.net/manual/en/book.intl.php"
 
   bottle do
-    sha256 "b422a54236e1e7f56a4c0b4240fc7632cc008003c3ba63ca2be3292e1891bec9" => :el_capitan
-    sha256 "6fde2226f433e4a2de3daa20ceedf113ad3b0991ddd74c274eed7eaddf95e384" => :yosemite
-    sha256 "a8c12d27ca121a3c66d91244154045a9bd504303bab507dd06dc4fd844ad0ff9" => :mavericks
+    sha256 "4f30345fcce4e83dc32b37f5288199990b334c1f6cf9b23e96f6a917d4f7c85e" => :sierra
+    sha256 "73fb22c0ce58a8ac1275624fbdc0e8b7dcd4afa855abd0d8103da0f90910f860" => :el_capitan
+    sha256 "358321603de0fafc5f1d835148ce1dcbf50472eefb992cc9cee006446526b9bc" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
+  revision 5
 
   depends_on "icu4c"
 

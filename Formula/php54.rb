@@ -9,14 +9,14 @@ class Php54 < AbstractPhp
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 4
+  revision 6
 
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    sha256 "d44e621d0a674a129d2d25d614cde5579c9e7ef1c43e4c27f90627c63aeaaa93" => :el_capitan
-    sha256 "526693fc6302315aeb2f983126e6c2a71b3f10ef8dcb8d81c6782b0a2112eb2b" => :yosemite
-    sha256 "08f3bbff4806362f92709c2dee8eac0e7a2d3fed5e41191f339d9a683aad5c59" => :mavericks
+    sha256 "d472c39d1ec8943fec9886a658ec78360bce8554e4f0ca9d870999211f6d4050" => :sierra
+    sha256 "2666ccb7bb1705767a7613f0f496468af0e8917f79afed4a2f65daffd0cf76df" => :el_capitan
+    sha256 "05ab6eaf57c920bd0e09dc60be7ff00c11110bc1983876d4ed963fed06af6439" => :yosemite
   end
 
   if build.with? "phpdbg"

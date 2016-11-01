@@ -2,18 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Intl < AbstractPhp56Extension
   init
-  desc "A wrapper for the ICU library"
+  desc "Wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 1
+  revision 3
 
   bottle do
-    rebuild 5
-    sha256 "d38d195badfaef9508d857f82d66b9658ce33fdbaa96e9864be2878c21acbb4d" => :el_capitan
-    sha256 "078d3b32534c51560c49a9bb7e3d5efeed48f8da4ec5234327722bb437275be0" => :yosemite
-    sha256 "4dbd9535c2e9860a309993abbc7ebcd3a5bed4b052afd95948f40043d6fcd69f" => :mavericks
+    sha256 "d5957f6de56eb246d0952c2c7c4540e888fa4f7848a510092c82e7edc23c0334" => :sierra
+    sha256 "161ab6b38e4128684f578609706bbddd839ff9803d1e99565fcde63d42071011" => :el_capitan
+    sha256 "4e312305166343d4cf3085b1c68ed3c98ffbba7e14cadfdc74c7886a7186641e" => :yosemite
   end
 
   depends_on "icu4c"
@@ -45,12 +44,3 @@ class Php56Intl < AbstractPhp56Extension
     EOS
   end
 end
-
-
-
-
-
-
-
-
-

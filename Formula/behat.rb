@@ -4,15 +4,15 @@ class Behat < AbstractPhpPhar
   init
   desc "behavior-driven development framework"
   homepage "http://behat.org/"
-  url "https://github.com/Behat/Behat/releases/download/v3.0.15/behat.phar"
-  version "3.0.15"
-  sha256 "9f29c36f2795255f67ae9423b0dc458b203b326953aa526404c82d836fa688ec"
+  url "https://github.com/Behat/Behat/releases/download/v3.2.1/behat.phar"
+  version "3.2.1"
+  sha256 "cd0592bcfd6bee7a9c1d8e56eb7aad834c9ff0ebb32d2da82d4a0462ad16d04d"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "1eb06442283f593d321e1e06645d9bdd54439f47a524c2b149ce096ccecc2c8b" => :el_capitan
-    sha256 "bb69a6e6b65f8bfbfeafabfa763c0658d4677c9459eff538b18b4e991f0061ad" => :yosemite
-    sha256 "d05905075b0ece1cf4d92e46961d1ec0401279b172d77226ad6fabed1921a8bf" => :mavericks
+    sha256 "ff7a30ffd16033128d31712097200925c4391e6aebf86f5bf1c5deedc610f020" => :sierra
+    sha256 "ff7a30ffd16033128d31712097200925c4391e6aebf86f5bf1c5deedc610f020" => :el_capitan
+    sha256 "ff7a30ffd16033128d31712097200925c4391e6aebf86f5bf1c5deedc610f020" => :yosemite
   end
 
   test do

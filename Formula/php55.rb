@@ -3,21 +3,21 @@ require File.expand_path("../../Abstract/abstract-php", __FILE__)
 class Php55 < AbstractPhp
   init
   desc "PHP Version 5.5"
+  bottle do
+    sha256 "30c9dfe8a469e66884d8ed869f437e414214f81f5c79502e82981fbd016c81cd" => :sierra
+    sha256 "2aa383f9e5f4b525a3755411918a84e8cee988460130787254a96cb3ada566c7" => :el_capitan
+    sha256 "81a057325f78004a2175202728a7444c5e4e9957365bae8da5c0e316d3087c10" => :yosemite
+  end
+
   include AbstractPhpVersion::Php55Defs
   include AbstractPhpVersion::PhpdbgDefs
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 11
 
   head PHP_GITHUB_URL, :branch => PHP_BRANCH
-
-  bottle do
-    revision 9
-    sha256 "82df4eb5fc3606f7a7f2eb93eda7929b423c5c0a0da7bd988bbb4db5c1bd0adb" => :el_capitan
-    sha256 "7d4e9bdef638b8edd897c5de85e2f9881d80eec2118a154049a699d241a2cd95" => :yosemite
-    sha256 "a5c7dc9c47ecdd85c5c205a4968665cf58ea153f18669ab3cfcbff9792e3233e" => :mavericks
-  end
 
   if build.with? "phpdbg"
     # needed to regenerate the configure script

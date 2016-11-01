@@ -4,14 +4,14 @@ class Codeception < AbstractPhpPhar
   init
   desc "Testing Framework designed to work just out of the box"
   homepage "http://codeception.com/quickstart"
-  url "http://codeception.com/releases/2.2.4/codecept.phar"
-  sha256 "d81aa0d8754c5ed9fb71eda9827c1712c7368b9a95877284957d587e5f219645"
+  url "http://codeception.com/releases/2.2.6/codecept.phar"
+  sha256 "21ebede0380599dcf7d26a364de355e79d93f14f7acbb355c2ded094d5a57bb1"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "f950c539e615a0695db23f501515e4b94000c12d6a02e20b149fff08077cf45c" => :el_capitan
-    sha256 "87f2020281b2ae130bc49ffd722d829b644d6874245d2d380dce8bc5920617d3" => :yosemite
-    sha256 "c29cd92f980fe2ba91fc458722910c510588a3794044c651425462b4d82c055a" => :mavericks
+    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :sierra
+    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :el_capitan
+    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :yosemite
   end
 
   def phar_file

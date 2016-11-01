@@ -42,6 +42,9 @@ class AbstractPhp < Formula
     depends_on 'unixodbc' unless build.include?('without-unixodbc')
     depends_on 'readline'
 
+    depends_on 'homebrew/apache/httpd24' if build.include?('with-apache')
+    depends_on 'homebrew/apache/httpd22' if build.include?('with-apache22')
+
     # ssl
     if build.include?('with-homebrew-libressl')
       depends_on 'libressl' 
@@ -58,8 +61,11 @@ class AbstractPhp < Formula
       raise "Cannot specify more than one CGI executable to build."
     end
 
+    option 'with-apache', 'Enable building of shared Apache 2.4 Handler module'
+    option 'with-apache22', 'Enable building of shared Apache 2.2 Handler module'
     deprecated_option "homebrew-apxs" => "with-homebrew-apxs"
-    option 'with-homebrew-apxs', 'Build against apxs in Homebrew prefix'
+    deprecated_option "with-homebrew-apxs" => "with-apache"
+
     option 'with-cgi', 'Enable building of the CGI executable (implies --without-fpm)'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-homebrew-curl', 'Include Curl support via Homebrew'
@@ -75,7 +81,6 @@ class AbstractPhp < Formula
         option "with-phpdbg", "Enable building of the phpdbg SAPI executable"
     end
     option 'with-thread-safety', 'Build with thread safety'
-    option 'without-apache', 'Disable building of shared Apache 2.0 Handler module'
     option 'without-bz2', 'Build without bz2 support'
     option 'without-fpm', 'Disable building of the fpm SAPI executable'
     option 'without-ldap', 'Build without LDAP support'
@@ -149,7 +154,7 @@ INFO
   end
 
   def apache_apxs
-    if build.with? 'homebrew-apxs'
+    if build.with?('apache') || build.with?('apache22')
       ['sbin', 'bin'].each do |dir|
         if File.exist?(location = "#{HOMEBREW_PREFIX}/#{dir}/apxs")
           return location
@@ -176,6 +181,9 @@ INFO
   end
 
   def install_args
+    # Prevent PHP from harcoding sed shim path
+    ENV["lt_cv_path_SED"] = "sed"
+
     args = [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
@@ -228,7 +236,7 @@ INFO
     end
 
     # Build Apache module by default
-    unless build.without? 'apache'
+    if build.with?('apache') || build.with?('apache22')
       args << "--with-apxs2=#{apache_apxs}"
       args << "--libexecdir=#{libexec}"
     end
@@ -359,7 +367,7 @@ INFO
     system "./buildconf", "--force" if build.head?
     system "./configure", *install_args()
 
-    unless build.without? 'apache'
+    if build.with?('apache')
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         /^INSTALL_IT = \$\(mkinstalldirs\) '([^']+)' (.+) LIBEXECDIR=([^\s]+) (.+)$/,
@@ -424,7 +432,7 @@ INFO
   def caveats
     s = []
 
-    unless build.without? 'apache'
+    if build.with?('apache') || build.with?('apache22')
       if MacOS.version <= :leopard
         s << <<-EOS.undent
           For 10.5 and Apache:
@@ -552,6 +560,9 @@ INFO
 
         Please note that the plist was called 'homebrew-php.josegonzalez.php#{php_version.gsub('.','')}.plist' in old versions
         of this formula.
+
+        With the release of macOS Sierra the Apache module is now not built by default. If you want to build it on your system
+        you have to install php with the --with-apache option. See  brew options php#{php_version_path}  for more details.
       EOS
     end
 

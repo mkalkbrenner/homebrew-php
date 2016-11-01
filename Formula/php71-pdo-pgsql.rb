@@ -6,15 +6,15 @@ class Php71PdoPgsql < AbstractPhp71Extension
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
   bottle do
     cellar :any
-    sha256 "054522700d1e48806dc7717284843a8f32c8fa61d69c93db1596ba7a7cb0c1c5" => :el_capitan
-    sha256 "42421521933cbb1be15f3633256785d505671946606f0341879b5c5a305c90b3" => :yosemite
-    sha256 "c040fc8852087b4e279022d820ba2ef2241fbd2d53f7a1aea5326058a281ba53" => :mavericks
+    sha256 "e28770fdf7aac4876cba42a2504b0d563c894acf17862b20c83801e0db5c185d" => :sierra
+    sha256 "42961e24626389fd916208633e66f97ec8eac8819059ea57f1c154fa4040bc76" => :el_capitan
+    sha256 "e472589d5a5896bd48edfb3413ee612bea5a5f51dc9ddd4babf889b8515d2d6c" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
+  revision 5
 
   depends_on "postgresql"
 

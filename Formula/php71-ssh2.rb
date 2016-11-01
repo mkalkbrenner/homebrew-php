@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php70Ssh2 < AbstractPhp70Extension
+class Php71Ssh2 < AbstractPhp71Extension
   init
   desc "Provides bindings to the functions of libssh2"
   homepage "https://pecl.php.net/package/ssh2"
@@ -9,9 +9,9 @@ class Php70Ssh2 < AbstractPhp70Extension
   head "https://github.com/php/pecl-networking-ssh2.git"
 
   bottle do
-    sha256 "f70a1064538ef194c183ab19be83bc8b74abaf9b4838b4523b399a15bb4c41c8" => :sierra
-    sha256 "ef216adb7ef7a60839c87c11f87c38f0a6198149441bbadd9cb67d12d4c5879b" => :el_capitan
-    sha256 "b7bdfb56ee24d0a889b6510c3f9834ccd050bf1e81eb323194458f438ba9268d" => :yosemite
+    sha256 "7bdb69915afa6f87c2b6f3d754936e20c3f1f6c48185fec02dd752841409ec5b" => :sierra
+    sha256 "08407a7adb4e8bb7b13bd4992ddc18dbb0e8777128d13be09fcd2bf13ef19f01" => :el_capitan
+    sha256 "9375514009a258db3f5de3e4001ff6806e2de8acb016363fc685aecc513ac45a" => :yosemite
   end
 
   depends_on "libssh2"

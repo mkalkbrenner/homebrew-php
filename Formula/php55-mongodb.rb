@@ -4,21 +4,20 @@ class Php55Mongodb < AbstractPhp55Extension
   init
   desc "MongoDB driver for PHP."
   homepage "https://pecl.php.net/package/mongodb"
-  url "https://pecl.php.net/get/mongodb-1.1.8.tgz"
-  sha256 "b93ae7dc9bd270823965f8903c9acf47fe3a0ba7a630d08e8173ff091d593ae0"
+  url "https://pecl.php.net/get/mongodb-1.1.9.tgz"
+  sha256 "c4882991da323dfb0e60a43390a7a6cad27f632294f2becd44604dc9f7e90c3f"
   head "https://github.com/mongodb/mongo-php-driver.git"
 
   bottle do
-    revision 1
-    sha256 "76317b88b6a62803cd438815d42f8e4ac656816be7f46d278ee69dce77ca47c4" => :el_capitan
-    sha256 "65b88cc44d91b45bfbae6293279fc63d1af55d69a0c3b4148ad3b57af06e299d" => :yosemite
-    sha256 "16e6d5d3bcab7495e2f0de9f736348b8bc3101ae222f2a37bd40ff6855ec5945" => :mavericks
+    sha256 "88b3e849ad6b4dab806b494920b65794bf925d059afe8b9f0dd6be0b37fbd13d" => :sierra
+    sha256 "07ec86e81ab1f6c8dffe91322b9efb6469edf3fa06aa404d5177922ae8d60e6a" => :el_capitan
+    sha256 "e6fa3199bfd2ee47840be3631a4a9388bd40ca79aea8806edc4cf739bb2ce400" => :yosemite
   end
 
   devel do
-    url "https://pecl.php.net/get/mongodb-1.2.0alpha1.tgz"
-    sha256 "03ac8a762949699aef0467ccdfbb8dfe70b57b0b57b740fe5041a4aff28685d7"
-    version "1.2.0alpha1"
+    url "https://pecl.php.net/get/mongodb-1.2.0alpha3.tgz"
+    sha256 "295ff6792e734c5d0352efb0f2bb0c1dad25114d5c48bd98004d7650d742de3f"
+    version "1.2.0alpha3"
   end
 
   depends_on "openssl"

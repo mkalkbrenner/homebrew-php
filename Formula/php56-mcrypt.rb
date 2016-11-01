@@ -2,17 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Mcrypt < AbstractPhp56Extension
   init
-  desc "An interface to the mcrypt library"
+  desc "Interface to the mcrypt library"
   homepage "http://php.net/manual/en/book.mcrypt.php"
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
+  revision 2
 
   bottle do
-    rebuild 13
-    sha256 "4a96851b66b22c81beeae9bfa3a79d6e431e3949e153b39f954b66f379f8c361" => :el_capitan
-    sha256 "506d35bb65bd4610c99841b34f13c788f34076de1d8eb7354e2f0adc9db25453" => :yosemite
-    sha256 "76df11ceb1f22242bab6acb3e0a00d122ef225ae38298ed99a1ad9209de7f766" => :mavericks
+    sha256 "2e65cba0f6f87820f7f025a140f29853f526d2021782d6e26d829a51c068c43b" => :sierra
+    sha256 "f4fe1cfb54fd4e78d94824cce1ddc491da36cf48d6517f8273701eee213b15e1" => :el_capitan
+    sha256 "3cb86460332e522034894ad99c536e6f627e53123d64b3ef4fbaeeb733c82ce6" => :yosemite
   end
 
   depends_on "mcrypt"
@@ -32,12 +32,3 @@ class Php56Mcrypt < AbstractPhp56Extension
     write_config_file if build.with? "config-file"
   end
 end
-
-
-
-
-
-
-
-
-

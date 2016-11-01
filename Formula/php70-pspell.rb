@@ -5,15 +5,15 @@ class Php70Pspell < AbstractPhp70Extension
   desc "Extension to check the spelling"
   homepage "http://php.net/manual/en/book.pspell.php"
   bottle do
-    sha256 "870689004d397fab09f3049171770f6cd214e7c712e52e32f146245713663a9c" => :el_capitan
-    sha256 "43aaef98aab15dad225a836defc938e5e601de83114e08ad0ca266df06494c1c" => :yosemite
-    sha256 "15d83a75ba3e13d3ac4903f4414b0e88ca9f41054da72d0e6787b323c606fa49" => :mavericks
+    sha256 "727614eeb8cd5f6a5a6703082f38aa493517db93df5d0203a147096031584d22" => :sierra
+    sha256 "0e7e615c4e31e8274e9a02721e80e7dab4d8812f08b0bc9413376fd2ae6f43ad" => :el_capitan
+    sha256 "55459433330b572f30b2046a241ee563365536d545fc1d7dceec09d461f4e3e5" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 1
+  revision 4
 
   depends_on "aspell"
 

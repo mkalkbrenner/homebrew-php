@@ -1,6 +1,6 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55Ioncubeloader < AbstractPhp55Extension
+class Php70Ioncubeloader < AbstractPhp70Extension
   init
   desc "Loader for ionCube Secured Files"
   homepage "http://www.ioncube.com/loaders.php"
@@ -15,9 +15,9 @@ class Php55Ioncubeloader < AbstractPhp55Extension
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "636c5b1711308dfb6d3c33517ebf1e52f6c946352609aec6273d7d292c7064d7" => :sierra
-    sha256 "636c5b1711308dfb6d3c33517ebf1e52f6c946352609aec6273d7d292c7064d7" => :el_capitan
-    sha256 "57cba19e8393391a4f72f72d3f107839cd5c2b4813079a2f26562e739f8d3962" => :yosemite
+    sha256 "e56e9dad7f164f520d038c42b2ac820a82ee405297b59b316a966bb4739e401d" => :sierra
+    sha256 "e56e9dad7f164f520d038c42b2ac820a82ee405297b59b316a966bb4739e401d" => :el_capitan
+    sha256 "530cafd2cf4b29f19e7de7cf7ab9d23ce0ae70e189293b704766da29947e74b1" => :yosemite
   end
 
   def extension_type
@@ -25,7 +25,7 @@ class Php55Ioncubeloader < AbstractPhp55Extension
   end
 
   def install
-    prefix.install "ioncube_loader_dar_5.5.so" => "ioncubeloader.so"
+    prefix.install "ioncube_loader_dar_7.0.so" => "ioncubeloader.so"
     write_config_file if build.with? "config-file"
   end
 

@@ -4,15 +4,14 @@ class Php54V8js < AbstractPhp54Extension
   init
   desc "PHP extension for Google's V8 Javascript engine"
   homepage "http://pecl.php.net/package/v8js"
-  url "http://pecl.php.net/get/v8js-0.4.0.tgz"
-  sha256 "0d52b999c12f9f74a0642f6c3f349002a39355295187e0b50344ea0ec64ae0bd"
-  revision 2
+  url "https://pecl.php.net/get/v8js-0.6.4.tgz"
+  sha256 "88af2c98482374a36b24e317df4684b9eecc92d4883022fc8036a16f2641ca43"
 
   bottle do
     cellar :any
-    sha256 "a704d12ce910f61d42b7ba893ce63b4bb796e928f116a8f3a3302e4ed86fd59d" => :el_capitan
-    sha256 "bdc283c1e6988766470847e9cc54d361b1119ba177047769bd81aa1dc049775a" => :yosemite
-    sha256 "200fd3a4b7ad96c71049e7b9d1ca1462df9b2bfa40efd22ffb35e1faf2f828ef" => :mavericks
+    sha256 "ea2e7001c0769db3f8988bf654dff91ecd45d1ed4d0970df5d159018ed6058dc" => :sierra
+    sha256 "c9aed6bbcce291004a07aeb15dbec2b5cb5bdc7412507872f0c0cac688dfb3a7" => :el_capitan
+    sha256 "5072074d32f087472950918e15ca817aa4b5f348a45b198f4d9e2b625ec72b3e" => :yosemite
   end
 
   depends_on "v8"

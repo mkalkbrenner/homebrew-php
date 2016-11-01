@@ -5,15 +5,15 @@ class Php71Gmp < AbstractPhp71Extension
   desc "GMP core php extension"
   homepage "http://php.net/manual/en/book.gmp.php"
   bottle do
-    sha256 "96141c8d2a6751963caedf4147fa7521b7ef5a38ccc1d2f8a37f2db6e99b05f1" => :el_capitan
-    sha256 "efea6e0feaabce46ac0eb05eb5c44c05b6ff562312aef0abfbdcc23764b5abe9" => :yosemite
-    sha256 "52055ab192b859d42050a0dd8f7279066b7137f4a1f29f6fe01be7210ca976e0" => :mavericks
+    sha256 "3d2bb3f1c9ecff48f53c08abd9ef9fd801516d9750bb4d2fc525114c932ce6b2" => :sierra
+    sha256 "c6e5db24d17634a8d2c799bda346c7dd2e22a5330030b8d463bc308fa41dc802" => :el_capitan
+    sha256 "35d7147c0931f961734b795bd9d273ab26e75cefa95fc92015e1a4b4fb62ce25" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
+  revision 4
 
   depends_on "gmp"
 

@@ -6,18 +6,18 @@ class Php56Ioncubeloader < AbstractPhp56Extension
   homepage "http://www.ioncube.com/loaders.php"
   if MacOS.prefer_64_bit?
     url "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_dar_x86-64.tar.gz"
-    sha256 "fca36c0c00d640d3fa45d3862c68dcc5b3d33afffbc5c902bdc9725df2d1e035"
+    sha256 "e3649def6e14f8d6aad08326e6579a7b7e660e3eca65c240755f759b3920efa8"
   else
     url "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_dar_x86.tar.gz"
-    sha256 "9a3cd4ddad2dad23aa87e49a28ea1fa98878d11a5e7bbfa04fc4d1da6874b4c1"
+    sha256 "96a0e211971352acb843718565c371938881da7d77dd8bca7519466f06dfdda2"
   end
-  version "5.0.17"
+  version "6.0.5"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "6ece524308f733d7192a0bbe2882300bceaef8a86c87b0ebac8092ab3f95eefc" => :el_capitan
-    sha256 "b78c50912308ede83ce9a7bfe0365792279603aa0b93fc371079d7f36c6485f3" => :yosemite
-    sha256 "aa4f9810644c7c252a6b5ecceaa8f758fcf220fc6d6785b1118d79e95f7505de" => :mavericks
+    sha256 "bd1518bf72f21ee40b0571f6197e7d728d7db6d279aaa18b6cbda16cc21acfe7" => :sierra
+    sha256 "bd1518bf72f21ee40b0571f6197e7d728d7db6d279aaa18b6cbda16cc21acfe7" => :el_capitan
+    sha256 "b84c247b7de18dbc527b15ff515f3ab4371075530799078a22568a49c22c915c" => :yosemite
   end
 
   def extension_type

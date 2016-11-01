@@ -4,19 +4,21 @@ class Php70V8js < AbstractPhp70Extension
   init
   desc "PHP extension for Google's V8 Javascript engine"
   homepage "https://pecl.php.net/package/v8js"
-  url "https://github.com/phpv8/v8js/archive/1.3.0.tar.gz"
-  sha256 "77df2ca77df53da911c36089185433c73429ef3baf376b6cd5d61bf88202e798"
+  url "https://pecl.php.net/get/v8js-1.3.3.tgz"
+  sha256 "049d04cbdcb901f358f04bfe0f89337c625b3fb0bbca335af2e2d0c4490412f2"
 
   bottle do
     cellar :any
-    sha256 "59fe312e69d50a95dc3c7e30b9a92cbdd9e5b78a4f9a1f6aada54df1da9f0cfe" => :el_capitan
-    sha256 "2306e9de7113990b1b6a90a8be355a1344070f6e5a624653cabdcee05cc8dc0d" => :yosemite
-    sha256 "12c4b61f1f33c0eb695aaf4448cba1c1e0db75127e30461e86267f9331307e34" => :mavericks
+    sha256 "d5589154a44002efd39765954f7771ffe54cf446cab79ff57a3d0cfd450c25fd" => :sierra
+    sha256 "6dde602b2c4df0065b2b29abb4a240af29e92652872d3a67d5b9671badbe6268" => :el_capitan
+    sha256 "3f7e592fdf9567b2248b154116431bb17c1a40d3046ce4fd726ff16ce775c86c" => :yosemite
   end
 
   depends_on "v8"
 
   def install
+    Dir.chdir "v8js-#{version}" unless build.head?
+
     ENV.universal_binary if build.universal?
 
     safe_phpize

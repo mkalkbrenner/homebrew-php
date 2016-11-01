@@ -4,15 +4,15 @@ class Php55Amqp < AbstractPhp55Extension
   init
   desc "Communicates with any AMQP 0-9-1 compatible server."
   homepage "https://pecl.php.net/package/amqp"
-  url "https://pecl.php.net/get/amqp-1.7.0.tgz"
-  sha256 "b9a642c0ae60cc5e049c169a017cc355bfc0f2478db588b20925eaa63d358e83"
+  url "https://pecl.php.net/get/amqp-1.7.1.tgz"
+  sha256 "38a92eaef1aa863404170bcd15605f7f78140eeec1ff5be6af65c5b8081e2599"
   head "https://github.com/pdezwart/php-amqp.git"
 
   bottle do
     cellar :any
-    sha256 "ae4b8a7bbd4bb376574ee658fe901ea79be8f20a57af81cf82f26fd79ef2778b" => :el_capitan
-    sha256 "f9db84746ba774cd39086d6e36c23310f768566c4713aacf0d6075b74a167ad5" => :yosemite
-    sha256 "50a0ccda3f09b16791419da9af693c5315c379fe0557d79f6f92838746eb1373" => :mavericks
+    sha256 "4dfadd3a6b0f899d31ba8da21878576c6283fa682f5a878a8768eb49521a37cf" => :sierra
+    sha256 "97f81b70dffbc8b3b9286a0c1a056112075250493d46a4ed9795dfa8fa578ceb" => :el_capitan
+    sha256 "a4b733b881d88d02aedfef325d361fbb800b9810772f4b0e3f6ac80a70e9d3f1" => :yosemite
   end
 
   depends_on "rabbitmq-c"

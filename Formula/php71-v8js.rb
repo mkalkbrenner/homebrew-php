@@ -1,17 +1,17 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class Php55V8js < AbstractPhp55Extension
+class Php71V8js < AbstractPhp71Extension
   init
   desc "PHP extension for Google's V8 Javascript engine"
-  homepage "http://pecl.php.net/package/v8js"
-  url "https://pecl.php.net/get/v8js-0.6.4.tgz"
-  sha256 "88af2c98482374a36b24e317df4684b9eecc92d4883022fc8036a16f2641ca43"
+  homepage "https://pecl.php.net/package/v8js"
+  url "https://pecl.php.net/get/v8js-1.3.3.tgz"
+  sha256 "049d04cbdcb901f358f04bfe0f89337c625b3fb0bbca335af2e2d0c4490412f2"
 
   bottle do
     cellar :any
-    sha256 "5e8b22a5a55bcbfa46e2e1e4d4c93581e8b986593b73592dbc67a66909114b62" => :sierra
-    sha256 "4a0ff1e8bd731a3f2ea055170c6f84ae09d1ae6974615fd1a89691b34745b536" => :el_capitan
-    sha256 "78f75f1bcc7008ef169e727ea95049afd4cf841f67c08cd5f496b9bed2c95691" => :yosemite
+    sha256 "09c722ff0822acd8c45000249e1d9aaa381b23e9f00fe769337825d3cb931e7d" => :sierra
+    sha256 "9ef25eff64edb1a4bcbd5d06e6db18fbf5edaefc7b2b7114fbf6b50e7b2fce53" => :el_capitan
+    sha256 "1a6db9ed43b7ba01a66feb8db7aedb1bb123c19e9ae399b214bbbd9a98002264" => :yosemite
   end
 
   depends_on "v8"
