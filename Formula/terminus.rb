@@ -6,15 +6,15 @@ class Terminus < Formula
 
   desc "Command-line interface for the Pantheon Platform"
   homepage "https://github.com/pantheon-systems/terminus"
-  url "https://github.com/pantheon-systems/terminus/archive/0.13.3.tar.gz"
-  sha256 "3fa7843d9cedfa6e5ee4fecfe8405156ae012128112d9c30727b69f3172a49bf"
+  url "https://github.com/pantheon-systems/terminus/archive/0.13.4.tar.gz"
+  sha256 "cc69a23654d03b92128f5808c0acc21945e3052ce24d3044994ca55bcd4379a7"
   head "https://github.com/pantheon-systems/terminus.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "fddfe6d48408a1050de0e6018dd9a2d17655f852933fdd742f1ca129b3a77ecf" => :sierra
-    sha256 "fca0be7f546dedd9a3a5f325c0681f98c9b4855b8abcc540d83935740182ad3c" => :el_capitan
-    sha256 "3bb3990b8d99c06790e84200e32edbbb5aeeacd5354bcc4c943f515932141815" => :yosemite
+    sha256 "258772b4096aba8d589aebcf3a1c5341e6badadea4e2b04e1fc5baeff1c2a417" => :sierra
+    sha256 "b9562051b13b2b0a8a64d47dee99c932866306cdd9d1d17946e36ee43f61e2e5" => :el_capitan
+    sha256 "bdfa5baca6ed85c78063e313f12e1b4c8161f73c74eb7888f6a118f09b1b4eff" => :yosemite
   end
 
   depends_on PhpMetaRequirement
@@ -29,6 +29,6 @@ class Terminus < Formula
   end
 
   test do
-    system "terminus", "cli", "version"
+    system bin/"terminus", "cli", "version"
   end
 end

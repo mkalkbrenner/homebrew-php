@@ -4,16 +4,17 @@ class Php71Tidy < AbstractPhp71Extension
   init
   desc "Tidy HTML clean and repair utility"
   homepage "http://php.net/manual/en/book.tidy.php"
+  revision 6
+
   bottle do
-    sha256 "e021e4bcd49690d16c57489c52cd0b9026aa744033f883e998b4657b8b3ebedd" => :sierra
-    sha256 "5a1e4bb49b4a4895b4e5cf342ae757fcea78b251f559da852ea24814e5a86221" => :el_capitan
-    sha256 "ed97b6738e2c5c618400696bc79daa6d4678813b6bda85c509885ddcc09decf5" => :yosemite
+    sha256 "574dc4f98b903c4dc52c5572d67b1ba61aec9dcd6e7f6f6b12710512ef07bec4" => :sierra
+    sha256 "4ff55707837465d0c986559467409dc28a01cd94c19e462275902103b9e4e4d2" => :el_capitan
+    sha256 "3b987cb26c422ae27aa8dfc22e13893fff8cf6aaae76abb2b3bb15f0ec8755ec" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 4
 
   depends_on "tidy-html5"
 

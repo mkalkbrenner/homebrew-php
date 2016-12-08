@@ -4,16 +4,17 @@ class Php71Snmp < AbstractPhp71Extension
   init
   desc "SNMP core php extension"
   homepage "http://php.net/manual/en/book.snmp.php"
+  revision 6
+
   bottle do
-    sha256 "4a628b13bd1c57b27e0ff6903e6664f1b8414bd557ced7bb20b0b3b8b1125dd9" => :sierra
-    sha256 "111c18660cab780520e24859e51560fb6bcc2413f41fa09a1e6de00e9e2e69d6" => :el_capitan
-    sha256 "55939de76184f25cfe4120a53eac1c580a5f1dbedf03a08a0b25fa19cc093300" => :yosemite
+    sha256 "b619469068bb706a3d119b1c91a0025500ac4baaee040cac21cbb69306c39846" => :sierra
+    sha256 "0e9c8c730bcdf1d31061c213387c22c45ea35760b09e772e417c16ec1223f93d" => :el_capitan
+    sha256 "cdfca822909f8047a2556934ee45ad512a3c7920bf3b8d063a696c4677fbacc8" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 4
 
   depends_on "net-snmp"
 

@@ -4,17 +4,18 @@ class Php71PdoPgsql < AbstractPhp71Extension
   init
   desc "Unified PostgreSQL driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
+  revision 7
+
   bottle do
     cellar :any
-    sha256 "e28770fdf7aac4876cba42a2504b0d563c894acf17862b20c83801e0db5c185d" => :sierra
-    sha256 "42961e24626389fd916208633e66f97ec8eac8819059ea57f1c154fa4040bc76" => :el_capitan
-    sha256 "e472589d5a5896bd48edfb3413ee612bea5a5f51dc9ddd4babf889b8515d2d6c" => :yosemite
+    sha256 "fed034add19233bb4faae6cc226645810ce3fd0f6d5998cac120a9803c60e9c0" => :sierra
+    sha256 "333ed5bd9c2f61af3dcc75d7b97d91d4ba89d069627ed64a934108d329379188" => :el_capitan
+    sha256 "509f393804f7701f61edb6873b0dea879a8d5457717f866143f9de8f77e0104c" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 5
 
   depends_on "postgresql"
 

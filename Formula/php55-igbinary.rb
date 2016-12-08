@@ -2,29 +2,25 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Igbinary < AbstractPhp55Extension
   init
-  desc "Igbinary is a drop in replacement for the standard php serializer."
+  desc "Drop in replacement for the standard php serializer"
   homepage "https://pecl.php.net/package/igbinary"
-  url "https://pecl.php.net/get/igbinary-1.2.1.tgz"
-  sha256 "168e51d41a417bbbfe6da0e3cb9b71ef93594f4034f489a951f3b874d03dfdb8"
+  url "https://github.com/igbinary/igbinary/archive/2.0.1.tar.gz"
+  sha256 "9c66e6bb8225bf559148661d8ef81451e5f67f0a565d975dc0918abd8c35e0ed"
   head "https://github.com/igbinary/igbinary.git"
-
-  depends_on "igbinary" => :build
 
   bottle do
     cellar :any_skip_relocation
-    revision 1
-    sha256 "2589cd89f5789e1ce76a50eb833624ff6cda9440baeada4f0b4dba33d289f2df" => :el_capitan
-    sha256 "9013243cb1f48f03789397481a5949290b91689947827046a526adbef50d16be" => :yosemite
-    sha256 "798945add8f635785dc9b15075d6b76917dc6e2b1e24ade1acbe81fe4b743163" => :mavericks
+    sha256 "c0fddf4ac66e374d7967be36c534c6af34820e2c2821a49a02b3de764d4daa3e" => :sierra
+    sha256 "b0e3112f4c039f6d3d2b2b445517dfc5e85e16d555ba9622e852c6cac8ef935b" => :el_capitan
+    sha256 "3e88e99f8c8b643b755a30628e8c852392c4267d52400552c331d6338fe4bb20" => :yosemite
   end
 
-  def install
-    Dir.chdir "igbinary-#{version}" unless build.head?
+  depends_on "igbinary" => :build
 
+  def install
     ENV.universal_binary if build.universal?
 
     safe_phpize
-    rm "apc_serializer.h"
     system "./configure", "--prefix=#{prefix}",
                           phpconfig
     system "make"

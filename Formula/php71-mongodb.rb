@@ -4,20 +4,14 @@ class Php71Mongodb < AbstractPhp71Extension
   init
   desc "MongoDB driver for PHP."
   homepage "https://pecl.php.net/package/mongodb"
-  url "https://pecl.php.net/get/mongodb-1.1.9.tgz"
-  sha256 "c4882991da323dfb0e60a43390a7a6cad27f632294f2becd44604dc9f7e90c3f"
+  url "https://pecl.php.net/get/mongodb-1.2.0.tgz"
+  sha256 "72630b038c7b57631a1d3931bcc1cb237fe79a25498b56ad65cc536d1bb0aed4"
   head "https://github.com/mongodb/mongo-php-driver.git"
 
   bottle do
-    sha256 "8aeb6e0b8a6da748f22a096a8f1dbc9b441810f6bc7a7d80e82fd5ab7d22bc91" => :sierra
-    sha256 "ddccce31bc4c7e4ee0437f7e0d26f98db6f2d483c7f450d4b1771a4a0f4f96e4" => :el_capitan
-    sha256 "d4e6959f022da9f39859cacab9a89d84903788a7bc64791b067a832aff322d65" => :yosemite
-  end
-
-  devel do
-    url "https://pecl.php.net/get/mongodb-1.2.0alpha3.tgz"
-    sha256 "295ff6792e734c5d0352efb0f2bb0c1dad25114d5c48bd98004d7650d742de3f"
-    version "1.2.0alpha3"
+    sha256 "01555c70b15d849cb80a58a323930cc18480d78659e8e7c399cf5a8e45da75d6" => :sierra
+    sha256 "20e3370f0a74982336460a6b075b8ddd9928830af635225f1c69ec702f5a338c" => :el_capitan
+    sha256 "ead8c2d59289dfcc5f3378c3aec5e8dc3e841e2278c3bfd595d5e6015d793825" => :yosemite
   end
 
   depends_on "openssl"

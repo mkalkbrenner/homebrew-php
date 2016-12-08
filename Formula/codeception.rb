@@ -4,14 +4,14 @@ class Codeception < AbstractPhpPhar
   init
   desc "Testing Framework designed to work just out of the box"
   homepage "http://codeception.com/quickstart"
-  url "http://codeception.com/releases/2.2.6/codecept.phar"
-  sha256 "21ebede0380599dcf7d26a364de355e79d93f14f7acbb355c2ded094d5a57bb1"
+  url "http://codeception.com/releases/2.2.7/codecept.phar"
+  sha256 "4e0a61b6e957d970b9d537cfd79a95ca624116f2083ba6cd25318e6ce81868d1"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :sierra
-    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :el_capitan
-    sha256 "eb87fc61169bc07723b33106451af4ef801f52bd2eeec46509161484fc419369" => :yosemite
+    sha256 "0ffea1bd78e56cfa124be681e64110afca2c29610692baaffab84cfa79e8f6ad" => :sierra
+    sha256 "0ffea1bd78e56cfa124be681e64110afca2c29610692baaffab84cfa79e8f6ad" => :el_capitan
+    sha256 "0ffea1bd78e56cfa124be681e64110afca2c29610692baaffab84cfa79e8f6ad" => :yosemite
   end
 
   def phar_file
@@ -23,6 +23,6 @@ class Codeception < AbstractPhpPhar
   end
 
   test do
-    system "codecept", "--version"
+    system "#{bin}/codecept", "--version"
   end
 end

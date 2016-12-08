@@ -4,16 +4,16 @@ class Php55Redis < AbstractPhp55Extension
   init
   desc "PHP extension for Redis"
   homepage "https://github.com/phpredis/phpredis"
-  url "https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz"
-  sha256 "a5882dd9b21908e123b3d5c5f72d6dc8cbbbb6a29996e568c4d18ed356c0362b"
-  head "https://github.com/phpredis/phpredis.git"
+  url "https://github.com/phpredis/phpredis/archive/2.2.8.tar.gz"
+  sha256 "a7c6e2eef70bd8449bab819c8f01d951fcd86ce0417e03675445040236ed4dda"
   revision 1
+  head "https://github.com/phpredis/phpredis.git"
 
   bottle do
-    cellar :any
-    sha256 "31f989796942360819dc69f3af0f04c04167edad420f65df98154a50591b99ce" => :yosemite
-    sha256 "7709a0229d103a6cdfd698b4016295ecb785f92e1a39edb081d3c0636c048a84" => :mavericks
-    sha256 "703bf8f53a1572de522a9eb7447543b842b92b53ff705f4414b5b49d87d14d3d" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "b11d7586f56ce0116c77578989bcffe94e1e946f7f9c762b0d1e593df7901501" => :sierra
+    sha256 "1e4806dfb15d6508347d9436c3ff8d8eea5e066b2a0a6d01dc9fec792e983966" => :el_capitan
+    sha256 "d59eab65e5b8edbb6e3ac71723f75aafd6b1bdfff0d479ffdf9445005c511d3d" => :yosemite
   end
 
   depends_on "php55-igbinary"
@@ -27,8 +27,8 @@ class Php55Redis < AbstractPhp55Extension
 
     safe_phpize
 
-    mkdir_p "ext/igbinary"
-    cp "#{Formula["igbinary"].opt_include}/igbinary.h", "ext/igbinary/igbinary.h"
+    # Install symlink to igbinary headers inside memcached build directory
+    (Pathname.pwd/"ext").install_symlink Formula["igbinary"].opt_include/"php5" => "igbinary"
 
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,

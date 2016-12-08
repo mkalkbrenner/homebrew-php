@@ -4,17 +4,17 @@ class Php71Intl < AbstractPhp71Extension
   init
   desc "Wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
+  revision 8
 
   bottle do
-    sha256 "4f30345fcce4e83dc32b37f5288199990b334c1f6cf9b23e96f6a917d4f7c85e" => :sierra
-    sha256 "73fb22c0ce58a8ac1275624fbdc0e8b7dcd4afa855abd0d8103da0f90910f860" => :el_capitan
-    sha256 "358321603de0fafc5f1d835148ce1dcbf50472eefb992cc9cee006446526b9bc" => :yosemite
+    sha256 "a7ba59aa38167f8918f59a72fc6380f4d1fb81d1f03de97af1041a68f0fd0650" => :sierra
+    sha256 "b41050dd809fada14e4e5161d99366c46af3b229944ff285eb7a81f2344aa9b2" => :el_capitan
+    sha256 "9bdce6200b5cd070b932dff6d208b8c60f976323eb53af3504f83eb3aacb34b3" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 5
 
   depends_on "icu4c"
 

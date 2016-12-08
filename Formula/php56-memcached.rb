@@ -6,11 +6,13 @@ class Php56Memcached < AbstractPhp56Extension
   homepage "https://pecl.php.net/package/memcached"
   url "https://pecl.php.net/get/memcached-2.2.0.tgz"
   sha256 "17b9600f6d4c807f23a3f5c45fcd8775ca2e61d6eda70370af2bef4c6e159f58"
+  revision 1
   head "https://github.com/php-memcached-dev/php-memcached.git"
 
   bottle do
-    revision 1
-    sha256 "72ae13bda2e508d7a288af462a4cd306810a82e2c56fc225dd884baaa1e0ef18" => :el_capitan
+    sha256 "2c10a51199c718735fa77e4d7e214fa72ea820b25d7c925438ab00e8af003599" => :sierra
+    sha256 "2e27c9d13d7276f5be3cdc98f027eb20f2ce523ad075f55df7cabecf376f9f53" => :el_capitan
+    sha256 "b829b6f3226cf1138c7b8d66eb8a1701874f50915893ac1c41d92c9f2bee7f2f" => :yosemite
   end
 
   option "with-sasl", "Build with sasl support"
@@ -34,10 +36,10 @@ class Php56Memcached < AbstractPhp56Extension
     args << "--enable-memcached-igbinary"
     args << "--disable-memcached-sasl" if build.without? "sasl"
 
-    safe_phpize
+    # Install symlink to igbinary headers inside memcached build directory
+    (Pathname.pwd/"ext").install_symlink Formula["igbinary"].opt_include/"php5" => "igbinary"
 
-    mkdir_p "ext/igbinary"
-    cp "#{Formula["igbinary"].opt_include}/igbinary.h", "ext/igbinary/igbinary.h"
+    safe_phpize
 
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,

@@ -4,15 +4,15 @@ class Php53Timezonedb < AbstractPhp53Extension
   init
   desc "Timezone Database to be used with PHP's date and time functions"
   homepage "https://pecl.php.net/package/timezonedb"
-  url "https://pecl.php.net/get/timezonedb-2014.7.tgz"
-  sha256 "76e1fba9ea263621810a220ffe280c8ca227a12fd497c9ce430537fbd13357a7"
+  url "https://pecl.php.net/get/timezonedb-2016.9.tgz"
+  sha256 "9207c0f6bff2dd8a1bb0d5b1b4ee644437d555538d02a1cc8c63ebbce6c893e8"
   head "https://svn.php.net/repository/pecl/timezonedb/trunk/"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "bfef1a882dcb239af54f732ed222b03bde93b604e18c66bf2ab65511225c6175" => :el_capitan
-    sha256 "940a91a621c42be5c3a4eab1d56a7a54a6c27d1f5a18762c51413457bcea9423" => :yosemite
-    sha256 "f3f317b41bd608998a48f6d5875ff33fc023643e11587300374503ad425dd66b" => :mavericks
+    sha256 "271fbd756e5de3a89ee788a6c9a8df08f6c275c9e162747a448133dff6e511fa" => :sierra
+    sha256 "ae74e86585728505d6ffe24cd92c803d91ad8ffe89df1f4b02ff000a54f06572" => :el_capitan
+    sha256 "107e7b70af3efe1d16dabe6da0f919c8a3a53fdbc279c4f4a7928052ae06ff11" => :yosemite
   end
 
   def install

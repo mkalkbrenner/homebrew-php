@@ -2,19 +2,20 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php70PdoPgsql < AbstractPhp70Extension
   init
-  desc "A unified PostgreSQL driver for PDO"
+  desc "Unified PostgreSQL driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
+  revision 5
+
   bottle do
     cellar :any
-    sha256 "2a6be9c887c816ff1a49477426627a35301e4126a3446d1c3ce618a5a3189616" => :sierra
-    sha256 "aa638290d4fb011b4920901410fb0d9a770cf5b911191bc5d38b358d5e8b63f6" => :el_capitan
-    sha256 "9b527bd1afefea98ec699a332fd57ed622e1013a0619b7c53e2f3cb77445d422" => :yosemite
+    sha256 "71d0b607b330279c0003b4b465ae86fd367e648955f947fdf7c53b7ceaf838f5" => :sierra
+    sha256 "4827396cd1a9e04e4a733c51a16061482d80d4e46f01f567072fd8c388f635a3" => :el_capitan
+    sha256 "5ef9e9d9a90b4f8e449ddda468ad5af0878f07bc307d88a39ea6b431724e1393" => :yosemite
   end
 
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 4
 
   depends_on "postgresql"
 

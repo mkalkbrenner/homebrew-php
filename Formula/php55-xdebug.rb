@@ -4,15 +4,15 @@ class Php55Xdebug < AbstractPhp55Extension
   init
   desc "Provides debugging and profiling capabilities for PHP"
   homepage "http://xdebug.org"
-  url "https://pecl.php.net/get/xdebug-2.4.1.tgz"
-  sha256 "23c8786e0f5aae67b1e5035972bfff282710fb84c483887cebceb8ef5bbdf8ef"
+  url "https://pecl.php.net/get/xdebug-2.5.0.tgz"
+  sha256 "8bd6ad1e64948308e3e3a7437292f154b11e25acaf31b0d59d83bda18af0890d"
   head "https://github.com/xdebug/xdebug.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "723b41551be36ef82142923876ee1e4da3079fa88eaee25248083f9bee254c3a" => :el_capitan
-    sha256 "45d8b4f799b0b906735baecd790f8ebe8602b9d472cd555a16300ca07023620d" => :yosemite
-    sha256 "71a79d2128fba089a9c8094244813bdf64cd78ed302e712c22ce27a2943aed96" => :mavericks
+    sha256 "a22f7ddf023aee3febd1ab806c9953fb41d0a7a6e6780ee5aa16aef0789eb543" => :sierra
+    sha256 "24b3360cac5ab4313c9e329a8e06737d3643435c44dd16183010476e4f205294" => :el_capitan
+    sha256 "35bf2bb4f0792d4dee99d26b66a24b698ccb8a29688cc00c6029ec6bcc037bf3" => :yosemite
   end
 
   def extension_type

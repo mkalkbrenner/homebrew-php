@@ -4,14 +4,15 @@ class Php56Rdkafka < AbstractPhp56Extension
   init
   desc "PHP extension for Apache Kafka (php-rdkafka)"
   homepage "https://github.com/arnaud-lb/php-rdkafka"
-  url "https://pecl.php.net/get/rdkafka-0.9.1.tgz"
-  sha256 "59e87fffe14c80d60d8adee12b2887ca3815efd5ae1885da274d8882b4f6404d"
+  url "https://pecl.php.net/get/rdkafka-1.0.0.tgz"
+  sha256 "3a8957c618f9f4093c8258621841c543270f4c4cbfd8ee687ca1dc270b244f87"
   head "https://github.com/arnaud-lb/php-rdkafka.git"
 
   bottle do
     cellar :any
-    sha256 "76d0695bc35be1563edf5713d01d0b5058c95b6009b940499a0a3a9797c31d29" => :el_capitan
-    sha256 "d5fabb1e8bc958a7d2fca524c0c80be5d3398e61b39ab9a2d6c7aebe47a90a35" => :yosemite
+    sha256 "7c0026c9b83386436326cc3d6e72403c7ff804514ceaeabde4be2b46d1699a15" => :sierra
+    sha256 "ac7069fd99d255cfa5f4f6d497a6d471e77ec9bcf8349f3f46c379ea57c35f47" => :el_capitan
+    sha256 "f867955fd6cacc6f9283e93d0ea614c77c10ea31320b0b542fbffefb4a5ec1e8" => :yosemite
   end
 
   depends_on "librdkafka"

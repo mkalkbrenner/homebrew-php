@@ -4,15 +4,15 @@ class Php70Apcu < AbstractPhp70Extension
   init
   desc "APC User Cache"
   homepage "https://pecl.php.net/package/apcu"
-  url "https://github.com/krakjoe/apcu/archive/v5.1.5.tar.gz"
-  sha256 "52a3d5d9111f1417ebc8c386df6834aec62ee5ba0f7f460866cb9459e3d25579"
+  url "https://github.com/krakjoe/apcu/archive/v5.1.7.tar.gz"
+  sha256 "f94001a9da186c115d76f88de6f2504fcd84f83c234ee4f677bc4c7200206f46"
   head "https://github.com/krakjoe/apcu.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "ef4c81578ba91d26b749c22c3cbe8821daaf16fac54140f987664c71f5038fc0" => :el_capitan
-    sha256 "ab84678944c805a33273091218ea12a813b561d9c7a58a9f7a136ac5dcda933d" => :yosemite
-    sha256 "7c7168ccdbc1af276290f5106f335b8093a4040186370efddec8fd2855d2583e" => :mavericks
+    sha256 "0fe489eaeabae818504dbf7241c25bede1f0c3f90c728375b3ab6bc39aa1409b" => :sierra
+    sha256 "e59b749fedb0bcb2a64253cee52b3629da7a2474b1dafb75010c60e2028fa0fa" => :el_capitan
+    sha256 "2129d757b163ef6fc3aebcb3b9cdccf18279c565bdaa4c018fc3a1b07b038cd8" => :yosemite
   end
 
   depends_on "pcre"

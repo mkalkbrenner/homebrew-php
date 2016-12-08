@@ -4,20 +4,22 @@ class Php70Rdkafka < AbstractPhp70Extension
   init
   desc "PHP extension for Apache Kafka (php-rdkafka)"
   homepage "https://github.com/arnaud-lb/php-rdkafka"
-  url "https://github.com/arnaud-lb/php-rdkafka/archive/52efa23813ccc8b524c10cd4239338175ef4a6d6.tar.gz"
-  version "0.9.1-52efa23813ccc8b524c10cd4239338175ef4a6d6"
-  sha256 "174a68e1fc7afdc02baa20540933bb784ecf9dc4a5c111436007aa75ec11cbd6"
+  url "https://pecl.php.net/get/rdkafka-2.0.1.tgz"
+  sha256 "43a3704198f7d8ae23f6ed06d2d28ae4d52bae0f93f484aa5d61d5d60f809eee"
   head "https://github.com/arnaud-lb/php-rdkafka.git"
 
   bottle do
     cellar :any
-    sha256 "e2f981352d4a985e17a3932cfc671498e075b68792028fb6855be2539fa9a2e1" => :el_capitan
-    sha256 "3d0e050d91b577afcd11d5bf67e423585f583197de7910a7ce9ca3e71dd420d4" => :yosemite
+    sha256 "8dee7976075701a8727db0d2b17a91853c58919dc6e54b9cc528c4816822d489" => :sierra
+    sha256 "57628adcfad6476a6ebf488567bd1e86c12c0ae3ee74aaba88c743139d905b2b" => :el_capitan
+    sha256 "21abbb2c9f50e019c87391272b2a319560a85b0e88e808dd832e9f17ed016520" => :yosemite
   end
 
   depends_on "librdkafka"
 
   def install
+    Dir.chdir "rdkafka-#{version}" unless build.head?
+
     ENV.universal_binary if build.universal?
 
     safe_phpize
